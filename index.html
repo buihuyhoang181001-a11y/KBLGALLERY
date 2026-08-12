@@ -163,6 +163,20 @@ input::placeholder,textarea::placeholder{color:#6c6877}
   </nav>
   </sc-if>
 
+  <!-- ================= MOBILE HEADER ================= -->
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <nav style="position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:rgba(14,13,18,0.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div onClick="{{ goHome }}" style="cursor:pointer;flex-shrink:0;font-family:Sora;font-weight:800;font-size:19px;letter-spacing:0.04em;background:linear-gradient(120deg, oklch(0.82 0.13 342), oklch(0.82 0.12 260), oklch(0.84 0.12 170));-webkit-background-clip:text;background-clip:text;color:transparent">KBL</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+      <button onClick="{{ goSearch }}" title="Search" style="border:none;cursor:pointer;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);color:#c9c5d2;font-size:15px;transition:all .2s" style-hover="background:rgba(255,255,255,0.15);color:#fff">⌕</button>
+      <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ goAdmin }}" title="Admin dashboard" style="border:none;cursor:pointer;flex-shrink:0;width:34px;height:34px;border-radius:50%;background: {{ adminNavBg }};color: {{ adminNavColor }};font-size:14px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);color:#fff">⚙</button>
+      </sc-if>
+      <button onClick="{{ signOut }}" title="Sign out" style="border:none;cursor:pointer;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:13px;transition:all .2s" style-hover="background:rgba(255,255,255,0.14);color:#fff">⏻</button>
+    </div>
+  </nav>
+  </sc-if>
+
   <main style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding: {{ mainPad }}">
 
   <!-- ================= HOME ================= -->
@@ -295,7 +309,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
               <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
               <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px">
                 <button onClick="{{ ev.edit }}" title="Edit" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:rgba(255,255,255,0.25)">✎</button>
-                <button onClick="{{ ev.archive }}" title="{{ ev.archiveLabel }}" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:rgba(255,255,255,0.25)">{{ ev.archiveIcon }}</button>
                 <button onClick="{{ ev.remove }}" title="Delete" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20);color:#fff">✕</button>
               </div>
               </sc-if>
@@ -394,87 +407,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             <sc-if value="{{ p.isCover }}" hint-placeholder-val="{{ false }}">
               <div style="position:absolute;bottom:9px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#fff;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);padding:4px 9px;border-radius:99px">COVER</div>
             </sc-if>
-          </div>
-        </sc-for>
-      </div>
-    </section>
-  </sc-if>
-
-  <!-- ================= ALBUMS ================= -->
-  <sc-if value="{{ showAlbums }}" hint-placeholder-val="{{ false }}">
-    <section data-screen-label="Albums" style="animation:fadeUp .5s both;padding-bottom:80px">
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:46px 0 8px">
-        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">Albums</h1>
-        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-        <button onClick="{{ newAlbum }}" style="border:none;cursor:pointer;padding:11px 22px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5;transition:transform .2s" style-hover="transform:translateY(-2px)">+ New album</button>
-        </sc-if>
-      </div>
-      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Collections that cut across events. Add photos from the viewer.</p>
-      <sc-if value="{{ albumsEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="border-radius:24px;border:1px dashed rgba(255,255,255,0.14);padding:70px 30px;text-align:center">
-          <div style="width:96px;height:96px;margin:0 auto 20px;position:relative">
-            <div style="position:absolute;left:0;top:14px;width:60px;height:60px;border-radius:12px;border:1px solid rgba(255,255,255,0.16);transform:rotate(-8deg)"></div>
-            <div style="position:absolute;right:0;top:6px;width:60px;height:60px;border-radius:12px;border:1px solid rgba(255,255,255,0.22);background:linear-gradient(135deg, oklch(0.5 0.1 150 / 0.2), transparent);transform:rotate(7deg);animation:breathe 6s ease-in-out infinite"></div>
-          </div>
-          <div style="font-family:Sora;font-weight:700;font-size:22px">No albums yet.</div>
-          <div style="color:#8b8794;font-size:14px;margin-top:8px">Group the best shots into a collection — “Sunsets”, “The group photos”, whatever you like.</div>
-          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ newAlbum }}" style="margin-top:22px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.12 160), oklch(0.85 0.12 210));transition:transform .2s" style-hover="transform:translateY(-2px)">Create an album</button>
-          </sc-if>
-        </div>
-      </sc-if>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px">
-        <sc-for list="{{ albumCards }}" as="a" hint-placeholder-count="0">
-          <div onClick="{{ a.open }}" style="cursor:pointer;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;transition:transform .3s, border-color .3s" style-hover="transform:translateY(-5px);border-color:rgba(255,255,255,0.2)">
-            <div style="height:130px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.03)">
-              <sc-for list="{{ a.thumbs }}" as="t" hint-placeholder-count="0">
-                <div style="background-image:url( {{ t.url }} );background-size:cover;background-position:center"></div>
-              </sc-for>
-            </div>
-            <div style="padding:14px 16px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px">
-              <div><div style="font-family:Sora;font-weight:700;font-size:16px">{{ a.name }}</div><div style="color:#8b8794;font-size:12px;margin-top:3px">{{ a.count }} photos</div></div>
-              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-              <button onClick="{{ a.remove }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#8b8794;border-radius:8px;padding:6px 10px;font-size:12px;transition:all .2s" style-hover="background:oklch(0.5 0.16 20);color:#fff">Delete</button>
-              </sc-if>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </section>
-  </sc-if>
-
-  <!-- ================= ALBUM DETAIL ================= -->
-  <sc-if value="{{ showAlbum }}" hint-placeholder-val="{{ false }}">
-    <section data-screen-label="Album detail" style="animation:fadeUp .5s both;padding-bottom:90px">
-      <button onClick="{{ goAlbums }}" style="margin-top:26px;cursor:pointer;border:none;padding:9px 18px;border-radius:99px;background:rgba(255,255,255,0.08);color:#fff;font-size:13px;font-weight:600;transition:background .2s" style-hover="background:rgba(255,255,255,0.16)">← Albums</button>
-      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:20px 0 8px">
-        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">{{ curAlbum.name }}</h1>
-      </div>
-      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">{{ curAlbum.count }} photos</p>
-      <sc-if value="{{ albumPhotosEmpty }}" hint-placeholder-val="{{ true }}">
-        <div onClick="{{ goEvents }}" style="cursor:pointer;border-radius:22px;border:1px dashed rgba(255,255,255,0.16);padding:64px 30px;text-align:center;transition:all .25s" style-hover="border-color:oklch(0.7 0.13 342);background:rgba(255,255,255,0.03)">
-          <div style="font-family:Sora;font-weight:700;font-size:20px">No photos in this album yet.</div>
-          <div style="color:#8b8794;font-size:14px;margin-top:8px">Open a photo in an event's viewer and add it to this album.</div>
-        </div>
-      </sc-if>
-      <div style="columns:220px;column-gap:14px">
-        <sc-for list="{{ curAlbumPhotos }}" as="p" hint-placeholder-count="0">
-          <div onClick="{{ p.open }}" style="cursor:pointer;break-inside:avoid;margin-bottom:14px;border-radius:14px;overflow:hidden;position:relative;animation:popIn .45s both;animation-delay: {{ p.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.25), box-shadow .3s" style-hover="transform:scale(1.02);box-shadow:0 16px 36px rgba(0,0,0,0.5);z-index:2">
-            <sc-if value="{{ p.url }}" hint-placeholder-val="{{ false }}"><img src="{{ p.url }}" style="width:100%;display:block"></sc-if>
-            <sc-if value="{{ p.noThumb }}" hint-placeholder-val="{{ false }}"><div style="width:100%;aspect-ratio:4/3;background: {{ p.thumbBg }}"></div></sc-if>
-            <sc-if value="{{ p.isVideo }}" hint-placeholder-val="{{ false }}">
-              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
-                <div style="width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;padding-left:3px;box-shadow:0 6px 18px rgba(0,0,0,0.35)">▶</div>
-              </div>
-            </sc-if>
-            <div style="position:absolute;top:9px;right:9px;display:flex;gap:6px">
-              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-              <button onClick="{{ p.remove }}" title="Remove from album" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20)">✕</button>
-              </sc-if>
-              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-              <button onClick="{{ p.fav }}" title="Favorite" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);color: {{ p.favColor }};font-size:14px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.62)">{{ p.favIcon }}</button>
-              </sc-if>
-            </div>
           </div>
         </sc-for>
       </div>
@@ -796,32 +728,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
     </section>
   </sc-if>
 
-  <!-- ================= ARCHIVE ================= -->
-  <sc-if value="{{ showArchive }}" hint-placeholder-val="{{ false }}">
-    <section data-screen-label="Archive" style="animation:fadeUp .5s both;padding-bottom:80px">
-      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Archive</h1>
-      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Events you have set aside. Nothing is deleted here.</p>
-      <sc-if value="{{ archiveEmpty }}" hint-placeholder-val="{{ true }}">
-        <div style="border-radius:20px;border:1px dashed rgba(255,255,255,0.13);padding:60px 30px;text-align:center;color:#8b8794">
-          <div style="font-family:Sora;font-weight:700;font-size:20px;color:#f2f0f5">The archive is empty.</div>
-          <div style="font-size:14px;margin-top:8px">Archive an event from its card to tuck it away without losing it.</div>
-        </div>
-      </sc-if>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <sc-for list="{{ archivedCards }}" as="ev" hint-placeholder-count="0">
-          <div style="display:flex;gap:14px;align-items:center;padding:12px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)">
-            <div style="width:80px;height:58px;border-radius:10px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center;filter:grayscale(0.5)"></div>
-            <div style="flex:1;min-width:0"><div style="font-family:Sora;font-weight:700;font-size:16px">{{ ev.title }}</div><div style="color:#8b8794;font-size:13px;margin-top:3px">{{ ev.meta }}</div></div>
-            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-            <button onClick="{{ ev.archive }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:none;color:#f2f0f5;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.08)">Restore</button>
-            <button onClick="{{ ev.remove }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#8b8794;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;transition:all .2s" style-hover="background:oklch(0.5 0.16 20);color:#fff">Delete</button>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-    </section>
-  </sc-if>
-
   <!-- ================= ADMIN DASHBOARD ================= -->
   <sc-if value="{{ showAdmin }}" hint-placeholder-val="{{ false }}">
     <section data-screen-label="Admin dashboard" style="animation:fadeUp .5s both;padding-bottom:90px">
@@ -883,7 +789,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
   </main>
 
 
-  <!-- ================= EVENT / FRIEND / ALBUM EDITOR ================= -->
+  <!-- ================= EVENT / FRIEND EDITOR ================= -->
   <sc-if value="{{ editorOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px">
       <div onClick="{{ closeEditor }}" style="position:absolute;inset:0;background:rgba(6,5,9,0.72);backdrop-filter:blur(14px);animation:fadeIn .25s both"></div>
@@ -979,12 +885,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             </div>
           </div>
         </sc-if>
-        <sc-if value="{{ editor.isAlbum }}" hint-placeholder-val="{{ false }}">
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Album name</div>
-            <input value="{{ editor.name }}" onChange="{{ setF.name }}" placeholder="Name this collection" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#f2f0f5;font-size:15px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
-          </div>
-        </sc-if>
         <div style="display:flex;gap:10px;margin-top:26px">
           <button onClick="{{ saveEditor }}" style="flex:1;border:none;cursor:pointer;padding:14px;border-radius:14px;font-family:Sora;font-weight:700;font-size:15px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">{{ editor.saveLabel }}</button>
           <button onClick="{{ closeEditor }}" style="cursor:pointer;padding:14px 22px;border-radius:14px;border:1px solid rgba(255,255,255,0.14);background:none;color:#c9c5d2;font-size:15px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Cancel</button>
@@ -1064,14 +964,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-          <sc-if value="{{ viewer.hasAlbums }}" hint-placeholder-val="{{ false }}">
-            <select value="{{ viewer.albumValue }}" onChange="{{ addToAlbum }}" style="cursor:pointer;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:9px 14px;font-size:13px;outline:none;color-scheme:dark">
-              <option value="">Add to album…</option>
-              <sc-for list="{{ viewer.albumOptions }}" as="o" hint-placeholder-count="0">
-                <option value="{{ o.id }}">{{ o.name }}</option>
-              </sc-for>
-            </select>
-          </sc-if>
           <sc-if value="{{ viewer.hasFriends }}" hint-placeholder-val="{{ false }}">
             <select value="{{ viewer.favFriendValue }}" onChange="{{ setPhotoAsFavorite }}" style="cursor:pointer;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:9px 14px;font-size:13px;outline:none;color-scheme:dark">
               <option value="">Set as favorite for…</option>
@@ -1127,7 +1019,7 @@ class Component extends DCLogic {
     this.HUES = [342, 20, 60, 150, 200, 265];
     this.state = {
       intro: 'playing', route: { name: 'home' }, ready: false,
-      events: [], photos: [], friends: [], albums: [],
+      events: [], photos: [], friends: [],
       viewer: null, zoomed: false, manageMode: false, dragId: null, overId: null,
       searchQ: '', searchTag: null, eventFilter: 'all',
       queue: [], uploadEventId: null, dragOver: false, uploadDone: false, lastUploadEvent: null, doneCount: 0, doneCounts: null,
@@ -1237,11 +1129,11 @@ class Component extends DCLogic {
   }
   async load() {
     try {
-      const [events, photos, friends, albums] = await Promise.all([this.all('events'), this.all('photos'), this.all('friends'), this.all('albums')]);
+      const [events, photos, friends] = await Promise.all([this.all('events'), this.all('photos'), this.all('friends')]);
       photos.forEach(p => { if (p.url) this.urls[p.id] = p.url; if (p.posterUrl) this.urls['poster-' + p.id] = p.posterUrl; });
       events.forEach(e => { if (e.coverUrl) this.urls['cover-' + e.id] = e.coverUrl; });
       friends.forEach(f => { if (f.avatarUrl) this.urls['av-' + f.id] = f.avatarUrl; });
-      this.setState({ events, photos, friends, albums, ready: true, uploadEventId: events.length ? events[0].id : null });
+      this.setState({ events, photos, friends, ready: true, uploadEventId: events.length ? events[0].id : null });
     } catch (e) { console.error(e); this.setState({ ready: true }); }
   }
   url(key, blob) { if (!this.urls[key]) this.urls[key] = URL.createObjectURL(blob); return this.urls[key]; }
@@ -1255,7 +1147,6 @@ class Component extends DCLogic {
   openFriendEditor(f) {
     this.setState({ editor: { kind: 'friend', id: f ? f.id : null, name: f ? f.name : '', tagline: f ? f.tagline || '' : '', hue: f ? f.hue : this.HUES[(this.state.friends.length) % 6], avatarBlob: null, avatarKey: f && f.avatarUrl ? 'av-' + f.id : null, avatarOrigBlob: null, avatarCrop: f ? f.avatarCrop || null : null } });
   }
-  openAlbumEditor() { this.setState({ editor: { kind: 'album', id: null, name: '' } }); }
   setField(k, v) { this.setState({ editor: { ...this.state.editor, [k]: v } }); }
   async saveEditor() {
     const e = this.state.editor;
@@ -1263,7 +1154,7 @@ class Component extends DCLogic {
     if (e.kind === 'event') {
       const id = e.id || this.uid('ev');
       const prev = this.state.events.find(x => x.id === id) || {};
-      const rec = { ...prev, id, name: e.name.trim(), date: e.date, endDate: e.endDate && e.endDate.trim() ? e.endDate : e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, archived: prev.archived || false, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
+      const rec = { ...prev, id, name: e.name.trim(), date: e.date, endDate: e.endDate && e.endDate.trim() ? e.endDate : e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
       if (e.coverCrop) rec.coverCrop = e.coverCrop;
       if (e.coverBlob) {
         this.say('Uploading cover…');
@@ -1292,12 +1183,6 @@ class Component extends DCLogic {
       if (rec.avatarUrl) this.urls['av-' + id] = rec.avatarUrl;
       this.setState({ friends: e.id ? this.state.friends.map(x => x.id === id ? rec : x) : [...this.state.friends, rec], editor: null });
       this.say(e.id ? 'Profile updated' : 'Friend added');
-    } else {
-      const rec = { id: this.uid('al'), name: e.name.trim(), photoIds: [], createdAt: Date.now() };
-      const ok = await this.put('albums', rec);
-      if (!ok) { this.say('Could not save — you may not have permission, or the connection dropped'); return; }
-      this.setState({ albums: [...this.state.albums, rec], editor: null });
-      this.say('Album created');
     }
   }
   askDelete(msg, sub, fn) { this.setState({ confirm: { msg, sub, fn } }); }
@@ -1308,13 +1193,6 @@ class Component extends DCLogic {
     if (!ok) { this.say('Could not delete — you may not have permission'); return; }
     this.setState({ events: this.state.events.filter(e => e.id !== id), photos: this.state.photos.filter(p => p.eventId !== id), confirm: null, route: { name: 'events' } });
     this.say('Event deleted');
-  }
-  async toggleArchive(ev) {
-    const rec = { ...ev, archived: !ev.archived };
-    const ok = await this.put('events', rec);
-    if (!ok) { this.say('Could not update — you may not have permission'); return; }
-    this.setState({ events: this.state.events.map(e => e.id === ev.id ? rec : e) });
-    this.say(rec.archived ? 'Moved to archive' : 'Restored');
   }
   async deleteFriend(id) {
     const ok = await this.del('friends', id);
@@ -1327,9 +1205,7 @@ class Component extends DCLogic {
   async deletePhoto(id) {
     const ok = await this.del('photos', id);
     if (!ok) { this.say('Could not delete — you may not have permission'); return; }
-    const albums = this.state.albums.map(a => ({ ...a, photoIds: a.photoIds.filter(p => p !== id) }));
-    for (const a of albums) await this.put('albums', a);
-    this.setState({ photos: this.state.photos.filter(p => p.id !== id), albums, viewer: null, confirm: null });
+    this.setState({ photos: this.state.photos.filter(p => p.id !== id), viewer: null, confirm: null });
     this.say('Photo deleted');
   }
   async toggleFav(id) {
@@ -1683,8 +1559,7 @@ class Component extends DCLogic {
       notAdmin: !isAdmin,
     };
     if (!authFlags.showApp) return authFlags;
-    const live = S.events.filter(e => !e.archived).sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.createdAt - a.createdAt);
-    const archived = S.events.filter(e => e.archived);
+    const live = [...S.events].sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.createdAt - a.createdAt);
     const photoCount = (id) => this.eventPhotos(id).length;
     const openEvent = (id) => () => this.go({ name: 'event', id });
     const openPhoto = (eventId, photoId) => () => this.setState({ viewer: { eventId, photoId }, zoomed: false });
@@ -1698,18 +1573,15 @@ class Component extends DCLogic {
       favLabel: this.eventPhotos(e.id).filter(p => p.fav).length ? this.eventPhotos(e.id).filter(p => p.fav).length + ' ♥' : '',
       avatars: (e.friendIds || []).map(fid => S.friends.find(f => f.id === fid)).filter(Boolean).map(f => ({ initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), name: f.name, bg: this.friendBg(f), open: (ev) => { ev.stopPropagation(); this.go({ name: 'friend', id: f.id }); } })),
       edit: (ev) => { ev.stopPropagation(); this.openEventEditor(e); },
-      archive: (ev) => { if (ev) ev.stopPropagation(); this.toggleArchive(e); },
-      archiveIcon: e.archived ? '↺' : '⊟', archiveLabel: e.archived ? 'Restore' : 'Archive',
       remove: (ev) => { if (ev) ev.stopPropagation(); this.askDelete('Delete “' + e.name + '”?', photoCount(e.id) + ' photos will be deleted with it.', () => this.deleteEvent(e.id)); },
     });
     const allPhotos = [...S.photos].sort((a, b) => b.createdAt - a.createdAt);
     const totalPhotos = S.photos.length;
     const favCount = S.photos.filter(p => p.fav).length;
     // nav
-    const navDefs = [['Home', 'home', '⌂'], ['Events', 'events', '▦'], ['Albums', 'albums', '❐'], ['Timeline', 'timeline', '⋮'], ['Friends', 'friends', '◉'], ['Stats', 'stats', '◔'], ['Archive', 'archive', '⊟']];
+    const navDefs = [['Home', 'home', '⌂'], ['Events', 'events', '▦'], ['Timeline', 'timeline', '⋮'], ['Friends', 'friends', '◉'], ['Stats', 'stats', '◔']];
     const curEv = rn === 'event' ? S.events.find(e => e.id === S.route.id) : null;
     const curFr = rn === 'friend' ? S.friends.find(f => f.id === S.route.id) : null;
-    const curAlb = rn === 'album' ? S.albums.find(a => a.id === S.route.id) : null;
     // search
     const q = S.searchQ.trim().toLowerCase(), tag = S.searchTag;
     const evHay = (e) => (e.name + ' ' + (e.location || '') + ' ' + (e.desc || '') + ' ' + (e.tags || []).join(' ') + ' ' + (e.date || '') + ' ' + (e.endDate || '') + ' ' + (e.friendIds || []).map(id => (S.friends.find(f => f.id === id) || {}).name || '').join(' ')).toLowerCase();
@@ -1741,8 +1613,6 @@ class Component extends DCLogic {
           meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDateRange(ev.date, ev.endDate) + (p.name ? ' · ' + p.name : ''),
           zoomT: S.zoomed ? 'scale(1.55)' : 'scale(1)',
           favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : '#fff',
-          hasAlbums: S.albums.length > 0, albumValue: '',
-          albumOptions: S.albums.map(a => ({ id: a.id, name: a.name })),
           hasFriends: S.friends.length > 0, favFriendValue: '',
           friendOptions: S.friends.map(f => ({ id: f.id, name: f.name })),
           download: () => this.downloadPhoto(p),
@@ -1762,7 +1632,7 @@ class Component extends DCLogic {
     const spans = [[2, 2], [1, 1], [1, 2], [2, 1], [1, 1], [1, 1], [2, 1], [1, 1], [1, 1], [2, 1], [1, 1], [1, 1]];
     const ed = S.editor || {};
     const editorVals = !S.editor ? {} : (ed.kind === 'event' ? {
-      isEvent: true, isFriend: false, isAlbum: false,
+      isEvent: true, isFriend: false,
       title: ed.id ? 'Edit event' : 'New event', sub: ed.id ? 'Update the details of this event.' : 'Give it a name — everything else is optional.',
       saveLabel: ed.id ? 'Save changes' : 'Create event',
       name: ed.name, date: ed.date, endDate: ed.endDate, location: ed.location, desc: ed.desc, tags: ed.tags,
@@ -1775,8 +1645,8 @@ class Component extends DCLogic {
         const on = ed.friendIds.includes(f.id);
         return { name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), avatarBg: this.friendBg(f), border: on ? 'transparent' : 'rgba(255,255,255,0.14)', bg: on ? '#f2f0f5' : 'transparent', color: on ? '#0e0d12' : '#a5a1af', toggle: () => this.setField('friendIds', on ? ed.friendIds.filter(x => x !== f.id) : [...ed.friendIds, f.id]) };
       }),
-    } : ed.kind === 'friend' ? {
-      isEvent: false, isFriend: true, isAlbum: false,
+    } : {
+      isEvent: false, isFriend: true,
       title: ed.id ? 'Edit profile' : 'Add a friend', sub: 'They will show up on events you tag them in.',
       saveLabel: ed.id ? 'Save changes' : 'Add friend', name: ed.name, tagline: ed.tagline,
       avatarBg: ed.avatarBlob ? `url(${URL.createObjectURL(ed.avatarBlob)})` : (ed.avatarKey && this.urls[ed.avatarKey] ? `url(${this.urls[ed.avatarKey]})` : this.grad(ed.hue, 160)),
@@ -1784,7 +1654,7 @@ class Component extends DCLogic {
       hasAvatar: !!(ed.avatarBlob || ed.avatarKey), noAvatar: !(ed.avatarBlob || ed.avatarKey),
       repositionAvatar: (ev) => { ev.stopPropagation(); this.startAvatarReposition(); },
       hueSwatches: this.HUES.map(h => ({ color: this.accent(h), border: ed.hue === h ? '#fff' : 'transparent', pick: () => this.setField('hue', h) })),
-    } : { isEvent: false, isFriend: false, isAlbum: true, title: 'New album', sub: 'A collection that can pull photos from any event.', saveLabel: 'Create album', name: ed.name });
+    });
     const myId = S.session && S.session.user.id;
     const adminUsersList = S.adminUsers || [];
     const userLabel = (u) => ({
@@ -1794,7 +1664,7 @@ class Component extends DCLogic {
     });
     const adminStats = [
       { label: 'Total users', value: String(adminUsersList.length), color: this.accent(342) },
-      { label: 'Total albums', value: String(S.albums.length), color: this.accent(200) },
+      { label: 'Total events', value: String(S.events.length), color: this.accent(200) },
       { label: 'Total photos', value: String(S.photos.filter(p => p.type !== 'video').length), color: this.accent(150) },
       { label: 'Total videos', value: String(S.photos.filter(p => p.type === 'video').length), color: this.accent(260) },
     ];
@@ -1837,18 +1707,18 @@ class Component extends DCLogic {
       navCtaLabel: S.vw < 1000 ? '+ Event' : '+ New event',
       heroMargin: isMobile ? '0 -18px' : '0 -48px',
       showHome: rn === 'home', showEvents: rn === 'events', showEvent: rn === 'event' && !!curEv,
-      showAlbums: rn === 'albums', showAlbum: rn === 'album' && !!curAlb, showTimeline: rn === 'timeline', showStats: rn === 'stats',
+      showTimeline: rn === 'timeline', showStats: rn === 'stats',
       showFriends: rn === 'friends', showFriend: rn === 'friend' && !!curFr, showSearch: rn === 'search',
-      showUpload: rn === 'upload', showArchive: rn === 'archive', showAdmin: rn === 'admin' && isAdmin,
+      showUpload: rn === 'upload', showAdmin: rn === 'admin' && isAdmin,
       goAdmin: () => { this.loadAdminUsers(); this.go({ name: 'admin' }); },
       adminNavBg: rn === 'admin' ? '#f2f0f5' : 'rgba(255,255,255,0.06)',
       adminNavColor: rn === 'admin' ? '#0e0d12' : '#8b8794',
       navItems: navDefs.map(([label, name]) => ({ label, go: () => this.go({ name }), bg: rn === name ? 'rgba(255,255,255,0.1)' : 'transparent', color: rn === name ? '#fff' : '#a5a1af' })),
-      mobileNav: [navDefs[0], navDefs[1], navDefs[3], navDefs[4], ['Search', 'search', '⌕']].map(([label, name, icon]) => ({ label, icon, go: () => this.go({ name }), color: rn === name ? this.accent(342) : '#8b8794' })),
-      goHome: () => this.go({ name: 'home' }), goEvents: () => this.go({ name: 'events' }), goFriends: () => this.go({ name: 'friends' }), goAlbums: () => this.go({ name: 'albums' }),
+      mobileNav: navDefs.map(([label, name, icon]) => ({ label, icon, go: () => this.go({ name }), color: rn === name ? this.accent(342) : '#8b8794' })),
+      goHome: () => this.go({ name: 'home' }), goEvents: () => this.go({ name: 'events' }), goFriends: () => this.go({ name: 'friends' }),
       goSearch: () => { if (rn !== 'search') this.go({ name: 'search' }); },
       searchQ: S.searchQ, setSearch: (e) => this.setState({ searchQ: e.target.value, route: { name: 'search' } }),
-      newEvent: () => this.openEventEditor(null), newFriend: () => this.openFriendEditor(null), newAlbum: () => this.openAlbumEditor(),
+      newEvent: () => this.openEventEditor(null), newFriend: () => this.openFriendEditor(null),
       newFriendFromEditor: (e) => { e.preventDefault(); this.openFriendEditor(null); },
       // home
       homeHeadline: live.length ? 'Every trip, still glowing.' : 'Your memory book starts empty.',
@@ -1888,24 +1758,6 @@ class Component extends DCLogic {
         setCover: (e) => { e.stopPropagation(); this.setCover(curEv.id, p.id); },
         remove: (e) => { e.stopPropagation(); this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(p.id)); },
       })),
-      // albums
-      albumsEmpty: S.albums.length === 0,
-      albumCards: S.albums.map(a => ({
-        name: a.name, count: a.photoIds.length,
-        thumbs: a.photoIds.slice(0, 4).map(id => { const ph = S.photos.find(x => x.id === id); return ph ? photoThumb(ph) : { url: this.urls[id] }; }).filter(t => t.url),
-        open: () => this.go({ name: 'album', id: a.id }),
-        remove: (e) => { if (e) e.stopPropagation(); this.askDelete('Delete album “' + a.name + '”?', 'The photos themselves stay in their events.', async () => { const ok = await this.del('albums', a.id); if (!ok) { this.say('Could not delete — you may not have permission'); return; } this.setState({ albums: S.albums.filter(x => x.id !== a.id), confirm: null }); this.say('Album deleted'); }); },
-      })),
-      // album detail
-      curAlbum: curAlb ? { name: curAlb.name, count: curAlb.photoIds.length } : {},
-      albumPhotosEmpty: !!curAlb && curAlb.photoIds.length === 0,
-      curAlbumPhotos: !curAlb ? [] : curAlb.photoIds.map(id => S.photos.find(p => p.id === id)).filter(Boolean).map((p, i) => ({
-        ...photoThumb(p), delay: (Math.min(i, 16) * 0.04) + 's',
-        open: openPhoto(p.eventId, p.id),
-        favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : 'rgba(255,255,255,0.9)',
-        fav: (e) => { e.stopPropagation(); this.toggleFav(p.id); },
-        remove: (e) => { e.stopPropagation(); const rec = { ...curAlb, photoIds: curAlb.photoIds.filter(x => x !== p.id) }; this.put('albums', rec).then(ok => { if (!ok) { this.say('Could not remove — you may not have permission'); return; } this.setState({ albums: S.albums.map(x => x.id === curAlb.id ? rec : x) }); this.say('Removed from album'); }); },
-      })),
       // timeline
       timelineSub: live.length ? 'Every event, in order.' : 'Nothing on the line yet.',
       timelineEmpty: live.length === 0, timelineHas: live.length > 0, timelinePad: live.length ? '36px' : '0',
@@ -1914,7 +1766,7 @@ class Component extends DCLogic {
         events: live.filter(e => ((e.date || '').slice(0, 4) || 'Undated') === y).map((e, i) => ({ ...evCard(e, i), delay: (gi * 0.12 + i * 0.07 + 0.08) + 's' })),
       })),
       // stats
-      bigStats: [[totalPhotos, 'photos'], [live.length, 'events'], [S.friends.length, 'friends'], [S.albums.length, 'albums'], [favCount, 'favorites'], [archived.length, 'archived']].map(([value, label], i) => ({ value, label, delay: (i * 0.05) + 's', c1: this.accent(this.HUES[i]), c2: this.accent(this.HUES[i] + 40) })),
+      bigStats: [[totalPhotos, 'photos'], [live.length, 'events'], [S.friends.length, 'friends'], [favCount, 'favorites']].map(([value, label], i) => ({ value, label, delay: (i * 0.05) + 's', c1: this.accent(this.HUES[i]), c2: this.accent(this.HUES[i] + 40) })),
       statsEmpty: totalPhotos === 0, statsHas: totalPhotos > 0,
       statsGrid: isMobile || S.friends.length === 0 ? '1fr' : '1.4fr 1fr',
       hasFriends: S.friends.length > 0,
@@ -1984,8 +1836,6 @@ class Component extends DCLogic {
         return (parts.length ? parts.join(' and ') : S.doneCount + ' items') + ' added to ' + ((S.events.find(e => e.id === S.lastUploadEvent) || {}).name || '');
       })(),
       goToUploadedEvent: () => this.go({ name: 'event', id: S.lastUploadEvent }),
-      // archive
-      archiveEmpty: archived.length === 0, archivedCards: archived.map(evCard),
       // editor
       editorOpen: !!S.editor, editor: editorVals, closeEditor: () => this.setState({ editor: null }),
       saveEditor: () => this.saveEditor(),
@@ -2011,16 +1861,6 @@ class Component extends DCLogic {
       toggleZoom: () => this.setState({ zoomed: !S.zoomed }),
       viewerFav: () => this.toggleFav(S.viewer.photoId),
       viewerDelete: () => this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(S.viewer.photoId)),
-      addToAlbum: async (e) => {
-        const id = e.target.value; if (!id) return;
-        const a = S.albums.find(x => x.id === id); if (!a) return;
-        if (a.photoIds.includes(S.viewer.photoId)) { this.say('Already in ' + a.name); return; }
-        const rec = { ...a, photoIds: [...a.photoIds, S.viewer.photoId] };
-        const ok = await this.put('albums', rec);
-        if (!ok) { this.say('Could not add — you may not have permission'); return; }
-        this.setState({ albums: S.albums.map(x => x.id === id ? rec : x) });
-        this.say('Added to ' + a.name);
-      },
       setPhotoAsFavorite: (e) => {
         const friendId = e.target.value; if (!friendId) return;
         this.setFriendFavoritePhoto(friendId, S.viewer.photoId);

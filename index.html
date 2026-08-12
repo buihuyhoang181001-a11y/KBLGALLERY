@@ -204,7 +204,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:34px;color:rgba(255,255,255,0.5)">✦</div>
           </div>
           <div style="font-family:Sora;font-weight:700;font-size:24px;letter-spacing:-0.01em">No memories yet. Start your first adventure.</div>
-          <div style="color:#8b8794;font-size:15px;margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6">Create an event, add the people who were there, then drop in the photos. Everything stays in this browser.</div>
+          <div style="color:#8b8794;font-size:15px;margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6">Create an event, add the people who were there, then drop in the photos.</div>
           <div style="display:flex;gap:10px;justify-content:center;margin-top:26px;flex-wrap:wrap">
             <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
             <button onClick="{{ newEvent }}" style="border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">Create an event</button>
@@ -658,7 +658,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
   <sc-if value="{{ showUpload }}" hint-placeholder-val="{{ false }}">
     <section data-screen-label="Upload" style="animation:fadeUp .5s both;padding-bottom:100px;max-width:760px;margin:0 auto">
       <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Add photos & videos</h1>
-      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Stored privately in this browser. Nothing is uploaded anywhere.</p>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Stored privately in your heart.</p>
       <sc-if value="{{ noEventsForUpload }}" hint-placeholder-val="{{ true }}">
         <div style="border-radius:20px;border:1px dashed rgba(255,255,255,0.14);padding:56px 30px;text-align:center">
           <div style="font-family:Sora;font-weight:700;font-size:20px">Photos live inside events.</div>
@@ -836,7 +836,18 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Tags</div>
-              <input value="{{ editor.tags }}" onChange="{{ setF.tags }}" placeholder="comma, separated, tags" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+              <div style="display:flex;gap:8px;margin-bottom:10px">
+                <input value="{{ editor.tagInput }}" onChange="{{ setF.tagInput }}" onKeyDown="{{ tagInputKeyDown }}" placeholder="Type a tag & press Enter" style="flex:1;min-width:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+                <button onClick="{{ addEditorTag }}" style="cursor:pointer;flex-shrink:0;padding:0 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:#f2f0f5;font-weight:700;font-size:14px;transition:all .2s" style-hover="background:rgba(255,255,255,0.14)">Add</button>
+              </div>
+              <sc-if value="{{ editor.noTagOptions }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:13px;color:#8b8794;margin-bottom:2px">No tags yet — add one above.</div>
+              </sc-if>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ editor.tagChips }}" as="tc" hint-placeholder-count="0">
+                  <button onClick="{{ tc.toggle }}" style="cursor:pointer;padding:7px 15px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid {{ tc.border }};background: {{ tc.bg }};color: {{ tc.color }};transition:all .2s" style-hover="border-color:rgba(255,255,255,0.4)">{{ tc.label }}</button>
+                </sc-for>
+              </div>
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:9px">Who was there</div>
@@ -1151,19 +1162,27 @@ class Component extends DCLogic {
   go(route) { this.setState({ route, viewer: null, zoomed: false, uploadDone: false, manageMode: false }); window.scrollTo(0, 0); }
   /* ---------- editors ---------- */
   openEventEditor(ev) {
-    this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', endDate: ev ? ev.endDate || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? (ev.tags || []).join(', ') : '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
+    this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', endDate: ev ? ev.endDate || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? [...(ev.tags || [])] : [], tagInput: '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
   }
   openFriendEditor(f) {
     this.setState({ editor: { kind: 'friend', id: f ? f.id : null, name: f ? f.name : '', tagline: f ? f.tagline || '' : '', hue: f ? f.hue : this.HUES[(this.state.friends.length) % 6], avatarBlob: null, avatarKey: f && f.avatarUrl ? 'av-' + f.id : null, avatarOrigBlob: null, avatarCrop: f ? f.avatarCrop || null : null } });
   }
   setField(k, v) { this.setState({ editor: { ...this.state.editor, [k]: v } }); }
+  addEditorTag() {
+    const e = this.state.editor;
+    const t = (e.tagInput || '').trim();
+    if (!t) return;
+    const exists = e.tags.some(x => x.toLowerCase() === t.toLowerCase());
+    this.setState({ editor: { ...e, tags: exists ? e.tags : [...e.tags, t], tagInput: '' } });
+  }
+  tagInputKeyDown(ev) { if (ev.key === 'Enter') { ev.preventDefault(); this.addEditorTag(); } }
   async saveEditor() {
     const e = this.state.editor;
     if (!e.name.trim()) { this.say('Give it a name first'); return; }
     if (e.kind === 'event') {
       const id = e.id || this.uid('ev');
       const prev = this.state.events.find(x => x.id === id) || {};
-      const rec = { ...prev, id, name: e.name.trim(), date: e.date, endDate: e.endDate && e.endDate.trim() ? e.endDate : e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
+      const rec = { ...prev, id, name: e.name.trim(), date: e.date, endDate: e.endDate && e.endDate.trim() ? e.endDate : e.date, location: e.location.trim(), desc: e.desc.trim(), tags: [...new Set(e.tags.map(t => t.trim()).filter(Boolean))], friendIds: e.friendIds, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
       if (e.coverCrop) rec.coverCrop = e.coverCrop;
       if (e.coverBlob) {
         this.say('Uploading cover…');
@@ -1647,7 +1666,7 @@ class Component extends DCLogic {
       isEvent: true, isFriend: false,
       title: ed.id ? 'Edit event' : 'New event', sub: ed.id ? 'Update the details of this event.' : 'Give it a name — everything else is optional.',
       saveLabel: ed.id ? 'Save changes' : 'Create event',
-      name: ed.name, date: ed.date, endDate: ed.endDate, location: ed.location, desc: ed.desc, tags: ed.tags,
+      name: ed.name, date: ed.date, endDate: ed.endDate, location: ed.location, desc: ed.desc, tagInput: ed.tagInput,
       coverBg: ed.coverBlob ? `url(${URL.createObjectURL(ed.coverBlob)})` : (ed.coverKey && this.urls[ed.coverKey] ? `url(${this.urls[ed.coverKey]})` : 'rgba(255,255,255,0.03)'),
       coverLabel: (ed.coverBlob || ed.coverKey) ? 'Change cover image' : 'Upload a cover image',
       hasCover: !!(ed.coverBlob || ed.coverKey),
@@ -1656,6 +1675,11 @@ class Component extends DCLogic {
       friendChips: S.friends.map(f => {
         const on = ed.friendIds.includes(f.id);
         return { name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), avatarBg: this.friendBg(f), border: on ? 'transparent' : 'rgba(255,255,255,0.14)', bg: on ? '#f2f0f5' : 'transparent', color: on ? '#0e0d12' : '#a5a1af', toggle: () => this.setField('friendIds', on ? ed.friendIds.filter(x => x !== f.id) : [...ed.friendIds, f.id]) };
+      }),
+      noTagOptions: [...new Set([...allTags, ...ed.tags])].length === 0,
+      tagChips: [...new Set([...allTags, ...ed.tags])].map(t => {
+        const on = ed.tags.includes(t);
+        return { label: t, border: on ? 'transparent' : 'rgba(255,255,255,0.14)', bg: on ? '#f2f0f5' : 'transparent', color: on ? '#0e0d12' : '#a5a1af', toggle: () => this.setField('tags', on ? ed.tags.filter(x => x !== t) : [...ed.tags, t]) };
       }),
     } : {
       isEvent: false, isFriend: true,
@@ -1735,9 +1759,10 @@ class Component extends DCLogic {
       searchQ: S.searchQ, setSearch: (e) => this.setState({ searchQ: e.target.value, route: { name: 'search' } }),
       newEvent: () => this.openEventEditor(null), newFriend: () => this.openFriendEditor(null),
       newFriendFromEditor: (e) => { e.preventDefault(); this.openFriendEditor(null); },
+      addEditorTag: () => this.addEditorTag(), tagInputKeyDown: (e) => this.tagInputKeyDown(e),
       // home
       homeHeadline: live.length ? 'Every trip, still glowing.' : 'Your memory book starts empty.',
-      homeSub: live.length ? totalPhotos + ' photos across ' + live.length + (live.length === 1 ? ' event' : ' events') + ', kept privately in this browser.' : 'Create an event, add the people who were there, and fill it with your own photos. Nothing is preloaded and nothing leaves this device.',
+      homeSub: live.length ? totalPhotos + ' photos across ' + live.length + (live.length === 1 ? ' event' : ' events') + ', kept privately in your heart.' : 'Create an event, add the people who were there, and fill it with your own photos. Nothing is preloaded and nothing leaves this device.',
       homeCta: live.length ? 'New event' : 'Create your first event',
       homeEmpty: live.length === 0, homeHasContent: live.length > 0, hasPhotos: totalPhotos > 0,
       featured: live.length ? { title: live[0].name, meta: evMeta(live[0]) + ' · ' + photoCount(live[0].id) + ' photos', bg: this.coverBg(live[0]), open: openEvent(live[0].id) } : null,
@@ -1854,7 +1879,7 @@ class Component extends DCLogic {
       // editor
       editorOpen: !!S.editor, editor: editorVals, closeEditor: () => this.setState({ editor: null }),
       saveEditor: () => this.saveEditor(),
-      setF: { name: (e) => this.setField('name', e.target.value), date: (e) => this.setField('date', e.target.value), endDate: (e) => this.setField('endDate', e.target.value), location: (e) => this.setField('location', e.target.value), desc: (e) => this.setField('desc', e.target.value), tags: (e) => this.setField('tags', e.target.value), tagline: (e) => this.setField('tagline', e.target.value) },
+      setF: { name: (e) => this.setField('name', e.target.value), date: (e) => this.setField('date', e.target.value), endDate: (e) => this.setField('endDate', e.target.value), location: (e) => this.setField('location', e.target.value), desc: (e) => this.setField('desc', e.target.value), tagInput: (e) => this.setField('tagInput', e.target.value), tagline: (e) => this.setField('tagline', e.target.value) },
       coverInputRef: this.coverInputRef, avatarInputRef: this.avatarInputRef,
       pickCover: () => this.coverInputRef.current && this.coverInputRef.current.click(),
       coverPicked: (e) => { const f = e.target.files[0]; if (f) this.openPosEditor('cover', f, null); e.target.value = ''; },

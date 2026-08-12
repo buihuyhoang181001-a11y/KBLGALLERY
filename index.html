@@ -318,7 +318,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             <div style="padding:17px 18px 19px">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
                 <div style="font-family:Sora;font-weight:700;font-size:18px">{{ ev.title }}</div>
-                <div style="font-size:13px;color:oklch(0.75 0.16 5);font-weight:700">{{ ev.favLabel }}</div>
               </div>
               <div style="color:#8b8794;font-size:13px;margin-top:4px">{{ ev.meta }}</div>
               <div style="color:#a5a1af;font-size:13px;line-height:1.5;margin-top:9px">{{ ev.desc }}</div>
@@ -343,6 +342,9 @@ input::placeholder,textarea::placeholder{color:#6c6877}
         <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
         <div style="position:absolute;top:20px;right:24px;display:flex;gap:8px">
           <button onClick="{{ editCurEvent }}" style="cursor:pointer;border:none;padding:9px 16px;border-radius:99px;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600;transition:background .2s" style-hover="background:rgba(0,0,0,0.62)">Edit event</button>
+          <sc-if value="{{ showSelectBtn }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ toggleSelectMode }}" style="cursor:pointer;border:none;padding:9px 16px;border-radius:99px;background: {{ selectBg }};backdrop-filter:blur(10px);color: {{ selectColor }};font-size:13px;font-weight:600;transition:all .2s" style-hover="opacity:0.85">{{ selectLabel }}</button>
+          </sc-if>
           <button onClick="{{ toggleManage }}" style="cursor:pointer;border:none;padding:9px 16px;border-radius:99px;background: {{ manageBg }};backdrop-filter:blur(10px);color: {{ manageColor }};font-size:13px;font-weight:600;transition:all .2s" style-hover="opacity:0.85">{{ manageLabel }}</button>
         </div>
         </sc-if>
@@ -371,6 +373,18 @@ input::placeholder,textarea::placeholder{color:#6c6877}
           <span style="color:#a5a1af">Drag photos to reorder · click ★ to set the cover · ✕ deletes</span>
         </div>
       </sc-if>
+      <sc-if value="{{ selectBarShow }}" hint-placeholder-val="{{ false }}">
+        <div style="position:sticky;top:10px;z-index:5;margin:20px 0 18px;padding:12px 16px;border-radius:14px;background:rgba(20,18,26,0.9);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);box-shadow:0 12px 30px rgba(0,0,0,0.4);font-size:13px;color:#d6d1e0;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <span style="font-weight:700;font-family:Sora;white-space:nowrap">{{ selectCountLabel }}</span>
+          <button onClick="{{ selectAllBtn }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.06);color:#fff;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;transition:background .2s" style-hover="background:rgba(255,255,255,0.16)">{{ selectAllLabel }}</button>
+          <button onClick="{{ clearSelectionBtn }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.06);color:#fff;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;transition:background .2s" style-hover="background:rgba(255,255,255,0.16)">Clear</button>
+          <div style="flex:1"></div>
+          <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ bulkDownloadBtn }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.06);color:#fff;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;transition:background .2s" style-hover="background:rgba(255,255,255,0.16)">⬇ Download</button>
+            <button onClick="{{ bulkDeleteBtn }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.06);color:#fff;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;transition:background .2s" style-hover="background:oklch(0.5 0.16 20)">✕ Delete</button>
+          </sc-if>
+        </div>
+      </sc-if>
       <sc-if value="{{ eventPhotosEmpty }}" hint-placeholder-val="{{ true }}">
         <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
         <div onClick="{{ goUploadHere }}" style="cursor:pointer;border-radius:22px;border:1px dashed rgba(255,255,255,0.16);padding:64px 30px;text-align:center;transition:all .25s;animation:fadeUp .5s both" style-hover="border-color:oklch(0.7 0.13 342);background:rgba(255,255,255,0.03)">
@@ -395,15 +409,18 @@ input::placeholder,textarea::placeholder{color:#6c6877}
                 <div style="width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;padding-left:3px;box-shadow:0 6px 18px rgba(0,0,0,0.35)">▶</div>
               </div>
             </sc-if>
+            <sc-if value="{{ p.selectMode }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;background: {{ p.dimOverlay }};transition:background .15s;pointer-events:none"></div>
+            </sc-if>
+            <sc-if value="{{ p.selectMode }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ p.toggleCheck }}" title="Select" style="position:absolute;top:9px;left:9px;cursor:pointer;width:26px;height:26px;border-radius:50%;background: {{ p.checkBg }};backdrop-filter:blur(6px);border: {{ p.checkBorder }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;transition:all .15s;z-index:2">{{ p.checkIcon }}</button>
+            </sc-if>
             <div style="position:absolute;top:9px;right:9px;display:flex;gap:6px">
               <sc-if value="{{ p.manage }}" hint-placeholder-val="{{ false }}">
                 <button onClick="{{ p.setCover }}" title="Set as cover" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color: {{ p.coverColor }};font-size:13px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.65)">★</button>
               </sc-if>
               <sc-if value="{{ p.manage }}" hint-placeholder-val="{{ false }}">
                 <button onClick="{{ p.remove }}" title="Delete photo" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20)">✕</button>
-              </sc-if>
-              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-              <button onClick="{{ p.fav }}" title="Favorite" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);color: {{ p.favColor }};font-size:14px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.62)">{{ p.favIcon }}</button>
               </sc-if>
             </div>
             <sc-if value="{{ p.isCover }}" hint-placeholder-val="{{ false }}">
@@ -551,9 +568,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             <div onClick="{{ f.open }}" style="cursor:pointer">
               <div style="position:relative;width:70px;margin:0 auto">
                 <div style="width:70px;height:70px;border-radius:50%;background: {{ f.bg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:23px;border:3px solid rgba(255,255,255,0.12)">{{ f.initial }}</div>
-                <sc-if value="{{ f.hasFav }}" hint-placeholder-val="{{ false }}">
-                  <div title="Favorite photo" style="position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;background-image:url( {{ f.favUrl }} );background-size:cover;background-position:center;border:2px solid #17151c;box-shadow:0 2px 6px rgba(0,0,0,0.5)"></div>
-                </sc-if>
               </div>
               <div style="font-family:Sora;font-weight:700;font-size:17px;margin-top:13px">{{ f.name }}</div>
               <div style="color:#8b8794;font-size:13px;margin-top:4px;min-height:18px">{{ f.tagline }}</div>
@@ -582,13 +596,6 @@ input::placeholder,textarea::placeholder{color:#6c6877}
         <button onClick="{{ editCurFriend }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.18);background:none;color:#f2f0f5;padding:10px 20px;border-radius:99px;font-size:14px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.07)">Edit profile</button>
         </sc-if>
       </div>
-      <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">Favorite photo</h2>
-      <sc-if value="{{ curFriend.hasFav }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ curFriend.favOpen }}" style="cursor:pointer;width:220px;height:220px;border-radius:18px;overflow:hidden;background-image:url( {{ curFriend.favUrl }} );background-size:cover;background-position:center;margin-bottom:34px;transition:transform .3s cubic-bezier(.2,.9,.3,1.2)" style-hover="transform:scale(1.02)"></div>
-      </sc-if>
-      <sc-if value="{{ curFriend.noFav }}" hint-placeholder-val="{{ true }}">
-        <div style="width:220px;height:220px;border-radius:18px;border:1px dashed rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;text-align:center;color:#8b8794;font-size:13px;padding:18px;margin-bottom:34px">No Favorite Photo Yet</div>
-      </sc-if>
       <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">Events attended</h2>
       <sc-if value="{{ curFriendNoEvents }}" hint-placeholder-val="{{ true }}">
         <div style="border-radius:16px;border:1px dashed rgba(255,255,255,0.13);padding:36px;text-align:center;color:#8b8794;font-size:14px;margin-bottom:34px">Not tagged on any event yet. Open an event, choose Edit, and add them.</div>
@@ -776,8 +783,8 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             </div>
             <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:5px 10px;border-radius:99px;color: {{ u.statusColor }};background: {{ u.statusBg }}">{{ u.statusLabel }}</span>
             <select value="{{ u.role }}" onChange="{{ u.changeRole }}" disabled="{{ u.isSelf }}" style="cursor:pointer;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:7px 12px;font-size:12px;outline:none;color-scheme:dark">
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
+              <option value="user" style="background:#1a1825;color:#f2f0f5">User</option>
+              <option value="admin" style="background:#1a1825;color:#f2f0f5">Admin</option>
             </select>
             <sc-if value="{{ u.canRevoke }}" hint-placeholder-val="{{ false }}">
               <button onClick="{{ u.revoke }}" style="cursor:pointer;border:none;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;color:#8b8794;background:rgba(255,255,255,0.06)" style-hover="background:oklch(0.5 0.16 20);color:#fff">Revoke access</button>
@@ -974,22 +981,24 @@ input::placeholder,textarea::placeholder{color:#6c6877}
         <div>
           <div style="font-family:Sora;font-weight:700;font-size:16px;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.65)">{{ viewer.title }}</div>
           <div style="color:#e9e6f0;font-size:12px;margin-top:3px;font-family:'JetBrains Mono',monospace;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.65)">{{ viewer.meta }}</div>
+          <sc-if value="{{ viewer.isRenaming }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:6px;align-items:center;margin-top:8px">
+              <input value="{{ viewer.renameValue }}" onChange="{{ viewer.renameChange }}" onKeyDown="{{ viewer.renameKeyDown }}" placeholder="Name this photo…" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.28);border-radius:8px;padding:7px 11px;color:#fff;font-size:13px;outline:none;max-width:220px;width:100%">
+              <button onClick="{{ viewer.renameSave }}" title="Save" style="cursor:pointer;border:none;background:oklch(0.65 0.14 342);color:#fff;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:700">✓</button>
+              <button onClick="{{ viewer.renameCancel }}" title="Cancel" style="cursor:pointer;border:1px solid rgba(255,255,255,0.22);background:rgba(255,255,255,0.06);color:#fff;width:30px;height:30px;border-radius:50%;font-size:12px">✕</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ viewer.showNameRow }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:7px;align-items:center;margin-top:6px">
+              <span style="color: {{ viewer.nameColor }};font-size:12px;font-family:'JetBrains Mono',monospace;text-shadow:0 1px 3px rgba(0,0,0,0.9)">{{ viewer.nameLabel }}</span>
+              <button onClick="{{ viewer.startRename }}" title="Rename photo" style="cursor:pointer;border:none;background:rgba(255,255,255,0.14);backdrop-filter:blur(6px);width:20px;height:20px;border-radius:50%;color:#fff;font-size:10px;transition:all .2s" style-hover="background:rgba(255,255,255,0.28)">✎</button>
+            </div>
+          </sc-if>
         </div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
-          <sc-if value="{{ viewer.hasFriends }}" hint-placeholder-val="{{ false }}">
-            <select value="{{ viewer.favFriendValue }}" onChange="{{ setPhotoAsFavorite }}" style="cursor:pointer;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:9px 14px;font-size:13px;outline:none;color-scheme:dark">
-              <option value="">Set as favorite for…</option>
-              <sc-for list="{{ viewer.friendOptions }}" as="o" hint-placeholder-count="0">
-                <option value="{{ o.id }}">{{ o.name }}</option>
-              </sc-for>
-            </select>
-          </sc-if>
-          </sc-if>
           <button onClick="{{ viewer.download }}" title="Download original" style="cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:600;color:#fff;transition:all .2s" style-hover="background:rgba(255,255,255,0.2)">{{ viewer.downloadLabel }}</button>
           <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
           <button onClick="{{ viewerDelete }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:600;color:#fff;transition:all .2s" style-hover="background:oklch(0.5 0.16 20)">Delete</button>
-          <button onClick="{{ viewerFav }}" style="cursor:pointer;border:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color: {{ viewer.favColor }};font-size:16px;transition:all .2s" style-hover="transform:scale(1.15)">{{ viewer.favIcon }}</button>
           </sc-if>
         </div>
       </div>
@@ -1034,6 +1043,7 @@ class Component extends DCLogic {
       intro: 'playing', route: { name: 'home' }, ready: false,
       events: [], photos: [], friends: [],
       viewer: null, zoomed: false, manageMode: false, dragId: null, overId: null,
+      selectMode: false, selected: [], renaming: null, renameValue: '',
       searchQ: '', searchTag: null, eventFilter: 'all',
       queue: [], uploadEventId: null, dragOver: false, uploadDone: false, lastUploadEvent: null, doneCount: 0, doneCounts: null,
       editor: null, confirm: null, toast: '',
@@ -1159,7 +1169,7 @@ class Component extends DCLogic {
   url(key, blob) { if (!this.urls[key]) this.urls[key] = URL.createObjectURL(blob); return this.urls[key]; }
   uid(p) { return p + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
   say(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 2400); }
-  go(route) { this.setState({ route, viewer: null, zoomed: false, uploadDone: false, manageMode: false }); window.scrollTo(0, 0); }
+  go(route) { this.setState({ route, viewer: null, zoomed: false, uploadDone: false, manageMode: false, selectMode: false, selected: [] }); window.scrollTo(0, 0); }
   /* ---------- editors ---------- */
   openEventEditor(ev) {
     this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', endDate: ev ? ev.endDate || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? [...(ev.tags || [])] : [], tagInput: '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
@@ -1236,20 +1246,46 @@ class Component extends DCLogic {
     this.setState({ photos: this.state.photos.filter(p => p.id !== id), viewer: null, confirm: null });
     this.say('Photo deleted');
   }
-  async toggleFav(id) {
+  async renamePhoto(id, name) {
     const p = this.state.photos.find(x => x.id === id); if (!p) return;
-    const rec = { ...p, fav: !p.fav };
+    const rec = { ...p, name: name.trim() };
     const ok = await this.put('photos', rec);
-    if (!ok) { this.say('Could not update — you may not have permission'); return; }
-    this.setState({ photos: this.state.photos.map(x => x.id === id ? rec : x) });
+    if (!ok) { this.say('Could not rename — you may not have permission'); return; }
+    this.setState({ photos: this.state.photos.map(x => x.id === id ? rec : x), renaming: null });
+    this.say('Photo renamed');
   }
-  async setFriendFavoritePhoto(friendId, photoId) {
-    const f = this.state.friends.find(x => x.id === friendId); if (!f) return;
-    const rec = { ...f, favPhotoId: photoId };
-    const ok = await this.put('friends', rec);
-    if (!ok) { this.say('Could not update — you may not have permission'); return; }
-    this.setState({ friends: this.state.friends.map(x => x.id === friendId ? rec : x) });
-    this.say('Set as ' + f.name + '’s favorite photo');
+  /* ---------- bulk select ---------- */
+  toggleSelectMode() {
+    const on = !this.state.selectMode;
+    this.setState({ selectMode: on, selected: [], manageMode: false });
+  }
+  toggleSelectPhoto(id) {
+    const sel = this.state.selected;
+    this.setState({ selected: sel.includes(id) ? sel.filter(x => x !== id) : [...sel, id] });
+  }
+  selectAll(ids) { this.setState({ selected: ids }); }
+  clearSelection() { this.setState({ selected: [] }); }
+  async bulkDeleteSelected() {
+    const ids = this.state.selected;
+    if (!ids.length) return;
+    let failCount = 0;
+    for (const id of ids) { const ok = await this.del('photos', id); if (!ok) failCount++; }
+    const removed = new Set(ids.filter((id, i) => true));
+    this.setState({
+      photos: this.state.photos.filter(p => !ids.includes(p.id)),
+      selected: [], selectMode: false, confirm: null,
+    });
+    this.say(failCount ? ('Deleted ' + (ids.length - failCount) + ' · ' + failCount + ' failed') : ('Deleted ' + ids.length + (ids.length === 1 ? ' photo' : ' photos')));
+  }
+  bulkDownloadSelected() {
+    const ids = this.state.selected;
+    const photos = ids.map(id => this.state.photos.find(p => p.id === id)).filter(Boolean);
+    photos.forEach((p, i) => setTimeout(() => this.downloadPhoto(p), i * 350));
+    this.say('Downloading ' + photos.length + (photos.length === 1 ? ' photo' : ' photos') + '…');
+  }
+  askBulkDelete() {
+    const n = this.state.selected.length;
+    this.askDelete('Delete ' + n + (n === 1 ? ' photo' : ' photos') + '?', 'This cannot be undone.', () => this.bulkDeleteSelected());
   }
   async setCover(evId, photoId) {
     const ev = this.state.events.find(e => e.id === evId);
@@ -1351,7 +1387,7 @@ class Component extends DCLogic {
       }
       this.setState({ queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, progress: 80, status: 'Finishing…' } : q) });
       const extMatch = /\.[^./]+$/.exec(queue[i].file.name || '');
-      const rec = { id: this.uid('ph'), eventId: evId, name: queue[i].name, url: uploaded.url, cloudinaryPublicId: uploaded.publicId, type: queue[i].type, ext: extMatch ? extMatch[0].toLowerCase() : '', order: base + i, fav: false, createdAt: Date.now() };
+      const rec = { id: this.uid('ph'), eventId: evId, name: queue[i].name, url: uploaded.url, cloudinaryPublicId: uploaded.publicId, type: queue[i].type, ext: extMatch ? extMatch[0].toLowerCase() : '', order: base + i, createdAt: Date.now() };
       if (isVideo) {
         // Cloudinary auto-generates a poster frame by swapping the video extension for .jpg
         rec.posterUrl = uploaded.url.replace(/\.[^./]+$/, '.jpg');
@@ -1411,7 +1447,6 @@ class Component extends DCLogic {
   accent(h) { return `oklch(0.8 0.13 ${h})`; }
   hueOf(id) { let n = 0; for (const c of String(id)) n = (n * 31 + c.charCodeAt(0)) % 360; return n; }
   thumbUrl(p) { return p.type === 'video' ? (this.urls['poster-' + p.id] || null) : this.urls[p.id]; }
-  favPhotoUrl(f) { if (!f || !f.favPhotoId) return null; const p = this.state.photos.find(x => x.id === f.favPhotoId); return p ? this.thumbUrl(p) : null; }
   coverBg(ev) {
     if (ev.coverPhotoId) { const p = this.state.photos.find(x => x.id === ev.coverPhotoId); const u = p && this.thumbUrl(p); if (u) return `url(${u})`; }
     if (this.urls['cover-' + ev.id]) return `url(${this.urls['cover-' + ev.id]})`;
@@ -1601,14 +1636,12 @@ class Component extends DCLogic {
       desc: e.desc || '', bg: this.coverBg(e), noCover: !this.hasCover(e), delay: (i * 0.06) + 's',
       open: openEvent(e.id),
       tags: (e.tags || []).map(t => ({ label: t })),
-      favLabel: this.eventPhotos(e.id).filter(p => p.fav).length ? this.eventPhotos(e.id).filter(p => p.fav).length + ' ♥' : '',
       avatars: (e.friendIds || []).map(fid => S.friends.find(f => f.id === fid)).filter(Boolean).map(f => ({ initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), name: f.name, bg: this.friendBg(f), open: (ev) => { ev.stopPropagation(); this.go({ name: 'friend', id: f.id }); } })),
       edit: (ev) => { ev.stopPropagation(); this.openEventEditor(e); },
       remove: (ev) => { if (ev) ev.stopPropagation(); this.askDelete('Delete “' + e.name + '”?', photoCount(e.id) + ' photos will be deleted with it.', () => this.deleteEvent(e.id)); },
     });
     const allPhotos = [...S.photos].sort((a, b) => b.createdAt - a.createdAt);
     const totalPhotos = S.photos.length;
-    const favCount = S.photos.filter(p => p.fav).length;
     // nav
     const navDefs = [['Home', 'home', '⌂'], ['Events', 'events', '▦'], ['Timeline', 'timeline', '⋮'], ['Friends', 'friends', '◉'], ['Stats', 'stats', '◔']];
     const curEv = rn === 'event' ? S.events.find(e => e.id === S.route.id) : null;
@@ -1617,13 +1650,10 @@ class Component extends DCLogic {
     const q = S.searchQ.trim().toLowerCase(), tag = S.searchTag;
     const evHay = (e) => (e.name + ' ' + (e.location || '') + ' ' + (e.desc || '') + ' ' + (e.tags || []).join(' ') + ' ' + (e.date || '') + ' ' + (e.endDate || '') + ' ' + (e.friendIds || []).map(id => (S.friends.find(f => f.id === id) || {}).name || '').join(' ')).toLowerCase();
     let sEvents = live, sPhotos = [];
-    if (tag === '★ favorites') { sEvents = []; sPhotos = S.photos.filter(p => p.fav); }
-    else {
-      if (q) sEvents = live.filter(e => evHay(e).includes(q));
-      else if (tag) sEvents = live.filter(e => evHay(e).includes(tag.toLowerCase()));
-      sPhotos = sEvents.flatMap(e => this.eventPhotos(e.id));
-      if (q) sPhotos = sPhotos.concat(S.photos.filter(p => (p.name || '').toLowerCase().includes(q) && !sPhotos.includes(p)));
-    }
+    if (q) sEvents = live.filter(e => evHay(e).includes(q));
+    else if (tag) sEvents = live.filter(e => evHay(e).includes(tag.toLowerCase()));
+    sPhotos = sEvents.flatMap(e => this.eventPhotos(e.id));
+    if (q) sPhotos = sPhotos.concat(S.photos.filter(p => (p.name || '').toLowerCase().includes(q) && !sPhotos.includes(p)));
     sPhotos = sPhotos.slice(0, 24);
     const searching = !!(q || tag);
     const searchNothing = (searching && sEvents.length === 0 && sPhotos.length === 0) || (!searching && !S.events.length);
@@ -1641,13 +1671,21 @@ class Component extends DCLogic {
           url: this.urls[p.id], isVideo, isImage: !isVideo,
           bg: bgSrc ? `url(${bgSrc})` : this.grad(this.hueOf(p.id)),
           title: ev.name || '', cursor: S.zoomed ? 'zoom-out' : 'zoom-in',
-          meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDateRange(ev.date, ev.endDate) + (p.name ? ' · ' + p.name : ''),
+          meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDateRange(ev.date, ev.endDate),
           zoomT: S.zoomed ? 'scale(1.55)' : 'scale(1)',
-          favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : '#fff',
-          hasFriends: S.friends.length > 0, favFriendValue: '',
-          friendOptions: S.friends.map(f => ({ id: f.id, name: f.name })),
           download: () => this.downloadPhoto(p),
           downloadLabel: isVideo ? '⬇ Download video' : '⬇ Download',
+          isRenaming: S.renaming === p.id,
+          renameValue: S.renaming === p.id ? (S.renameValue || '') : (p.name || ''),
+          photoName: p.name || '', hasName: !!p.name,
+          showNameRow: !S.renaming && isApproved,
+          nameLabel: p.name || 'Untitled — add a name',
+          nameColor: p.name ? '#e9e6f0' : '#8b8794',
+          startRename: () => this.setState({ renaming: p.id, renameValue: p.name || '' }),
+          renameChange: (e) => this.setState({ renameValue: e.target.value }),
+          renameKeyDown: (e) => { if (e.key === 'Enter') this.renamePhoto(p.id, S.renameValue); if (e.key === 'Escape') this.setState({ renaming: null }); },
+          renameSave: () => this.renamePhoto(p.id, S.renameValue),
+          renameCancel: () => this.setState({ renaming: null }),
         };
       }
     }
@@ -1774,27 +1812,46 @@ class Component extends DCLogic {
       hasEventChips: years.length + allTags.length > 0,
       eventFilters: [chip('All', S.eventFilter === 'all', () => this.setState({ eventFilter: 'all' })), ...years.map(y => chip(y, S.eventFilter === y, () => this.setState({ eventFilter: y }))), ...allTags.map(t => chip(t, S.eventFilter === t, () => this.setState({ eventFilter: t })))],
       // event detail
-      curEvent: curEv ? { ...evCard(curEv, 0), statLine: photoCount(curEv.id) + ' photos · ' + this.eventPhotos(curEv.id).filter(p => p.fav).length + ' favorites' } : {},
+      curEvent: curEv ? { ...evCard(curEv, 0), statLine: photoCount(curEv.id) + ' photos' } : {},
       editCurEvent: () => this.openEventEditor(curEv),
       manageMode: S.manageMode, manageLabel: S.manageMode ? 'Done organizing' : 'Organize',
       manageBg: S.manageMode ? '#f2f0f5' : 'rgba(0,0,0,0.4)', manageColor: S.manageMode ? '#0e0d12' : '#fff',
-      toggleManage: () => this.setState({ manageMode: !S.manageMode }),
+      toggleManage: () => this.setState({ manageMode: !S.manageMode, selectMode: false, selected: [] }),
       eventPhotosEmpty: !!curEv && photoCount(curEv.id) === 0,
       goUploadHere: () => { this.setState({ uploadEventId: curEv.id }); this.go({ name: 'upload' }); },
+      // bulk select
+      selectMode: S.selectMode,
+      selectLabel: S.selectMode ? 'Cancel' : 'Select',
+      selectBg: S.selectMode ? '#f2f0f5' : 'rgba(0,0,0,0.4)', selectColor: S.selectMode ? '#0e0d12' : '#fff',
+      toggleSelectMode: () => this.toggleSelectMode(),
+      showSelectBtn: !!curEv && photoCount(curEv.id) > 0,
+      selectBarShow: S.selectMode,
+      selectCount: S.selected.length,
+      selectCountLabel: S.selected.length + (S.selected.length === 1 ? ' selected' : ' selected'),
+      selectAllBtn: () => this.selectAll(this.eventPhotos(curEv.id).map(p => p.id)),
+      selectAllLabel: curEv ? 'Select all (' + photoCount(curEv.id) + ')' : 'Select all',
+      clearSelectionBtn: () => this.clearSelection(),
+      hasSelection: S.selected.length > 0,
+      bulkDownloadBtn: () => this.bulkDownloadSelected(),
+      bulkDeleteBtn: () => this.askBulkDelete(),
       curPhotos: !curEv ? [] : this.eventPhotos(curEv.id).map((p, i) => ({
         ...photoThumb(p), delay: (Math.min(i, 16) * 0.04) + 's', manage: S.manageMode,
-        cursor: S.manageMode ? 'grab' : 'pointer', draggable: S.manageMode,
+        selectMode: S.selectMode, checked: S.selected.includes(p.id),
+        checkBg: S.selected.includes(p.id) ? 'oklch(0.75 0.16 342)' : 'rgba(20,18,26,0.55)',
+        checkBorder: S.selected.includes(p.id) ? '2px solid oklch(0.85 0.14 342)' : '2px solid rgba(255,255,255,0.7)',
+        checkIcon: S.selected.includes(p.id) ? '✓' : '',
+        dimOverlay: S.selectMode && S.selected.includes(p.id) ? 'oklch(0.6 0.15 342 / 0.28)' : 'transparent',
+        cursor: S.selectMode ? 'pointer' : (S.manageMode ? 'grab' : 'pointer'), draggable: S.manageMode && !S.selectMode,
         opacity: S.dragId === p.id ? 0.4 : 1,
-        outline: S.overId === p.id && S.dragId !== p.id ? '2px solid oklch(0.8 0.13 342)' : '2px solid transparent',
+        outline: S.selectMode && S.selected.includes(p.id) ? '2px solid oklch(0.78 0.15 342)' : (S.overId === p.id && S.dragId !== p.id ? '2px solid oklch(0.8 0.13 342)' : '2px solid transparent'),
         isCover: curEv.coverPhotoId === p.id,
         coverColor: curEv.coverPhotoId === p.id ? 'oklch(0.85 0.14 90)' : '#fff',
-        open: S.manageMode ? () => {} : openPhoto(p.eventId, p.id),
+        open: S.selectMode ? (() => this.toggleSelectPhoto(p.id)) : (S.manageMode ? () => {} : openPhoto(p.eventId, p.id)),
+        toggleCheck: (e) => { e.stopPropagation(); this.toggleSelectPhoto(p.id); },
         dragStart: () => this.setState({ dragId: p.id }),
         dragOver: (e) => { e.preventDefault(); if (S.overId !== p.id) this.setState({ overId: p.id }); },
         drop: (e) => { e.preventDefault(); this.reorder(curEv.id, S.dragId, p.id); },
         dragEnd: () => this.setState({ dragId: null, overId: null }),
-        fav: (e) => { e.stopPropagation(); this.toggleFav(p.id); },
-        favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : 'rgba(255,255,255,0.9)',
         setCover: (e) => { e.stopPropagation(); this.setCover(curEv.id, p.id); },
         remove: (e) => { e.stopPropagation(); this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(p.id)); },
       })),
@@ -1806,7 +1863,7 @@ class Component extends DCLogic {
         events: live.filter(e => ((e.date || '').slice(0, 4) || 'Undated') === y).map((e, i) => ({ ...evCard(e, i), delay: (gi * 0.12 + i * 0.07 + 0.08) + 's' })),
       })),
       // stats
-      bigStats: [[totalPhotos, 'photos'], [live.length, 'events'], [S.friends.length, 'friends'], [favCount, 'favorites']].map(([value, label], i) => ({ value, label, delay: (i * 0.05) + 's', c1: this.accent(this.HUES[i]), c2: this.accent(this.HUES[i] + 40) })),
+      bigStats: [[totalPhotos, 'photos'], [live.length, 'events'], [S.friends.length, 'friends']].map(([value, label], i) => ({ value, label, delay: (i * 0.05) + 's', c1: this.accent(this.HUES[i]), c2: this.accent(this.HUES[i] + 40) })),
       statsEmpty: totalPhotos === 0, statsHas: totalPhotos > 0,
       statsGrid: isMobile || S.friends.length === 0 ? '1fr' : '1.4fr 1fr',
       hasFriends: S.friends.length > 0,
@@ -1819,20 +1876,15 @@ class Component extends DCLogic {
       friendCards: friendStats.map((f, i) => ({
         name: f.name, tagline: f.tagline || '', initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(),
         bg: this.friendBg(f), events: f.events, photos: f.photos, accent: this.accent(f.hue), delay: (i * 0.06) + 's',
-        favUrl: this.favPhotoUrl(f), hasFav: !!this.favPhotoUrl(f),
         open: () => this.go({ name: 'friend', id: f.id }),
         edit: (e) => { e.stopPropagation(); this.openFriendEditor(f); },
         remove: (e) => { e.stopPropagation(); this.askDelete('Remove ' + f.name + '?', 'They will be untagged from every event.', () => this.deleteFriend(f.id)); },
       })),
       curFriend: curFr ? (() => {
         const f = friendStats.find(x => x.id === curFr.id);
-        const favPhoto = f.favPhotoId ? S.photos.find(p => p.id === f.favPhotoId) : null;
-        const favUrl = this.favPhotoUrl(f);
         return {
           name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), bg: this.friendBg(f),
           line: (f.tagline ? f.tagline + ' · ' : '') + f.events + ' events · ' + f.photos + ' photos',
-          favUrl, hasFav: !!favUrl, noFav: !favUrl,
-          favOpen: favPhoto ? () => this.setState({ viewer: { eventId: favPhoto.eventId, photoId: favPhoto.id }, zoomed: false }) : () => {},
         };
       })() : {},
       editCurFriend: () => this.openFriendEditor(curFr),
@@ -1840,7 +1892,7 @@ class Component extends DCLogic {
       curFriendNoEvents: !!curFr && S.events.filter(e => (e.friendIds || []).includes(curFr.id)).length === 0,
       // search
       hasSearchTags: years.length + allTags.length > 0 || totalPhotos > 0,
-      searchTags: [...years, ...allTags, ...(favCount ? ['★ favorites'] : [])].map(t => chip(t, tag === t, () => this.setState({ searchTag: tag === t ? null : t, route: { name: 'search' } }))),
+      searchTags: [...years, ...allTags].map(t => chip(t, tag === t, () => this.setState({ searchTag: tag === t ? null : t, route: { name: 'search' } }))),
       searchNothing, searchHasResults: !searchNothing,
       searchEmptyTitle: S.events.length === 0 ? 'Nothing to search yet' : 'No matches',
       searchEmptySub: S.events.length === 0 ? 'Create an event and add photos — they become searchable instantly.' : 'Try a different name, tag, year, or person.',
@@ -1901,12 +1953,7 @@ class Component extends DCLogic {
       closeViewer: () => this.setState({ viewer: null, zoomed: false }),
       viewerPrev: () => this.stepViewer(-1), viewerNext: () => this.stepViewer(1),
       toggleZoom: () => this.setState({ zoomed: !S.zoomed }),
-      viewerFav: () => this.toggleFav(S.viewer.photoId),
       viewerDelete: () => this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(S.viewer.photoId)),
-      setPhotoAsFavorite: (e) => {
-        const friendId = e.target.value; if (!friendId) return;
-        this.setFriendFavoritePhoto(friendId, S.viewer.photoId);
-      },
       toast: S.toast,
     };
   }

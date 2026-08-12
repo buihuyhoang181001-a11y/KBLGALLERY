@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22rb%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff4d4d%22/%3E%3Cstop%20offset%3D%2220%25%22%20stop-color%3D%22%23ff9d3b%22/%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23ffe93b%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%233bff6e%22/%3E%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233bc8ff%22/%3E%3Cstop%20offset%3D%2285%25%22%20stop-color%3D%22%237a5bff%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23ff4dd2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2249%22%20fill%3D%22%230e0d12%22/%3E%3Cg%20transform%3D%22translate%2850%2C50%29%20scale%280.62%29%20translate%28-50%2C-50%29%22%3E%3Cpath%20d%3D%22M50%203%20L61.8%2036.5%20L97.5%2036.5%20L68.6%2058%20L79.4%2091.5%20L50%2070%20L20.6%2091.5%20L31.4%2058%20L2.5%2036.5%20L38.2%2036.5%20Z%22%20fill%3D%22url%28%23rb%29%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222.5%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<script src="./support.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#0e0d12;color:#f2f0f5;font-family:'Schibsted Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#c9b8ff;text-decoration:none}a:hover{color:#e6dcff}
+::selection{background:oklch(0.45 0.12 342);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.12);border-radius:8px;border:2px solid #0e0d12}::-webkit-scrollbar-track{background:transparent}
+input,textarea,select,button{font-family:inherit}
+input::placeholder,textarea::placeholder{color:#6c6877}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+@keyframes popIn{0%{opacity:0;transform:scale(0.9)}60%{transform:scale(1.02)}100%{opacity:1;transform:scale(1)}}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-40px) scale(1.15)}66%{transform:translate(-40px,30px) scale(0.95)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-70px,50px) scale(1.2)}}
+@keyframes drift3{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,60px)}}
+@keyframes checkPop{0%{transform:scale(0) rotate(-20deg)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes viewerIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes breathe{0%,100%{opacity:0.45;transform:scale(1)}50%{opacity:0.9;transform:scale(1.06)}}
+@keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* ---- cinematic intro ---- */
+@keyframes introVeil{0%{opacity:1}70%{opacity:1}100%{opacity:0;visibility:hidden}}
+@keyframes streak{0%{transform:translateX(-60vw) skewX(-18deg) scaleY(0.2);opacity:0}25%{opacity:1}60%{opacity:0.9}100%{transform:translateX(70vw) skewX(-18deg) scaleY(1);opacity:0}}
+@keyframes markIn{0%{opacity:0;transform:scale(1.7) translateZ(0);filter:blur(26px);letter-spacing:0.5em}45%{opacity:1;filter:blur(0);letter-spacing:0.16em}100%{opacity:1;transform:scale(1);filter:blur(0);letter-spacing:0.04em}}
+@keyframes markOut{to{opacity:0;transform:scale(1.14);filter:blur(14px)}}
+@keyframes lineWipe{0%{transform:scaleX(0);opacity:0}30%{opacity:1}100%{transform:scaleX(1);opacity:1}}
+@keyframes wordIn{0%{opacity:0;transform:translateY(14px);filter:blur(10px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes glassSweep{0%{transform:translateX(-140%) rotate(18deg)}100%{transform:translateX(240%) rotate(18deg)}}
+@keyframes particleUp{0%{transform:translateY(0) scale(0.6);opacity:0}20%{opacity:0.9}100%{transform:translateY(-90vh) scale(1.1);opacity:0}}
+@keyframes camPush{0%{transform:scale(1.14)}100%{transform:scale(1)}}
+@keyframes irisOut{0%{opacity:0}100%{opacity:1}}
+@keyframes spectrumRing{0%{transform:rotate(0deg) scale(0.7);opacity:0}30%{opacity:0.85}100%{transform:rotate(200deg) scale(1.9);opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<div style="min-height:100vh;position:relative;overflow-x:hidden">
+
+  <!-- ================= CINEMATIC INTRO ================= -->
+  <sc-if value="{{ introVisible }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;inset:0;z-index:9999;background:#07060a;overflow:hidden;animation: {{ introAnim }}">
+      <div style="position:absolute;inset:0;animation:camPush 6s cubic-bezier(.22,.7,.25,1) both">
+        <div style="position:absolute;top:12%;left:8%;width:44vw;height:44vw;border-radius:50%;background:radial-gradient(circle, oklch(0.5 0.14 342 / 0.5), transparent 62%);filter:blur(70px);animation:drift1 22s ease-in-out infinite, fadeIn 1.6s both"></div>
+        <div style="position:absolute;bottom:6%;right:4%;width:50vw;height:50vw;border-radius:50%;background:radial-gradient(circle, oklch(0.5 0.13 240 / 0.45), transparent 62%);filter:blur(80px);animation:drift2 26s ease-in-out infinite, fadeIn 1.6s .2s both"></div>
+        <div style="position:absolute;top:40%;left:38%;width:36vw;height:36vw;border-radius:50%;background:radial-gradient(circle, oklch(0.55 0.13 150 / 0.32), transparent 62%);filter:blur(80px);animation:drift3 30s ease-in-out infinite, fadeIn 1.6s .4s both"></div>
+      </div>
+      <sc-for list="{{ introStreaks }}" as="s" hint-placeholder-count="6">
+        <div style="position:absolute;top: {{ s.top }};left:0;width:46vw;height: {{ s.h }};border-radius:99px;background:linear-gradient(90deg, transparent, {{ s.color }}, transparent);filter:blur( {{ s.blur }} );opacity:0;animation:streak {{ s.dur }} cubic-bezier(.3,.1,.2,1) {{ s.delay }} both"></div>
+      </sc-for>
+      <sc-for list="{{ introParticles }}" as="p" hint-placeholder-count="18">
+        <div style="position:absolute;bottom:-8px;left: {{ p.left }};width: {{ p.size }};height: {{ p.size }};border-radius:50%;background: {{ p.color }};box-shadow:0 0 12px {{ p.color }};opacity:0;animation:particleUp {{ p.dur }} linear {{ p.delay }} infinite"></div>
+      </sc-for>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0">
+        <div style="position:absolute;width:min(58vw,520px);height:min(58vw,520px);border-radius:50%;border:1px solid oklch(0.75 0.13 342 / 0.35);animation:spectrumRing 3.2s cubic-bezier(.2,.8,.3,1) .5s both"></div>
+        <div style="position:absolute;width:min(46vw,420px);height:min(46vw,420px);border-radius:50%;border:1px solid oklch(0.75 0.12 210 / 0.3);animation:spectrumRing 3.4s cubic-bezier(.2,.8,.3,1) .75s both"></div>
+        <div style="position:relative;overflow:hidden;padding:0 10px">
+          <div style="font-family:Sora;font-weight:800;font-size:clamp(64px,15vw,190px);line-height:1;letter-spacing:0.04em;background:linear-gradient(115deg, oklch(0.86 0.13 342), oklch(0.86 0.12 300) 30%, oklch(0.88 0.11 220) 60%, oklch(0.9 0.12 150));-webkit-background-clip:text;background-clip:text;color:transparent;animation:markIn 2.2s cubic-bezier(.16,.8,.24,1) .35s both, markOut .9s cubic-bezier(.5,0,.75,0) 4.5s both">KBL</div>
+          <div style="position:absolute;top:0;left:0;width:26%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);filter:blur(14px);animation:glassSweep 1.9s cubic-bezier(.4,0,.2,1) 1.5s both"></div>
+        </div>
+        <div style="width:min(52vw,440px);height:1px;margin-top:22px;transform-origin:left;background:linear-gradient(90deg, transparent, oklch(0.8 0.13 342), oklch(0.8 0.12 260), oklch(0.82 0.12 160), transparent);animation:lineWipe 1.4s cubic-bezier(.2,.8,.2,1) 1.9s both, fadeOut .8s 4.5s both"></div>
+        <div style="display:flex;gap:clamp(14px,3vw,34px);margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:clamp(9px,1.1vw,12px);letter-spacing:0.32em;text-transform:uppercase;color:#a5a1af;animation:fadeOut .8s 4.5s both">
+          <sc-for list="{{ introWords }}" as="w" hint-placeholder-count="3">
+            <span style="animation:wordIn 1s cubic-bezier(.2,.8,.2,1) {{ w.delay }} both">{{ w.text }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, transparent 30%, rgba(7,6,10,0.75) 90%);pointer-events:none"></div>
+      <div style="position:absolute;bottom:44px;left:34px;width:180px;height:2px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;animation:fadeIn 1s 1.2s both">
+        <div style="height:100%;background:linear-gradient(90deg, oklch(0.82 0.13 342), oklch(0.85 0.12 200));transform-origin:left;animation:lineWipe 5.4s linear both"></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ambient background -->
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden">
+    <div style="position:absolute;top:-180px;left:-120px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle, oklch(0.4 0.11 342 / 0.3), transparent 65%);filter:blur(60px);animation:drift1 26s ease-in-out infinite"></div>
+    <div style="position:absolute;top:30%;right:-200px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle, oklch(0.38 0.1 230 / 0.26), transparent 65%);filter:blur(70px);animation:drift2 32s ease-in-out infinite"></div>
+    <div style="position:absolute;bottom:-220px;left:30%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle, oklch(0.36 0.09 150 / 0.2), transparent 65%);filter:blur(70px);animation:drift3 38s ease-in-out infinite"></div>
+  </div>
+
+  <!-- ================= AUTH: CHECKING SESSION ================= -->
+  <sc-if value="{{ showAuthLoading }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:#0e0d12">
+      <div style="width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,0.12);border-top-color:oklch(0.75 0.13 342);animation:spin 0.8s linear infinite"></div>
+    </div>
+  </sc-if>
+
+  <!-- ================= AUTH: SIGN IN ================= -->
+  <sc-if value="{{ showSignIn }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:#0e0d12;padding:20px">
+      <div style="text-align:center;max-width:360px">
+        <div style="font-family:Sora;font-weight:800;font-size:44px;letter-spacing:0.04em;background:linear-gradient(120deg, oklch(0.82 0.13 342), oklch(0.82 0.12 260), oklch(0.84 0.12 170));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px">KBL</div>
+        <div style="color:#8b8794;font-size:15px;margin-bottom:34px">Sign in with Google to view the gallery.</div>
+        <button onClick="{{ signInWithGoogle }}" disabled="{{ authBusy }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:#fff;color:#1a1a1a;padding:13px 26px;border-radius:99px;font-size:15px;font-weight:700;font-family:Sora;transition:all .2s" style-hover="transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,255,255,0.15)">{{ signInLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= AUTH: PENDING APPROVAL ================= -->
+  <sc-if value="{{ showPending }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:#0e0d12;padding:20px">
+      <div style="text-align:center;max-width:380px">
+        <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 22px">⏳</div>
+        <div style="font-family:Sora;font-weight:700;font-size:20px;margin-bottom:10px">Your account is awaiting administrator approval.</div>
+        <div style="color:#8b8794;font-size:14px;margin-bottom:28px">You'll get access as soon as an admin approves your account. No need to sign up again.</div>
+        <button onClick="{{ signOut }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:none;color:#f2f0f5;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:600" style-hover="background:rgba(255,255,255,0.07)">Sign out</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= AUTH: REJECTED ================= -->
+  <sc-if value="{{ showRejected }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:#0e0d12;padding:20px">
+      <div style="text-align:center;max-width:380px">
+        <div style="font-family:Sora;font-weight:700;font-size:20px;margin-bottom:10px">Access to this gallery was not approved.</div>
+        <div style="color:#8b8794;font-size:14px;margin-bottom:28px">If you think this is a mistake, reach out to the gallery admin directly.</div>
+        <button onClick="{{ signOut }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:none;color:#f2f0f5;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:600" style-hover="background:rgba(255,255,255,0.07)">Sign out</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= APP (signed in + approved only) ================= -->
+  <sc-if value="{{ showApp }}" hint-placeholder-val="{{ true }}">
+
+  <!-- ================= DESKTOP NAV ================= -->
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <nav style="position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:18px;padding:14px 28px;background:rgba(14,13,18,0.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div onClick="{{ goHome }}" style="cursor:pointer;flex-shrink:0;font-family:Sora;font-weight:800;font-size:21px;letter-spacing:0.04em;background:linear-gradient(120deg, oklch(0.82 0.13 342), oklch(0.82 0.12 260), oklch(0.84 0.12 170));-webkit-background-clip:text;background-clip:text;color:transparent">KBL</div>
+    <div style="display:flex;gap:4px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="6">
+        <button onClick="{{ nv.go }}" style="border:none;cursor:pointer;flex-shrink:0;white-space:nowrap;padding:9px 13px;border-radius:99px;font-size:14px;font-weight:600;background: {{ nv.bg }};color: {{ nv.color }};transition:all .25s" style-hover="background:rgba(255,255,255,0.09);color:#fff">{{ nv.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+      <sc-if value="{{ showNavSearch }}" hint-placeholder-val="{{ true }}">
+        <input value="{{ searchQ }}" onChange="{{ setSearch }}" onFocus="{{ goSearch }}" placeholder="Search everything…" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:9px 18px;color:#f2f0f5;font-size:14px;width:180px;outline:none;transition:all .25s" style-focus="width:240px;border-color:oklch(0.6 0.12 342);background:rgba(255,255,255,0.09)">
+      </sc-if>
+      <sc-if value="{{ showNavSearchIcon }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ goSearch }}" title="Search" style="border:none;cursor:pointer;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.07);color:#c9c5d2;font-size:16px;transition:all .2s" style-hover="background:rgba(255,255,255,0.15);color:#fff">⌕</button>
+      </sc-if>
+      <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ newEvent }}" style="border:none;cursor:pointer;flex-shrink:0;white-space:nowrap;padding:10px 18px;border-radius:99px;font-size:14px;font-weight:700;font-family:Sora;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));box-shadow:0 4px 20px oklch(0.6 0.14 330 / 0.32);transition:all .2s" style-hover="transform:translateY(-2px);box-shadow:0 8px 28px oklch(0.6 0.14 330 / 0.5)">{{ navCtaLabel }}</button>
+      </sc-if>
+      <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ goAdmin }}" title="Admin dashboard" style="border:none;cursor:pointer;flex-shrink:0;width:36px;height:36px;border-radius:50%;background: {{ adminNavBg }};color: {{ adminNavColor }};font-size:15px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);color:#fff">⚙</button>
+      </sc-if>
+      <button onClick="{{ signOut }}" title="Sign out" style="border:none;cursor:pointer;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:14px;transition:all .2s" style-hover="background:rgba(255,255,255,0.14);color:#fff">⏻</button>
+    </div>
+  </nav>
+  </sc-if>
+
+  <main style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding: {{ mainPad }}">
+
+  <!-- ================= HOME ================= -->
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+    <section data-screen-label="Home" style="animation:fadeUp .5s both">
+      <div style="padding:70px 0 44px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.22em;color:#8b8794;text-transform:uppercase;margin-bottom:18px;animation:fadeUp .5s .05s both">A shared memory book</div>
+        <h1 style="font-family:Sora;font-weight:800;font-size:clamp(40px,6vw,74px);line-height:1.04;margin:0;letter-spacing:-0.025em;animation:fadeUp .5s .12s both">{{ homeHeadline }}</h1>
+        <p style="max-width:500px;color:#a5a1af;font-size:17px;line-height:1.6;margin:22px 0 0;animation:fadeUp .5s .2s both">{{ homeSub }}</p>
+        <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;animation:fadeUp .5s .28s both">
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newEvent }}" style="border:none;cursor:pointer;padding:14px 28px;border-radius:99px;font-family:Sora;font-weight:700;font-size:15px;color:#0e0d12;background:#f2f0f5;transition:all .2s" style-hover="transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,255,255,0.14)">{{ homeCta }}</button>
+          </sc-if>
+          <button onClick="{{ goEvents }}" style="cursor:pointer;padding:14px 28px;border-radius:99px;font-family:Sora;font-weight:600;font-size:15px;color:#f2f0f5;background:transparent;border:1px solid rgba(255,255,255,0.18);transition:all .2s" style-hover="border-color:rgba(255,255,255,0.45);background:rgba(255,255,255,0.05)">Browse events</button>
+        </div>
+      </div>
+
+      <sc-if value="{{ homeEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:26px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.025);padding:64px 40px;text-align:center;position:relative;overflow:hidden;animation:fadeUp .6s .34s both">
+          <div style="position:relative;width:150px;height:150px;margin:0 auto 26px">
+            <div style="position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(255,255,255,0.14);animation:orbit 32s linear infinite"></div>
+            <div style="position:absolute;inset:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%, oklch(0.6 0.13 342 / 0.4), oklch(0.5 0.12 240 / 0.25) 55%, transparent 72%);filter:blur(6px);animation:breathe 5s ease-in-out infinite"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:34px;color:rgba(255,255,255,0.5)">✦</div>
+          </div>
+          <div style="font-family:Sora;font-weight:700;font-size:24px;letter-spacing:-0.01em">No memories yet. Start your first adventure.</div>
+          <div style="color:#8b8794;font-size:15px;margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.6">Create an event, add the people who were there, then drop in the photos. Everything stays in this browser.</div>
+          <div style="display:flex;gap:10px;justify-content:center;margin-top:26px;flex-wrap:wrap">
+            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ newEvent }}" style="border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">Create an event</button>
+            </sc-if>
+            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ newFriend }}" style="cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:600;font-size:14px;color:#f2f0f5;background:transparent;border:1px solid rgba(255,255,255,0.18);transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Add a friend</button>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ homeHasContent }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-if value="{{ featured }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ featured.open }}" style="cursor:pointer;position:relative;border-radius:24px;overflow:hidden;height:340px;background: {{ featured.bg }};background-size:cover;background-position:center;animation:fadeUp .6s .3s both;transition:transform .35s cubic-bezier(.2,.9,.3,1.2), box-shadow .35s" style-hover="transform:scale(1.012);box-shadow:0 24px 60px rgba(0,0,0,0.5)">
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg, transparent 30%, rgba(10,9,14,0.88))"></div>
+              <div style="position:absolute;top:20px;left:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:rgba(255,255,255,0.8);text-transform:uppercase;background:rgba(0,0,0,0.32);backdrop-filter:blur(8px);padding:6px 12px;border-radius:99px">Most recent</div>
+              <div style="position:absolute;left:28px;bottom:26px;right:28px">
+                <div style="font-family:Sora;font-weight:800;font-size:34px;letter-spacing:-0.015em">{{ featured.title }}</div>
+                <div style="color:#c9c5d2;font-size:14px;margin-top:6px">{{ featured.meta }}</div>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin:52px 0 18px">
+            <h2 style="font-family:Sora;font-weight:700;font-size:23px;margin:0;letter-spacing:-0.01em">Recent events</h2>
+            <button onClick="{{ goEvents }}" style="border:none;background:none;cursor:pointer;color:#a5a1af;font-size:14px;font-weight:600;transition:color .2s" style-hover="color:#fff">See all →</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px">
+            <sc-for list="{{ recentEvents }}" as="ev" hint-placeholder-count="3">
+              <div onClick="{{ ev.open }}" style="cursor:pointer;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;animation-delay: {{ ev.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.3), border-color .3s" style-hover="transform:translateY(-5px);border-color:rgba(255,255,255,0.2)">
+                <div style="height:140px;background: {{ ev.bg }};background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center">
+                  <sc-if value="{{ ev.noCover }}" hint-placeholder-val="{{ false }}"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.12em">NO COVER</div></sc-if>
+                  <div style="position:absolute;bottom:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.75);background:rgba(0,0,0,0.4);padding:4px 9px;border-radius:99px;backdrop-filter:blur(6px)">{{ ev.count }} photos</div>
+                </div>
+                <div style="padding:15px 16px 17px">
+                  <div style="font-family:Sora;font-weight:700;font-size:16px">{{ ev.title }}</div>
+                  <div style="color:#8b8794;font-size:13px;margin-top:4px">{{ ev.meta }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <h2 style="font-family:Sora;font-weight:700;font-size:23px;margin:52px 0 18px;letter-spacing:-0.01em">Latest photos</h2>
+              <div style="display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:92px;gap:10px">
+                <sc-for list="{{ mosaic }}" as="m" hint-placeholder-count="8">
+                  <div onClick="{{ m.open }}" style="cursor:pointer;border-radius:12px;overflow:hidden;position:relative;grid-column:span {{ m.cspan }};grid-row:span {{ m.rspan }};background: {{ m.bg }};background-size:cover;background-position:center;animation:popIn .45s both;animation-delay: {{ m.delay }};transition:transform .25s, filter .25s" style-hover="transform:scale(1.03);filter:brightness(1.12);z-index:2">
+                    <sc-if value="{{ m.isVideo }}" hint-placeholder-val="{{ false }}">
+                      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                        <div style="width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;padding-left:2px">▶</div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- ================= EVENTS ================= -->
+  <sc-if value="{{ showEvents }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Events" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:46px 0 8px">
+        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">Events</h1>
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ newEvent }}" style="border:none;cursor:pointer;padding:11px 22px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5;transition:transform .2s" style-hover="transform:translateY(-2px)">+ New event</button>
+        </sc-if>
+      </div>
+      <p style="color:#8b8794;margin:0 0 24px;font-size:15px">{{ eventsSub }}</p>
+      <sc-if value="{{ hasEventChips }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:8px;margin-bottom:26px;flex-wrap:wrap">
+          <sc-for list="{{ eventFilters }}" as="c" hint-placeholder-count="3">
+            <button onClick="{{ c.pick }}" style="cursor:pointer;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid {{ c.border }};background: {{ c.bg }};color: {{ c.color }};transition:all .2s" style-hover="border-color:rgba(255,255,255,0.4)">{{ c.label }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ eventsEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:24px;border:1px dashed rgba(255,255,255,0.14);padding:70px 30px;text-align:center;animation:fadeUp .5s both">
+          <div style="width:110px;height:70px;margin:0 auto 22px;position:relative">
+            <div style="position:absolute;inset:0;border-radius:12px;border:1px solid rgba(255,255,255,0.16);transform:rotate(-7deg);animation:breathe 6s ease-in-out infinite"></div>
+            <div style="position:absolute;inset:0;border-radius:12px;border:1px solid rgba(255,255,255,0.24);transform:rotate(5deg);background:linear-gradient(135deg, oklch(0.5 0.1 342 / 0.2), oklch(0.5 0.1 240 / 0.15))"></div>
+          </div>
+          <div style="font-family:Sora;font-weight:700;font-size:22px">Create your first event.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">A weekend, a trip, a night out — anything worth keeping.</div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newEvent }}" style="margin-top:22px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">Create an event</button>
+          </sc-if>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px">
+        <sc-for list="{{ eventCards }}" as="ev" hint-placeholder-count="0">
+          <div onClick="{{ ev.open }}" style="cursor:pointer;border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;animation-delay: {{ ev.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s, border-color .3s;position:relative" style-hover="transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,0,0,0.45);border-color:rgba(255,255,255,0.2)">
+            <div style="height:178px;background: {{ ev.bg }};background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ ev.noCover }}" hint-placeholder-val="{{ false }}"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.12em">NO COVER YET</div></sc-if>
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg, transparent 45%, rgba(10,9,14,0.6))"></div>
+              <div style="position:absolute;bottom:12px;left:16px;display:flex">
+                <sc-for list="{{ ev.avatars }}" as="av" hint-placeholder-count="0">
+                  <div style="width:26px;height:26px;border-radius:50%;background: {{ av.bg }};background-size:cover;background-position:center;border:2px solid rgba(14,13,18,0.85);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:Sora;margin-left:-8px">{{ av.initial }}</div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;top:12px;right:12px;display:flex;gap:6px">
+                <button onClick="{{ ev.edit }}" title="Edit" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:rgba(255,255,255,0.25)">✎</button>
+                <button onClick="{{ ev.archive }}" title="{{ ev.archiveLabel }}" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:rgba(255,255,255,0.25)">{{ ev.archiveIcon }}</button>
+                <button onClick="{{ ev.remove }}" title="Delete" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20);color:#fff">✕</button>
+              </div>
+              </sc-if>
+            </div>
+            <div style="padding:17px 18px 19px">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+                <div style="font-family:Sora;font-weight:700;font-size:18px">{{ ev.title }}</div>
+                <div style="font-size:13px;color:oklch(0.75 0.16 5);font-weight:700">{{ ev.favLabel }}</div>
+              </div>
+              <div style="color:#8b8794;font-size:13px;margin-top:4px">{{ ev.meta }}</div>
+              <div style="color:#a5a1af;font-size:13px;line-height:1.5;margin-top:9px">{{ ev.desc }}</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:11px">
+                <sc-for list="{{ ev.tags }}" as="t" hint-placeholder-count="0">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#a5a1af;border:1px solid rgba(255,255,255,0.12);padding:3px 9px;border-radius:99px">{{ t.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= EVENT DETAIL ================= -->
+  <sc-if value="{{ showEvent }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Event detail" style="animation:fadeIn .45s both;padding-bottom:90px">
+      <div style="position:relative;border-radius:0 0 28px 28px;overflow:hidden;height:360px;margin: {{ heroMargin }};background: {{ curEvent.bg }};background-size:cover;background-position:center;animation:fadeIn .6s both">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(14,13,18,0.4), transparent 40%, rgba(14,13,18,0.94))"></div>
+        <button onClick="{{ goEvents }}" style="position:absolute;top:20px;left:24px;cursor:pointer;border:none;padding:9px 18px;border-radius:99px;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600;transition:background .2s" style-hover="background:rgba(0,0,0,0.6)">← Events</button>
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;top:20px;right:24px;display:flex;gap:8px">
+          <button onClick="{{ editCurEvent }}" style="cursor:pointer;border:none;padding:9px 16px;border-radius:99px;background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:600;transition:background .2s" style-hover="background:rgba(0,0,0,0.62)">Edit event</button>
+          <button onClick="{{ toggleManage }}" style="cursor:pointer;border:none;padding:9px 16px;border-radius:99px;background: {{ manageBg }};backdrop-filter:blur(10px);color: {{ manageColor }};font-size:13px;font-weight:600;transition:all .2s" style-hover="opacity:0.85">{{ manageLabel }}</button>
+        </div>
+        </sc-if>
+        <div style="position:absolute;left:24px;right:24px;bottom:26px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.72);margin-bottom:10px">{{ curEvent.meta }}</div>
+          <h1 style="font-family:Sora;font-weight:800;font-size:clamp(32px,5vw,54px);margin:0;letter-spacing:-0.025em;animation:fadeUp .6s .1s both">{{ curEvent.title }}</h1>
+          <div style="display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap;animation:fadeUp .6s .18s both">
+            <div style="display:flex">
+              <sc-for list="{{ curEvent.avatars }}" as="av" hint-placeholder-count="0">
+                <div title="{{ av.name }}" onClick="{{ av.open }}" style="width:34px;height:34px;border-radius:50%;background: {{ av.bg }};background-size:cover;background-position:center;border:2px solid rgba(14,13,18,0.85);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:Sora;margin-left:-9px;cursor:pointer;transition:transform .2s" style-hover="transform:translateY(-3px)">{{ av.initial }}</div>
+              </sc-for>
+            </div>
+            <div style="color:#c9c5d2;font-size:14px">{{ curEvent.statLine }}</div>
+            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ goUploadHere }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);color:#fff;padding:8px 18px;border-radius:99px;font-size:13px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.2)">+ Add photos</button>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ curEvent.desc }}" hint-placeholder-val="{{ false }}">
+        <p style="max-width:640px;color:#a5a1af;font-size:16px;line-height:1.65;margin:28px 0 22px">{{ curEvent.desc }}</p>
+      </sc-if>
+      <sc-if value="{{ manageMode }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:20px 0 18px;padding:14px 18px;border-radius:14px;background:oklch(0.4 0.1 300 / 0.15);border:1px solid oklch(0.6 0.1 300 / 0.3);font-size:13px;color:#d6d1e0;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <span style="font-weight:700;font-family:Sora">Organize mode</span>
+          <span style="color:#a5a1af">Drag photos to reorder · click ★ to set the cover · ✕ deletes</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ eventPhotosEmpty }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ goUploadHere }}" style="cursor:pointer;border-radius:22px;border:1px dashed rgba(255,255,255,0.16);padding:64px 30px;text-align:center;transition:all .25s;animation:fadeUp .5s both" style-hover="border-color:oklch(0.7 0.13 342);background:rgba(255,255,255,0.03)">
+          <div style="width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg, oklch(0.5 0.12 342 / 0.4), oklch(0.5 0.11 260 / 0.4));display:flex;align-items:center;justify-content:center;font-size:24px;animation:drift3 5s ease-in-out infinite">↑</div>
+          <div style="font-family:Sora;font-weight:700;font-size:20px">This event is waiting for its photos.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Drop them in — the cover and statistics fill in automatically.</div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ notAdmin }}" hint-placeholder-val="{{ false }}">
+        <div style="border-radius:22px;border:1px solid rgba(255,255,255,0.08);padding:64px 30px;text-align:center;animation:fadeUp .5s both">
+          <div style="font-family:Sora;font-weight:700;font-size:20px">No photos here yet.</div>
+        </div>
+        </sc-if>
+      </sc-if>
+      <div style="columns:220px;column-gap:14px">
+        <sc-for list="{{ curPhotos }}" as="p" hint-placeholder-count="0">
+          <div onClick="{{ p.open }}" draggable="{{ p.draggable }}" onDragStart="{{ p.dragStart }}" onDragOver="{{ p.dragOver }}" onDrop="{{ p.drop }}" onDragEnd="{{ p.dragEnd }}" style="cursor: {{ p.cursor }};break-inside:avoid;margin-bottom:14px;border-radius:14px;overflow:hidden;position:relative;opacity: {{ p.opacity }};outline: {{ p.outline }};animation:popIn .45s both;animation-delay: {{ p.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.25), box-shadow .3s, outline .2s" style-hover="transform:scale(1.02);box-shadow:0 16px 36px rgba(0,0,0,0.5);z-index:2">
+            <sc-if value="{{ p.url }}" hint-placeholder-val="{{ false }}"><img src="{{ p.url }}" style="width:100%;display:block"></sc-if>
+            <sc-if value="{{ p.noThumb }}" hint-placeholder-val="{{ false }}"><div style="width:100%;aspect-ratio:4/3;background: {{ p.thumbBg }}"></div></sc-if>
+            <sc-if value="{{ p.isVideo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;padding-left:3px;box-shadow:0 6px 18px rgba(0,0,0,0.35)">▶</div>
+              </div>
+            </sc-if>
+            <div style="position:absolute;top:9px;right:9px;display:flex;gap:6px">
+              <sc-if value="{{ p.manage }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ p.setCover }}" title="Set as cover" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color: {{ p.coverColor }};font-size:13px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.65)">★</button>
+              </sc-if>
+              <sc-if value="{{ p.manage }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ p.remove }}" title="Delete photo" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20)">✕</button>
+              </sc-if>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ p.fav }}" title="Favorite" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);color: {{ p.favColor }};font-size:14px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.62)">{{ p.favIcon }}</button>
+              </sc-if>
+            </div>
+            <sc-if value="{{ p.isCover }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;bottom:9px;left:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;color:#fff;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);padding:4px 9px;border-radius:99px">COVER</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= ALBUMS ================= -->
+  <sc-if value="{{ showAlbums }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Albums" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:46px 0 8px">
+        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">Albums</h1>
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ newAlbum }}" style="border:none;cursor:pointer;padding:11px 22px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5;transition:transform .2s" style-hover="transform:translateY(-2px)">+ New album</button>
+        </sc-if>
+      </div>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Collections that cut across events. Add photos from the viewer.</p>
+      <sc-if value="{{ albumsEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:24px;border:1px dashed rgba(255,255,255,0.14);padding:70px 30px;text-align:center">
+          <div style="width:96px;height:96px;margin:0 auto 20px;position:relative">
+            <div style="position:absolute;left:0;top:14px;width:60px;height:60px;border-radius:12px;border:1px solid rgba(255,255,255,0.16);transform:rotate(-8deg)"></div>
+            <div style="position:absolute;right:0;top:6px;width:60px;height:60px;border-radius:12px;border:1px solid rgba(255,255,255,0.22);background:linear-gradient(135deg, oklch(0.5 0.1 150 / 0.2), transparent);transform:rotate(7deg);animation:breathe 6s ease-in-out infinite"></div>
+          </div>
+          <div style="font-family:Sora;font-weight:700;font-size:22px">No albums yet.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Group the best shots into a collection — “Sunsets”, “The group photos”, whatever you like.</div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newAlbum }}" style="margin-top:22px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.12 160), oklch(0.85 0.12 210));transition:transform .2s" style-hover="transform:translateY(-2px)">Create an album</button>
+          </sc-if>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px">
+        <sc-for list="{{ albumCards }}" as="a" hint-placeholder-count="0">
+          <div onClick="{{ a.open }}" style="cursor:pointer;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;transition:transform .3s, border-color .3s" style-hover="transform:translateY(-5px);border-color:rgba(255,255,255,0.2)">
+            <div style="height:130px;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.03)">
+              <sc-for list="{{ a.thumbs }}" as="t" hint-placeholder-count="0">
+                <div style="background-image:url( {{ t.url }} );background-size:cover;background-position:center"></div>
+              </sc-for>
+            </div>
+            <div style="padding:14px 16px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+              <div><div style="font-family:Sora;font-weight:700;font-size:16px">{{ a.name }}</div><div style="color:#8b8794;font-size:12px;margin-top:3px">{{ a.count }} photos</div></div>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ a.remove }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#8b8794;border-radius:8px;padding:6px 10px;font-size:12px;transition:all .2s" style-hover="background:oklch(0.5 0.16 20);color:#fff">Delete</button>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= ALBUM DETAIL ================= -->
+  <sc-if value="{{ showAlbum }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Album detail" style="animation:fadeUp .5s both;padding-bottom:90px">
+      <button onClick="{{ goAlbums }}" style="margin-top:26px;cursor:pointer;border:none;padding:9px 18px;border-radius:99px;background:rgba(255,255,255,0.08);color:#fff;font-size:13px;font-weight:600;transition:background .2s" style-hover="background:rgba(255,255,255,0.16)">← Albums</button>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:20px 0 8px">
+        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">{{ curAlbum.name }}</h1>
+      </div>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">{{ curAlbum.count }} photos</p>
+      <sc-if value="{{ albumPhotosEmpty }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ goEvents }}" style="cursor:pointer;border-radius:22px;border:1px dashed rgba(255,255,255,0.16);padding:64px 30px;text-align:center;transition:all .25s" style-hover="border-color:oklch(0.7 0.13 342);background:rgba(255,255,255,0.03)">
+          <div style="font-family:Sora;font-weight:700;font-size:20px">No photos in this album yet.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Open a photo in an event's viewer and add it to this album.</div>
+        </div>
+      </sc-if>
+      <div style="columns:220px;column-gap:14px">
+        <sc-for list="{{ curAlbumPhotos }}" as="p" hint-placeholder-count="0">
+          <div onClick="{{ p.open }}" style="cursor:pointer;break-inside:avoid;margin-bottom:14px;border-radius:14px;overflow:hidden;position:relative;animation:popIn .45s both;animation-delay: {{ p.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.25), box-shadow .3s" style-hover="transform:scale(1.02);box-shadow:0 16px 36px rgba(0,0,0,0.5);z-index:2">
+            <sc-if value="{{ p.url }}" hint-placeholder-val="{{ false }}"><img src="{{ p.url }}" style="width:100%;display:block"></sc-if>
+            <sc-if value="{{ p.noThumb }}" hint-placeholder-val="{{ false }}"><div style="width:100%;aspect-ratio:4/3;background: {{ p.thumbBg }}"></div></sc-if>
+            <sc-if value="{{ p.isVideo }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;padding-left:3px;box-shadow:0 6px 18px rgba(0,0,0,0.35)">▶</div>
+              </div>
+            </sc-if>
+            <div style="position:absolute;top:9px;right:9px;display:flex;gap:6px">
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ p.remove }}" title="Remove from album" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);color:#fff;font-size:12px;transition:all .2s" style-hover="background:oklch(0.55 0.18 20)">✕</button>
+              </sc-if>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ p.fav }}" title="Favorite" style="cursor:pointer;border:none;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);color: {{ p.favColor }};font-size:14px;transition:all .2s" style-hover="transform:scale(1.14);background:rgba(0,0,0,0.62)">{{ p.favIcon }}</button>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= TIMELINE ================= -->
+  <sc-if value="{{ showTimeline }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Timeline" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Timeline</h1>
+      <p style="color:#8b8794;margin:0 0 40px;font-size:15px">{{ timelineSub }}</p>
+      <sc-if value="{{ timelineEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;padding:56px 0 70px;text-align:center">
+          <div style="width:2px;height:130px;margin:0 auto 26px;background:linear-gradient(180deg, transparent, oklch(0.75 0.13 342), oklch(0.75 0.12 240), transparent);animation:breathe 4.5s ease-in-out infinite"></div>
+          <div style="font-family:Sora;font-weight:700;font-size:22px">Your journey begins here.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Add a date to an event and it will appear on this line.</div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newEvent }}" style="margin-top:22px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5;transition:transform .2s" style-hover="transform:translateY(-2px)">Add the first one</button>
+          </sc-if>
+        </div>
+      </sc-if>
+      <div style="position:relative;padding-left: {{ timelinePad }}">
+        <sc-if value="{{ timelineHas }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg, oklch(0.75 0.13 342), oklch(0.75 0.12 260), oklch(0.75 0.12 180), oklch(0.78 0.12 110))"></div>
+        </sc-if>
+        <sc-for list="{{ timelineGroups }}" as="g" hint-placeholder-count="0">
+          <div style="margin-bottom:12px">
+            <div style="position:relative;font-family:Sora;font-weight:800;font-size:25px;margin:24px 0 16px;animation:fadeUp .5s both;animation-delay: {{ g.delay }}">
+              <div style="position:absolute;left:-34px;top:9px;width:14px;height:14px;border-radius:50%;background: {{ g.dotColor }};box-shadow:0 0 0 4px #0e0d12, 0 0 16px {{ g.dotColor }}"></div>
+              {{ g.year }}
+            </div>
+            <sc-for list="{{ g.events }}" as="ev" hint-placeholder-count="0">
+              <div onClick="{{ ev.open }}" style="cursor:pointer;display:flex;gap:16px;align-items:center;padding:12px;border-radius:16px;margin-bottom:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);animation:fadeUp .5s both;animation-delay: {{ ev.delay }};transition:all .25s" style-hover="background:rgba(255,255,255,0.07);transform:translateX(6px);border-color:rgba(255,255,255,0.15)">
+                <div style="width:86px;height:62px;border-radius:10px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
+                <div style="flex:1;min-width:0"><div style="font-family:Sora;font-weight:700;font-size:17px">{{ ev.title }}</div><div style="color:#8b8794;font-size:13px;margin-top:3px">{{ ev.meta }}</div></div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b8794;white-space:nowrap">{{ ev.count }} photos →</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= STATS ================= -->
+  <sc-if value="{{ showStats }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Statistics" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Statistics</h1>
+      <p style="color:#8b8794;margin:0 0 20px;font-size:15px">Calculated from what you have uploaded. Nothing is estimated.</p>
+      <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ goAdmin }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.05);color:#f2f0f5;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;margin-bottom:22px" style-hover="background:rgba(255,255,255,0.1)">⚙ Admin dashboard</button>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:18px">
+        <sc-for list="{{ bigStats }}" as="s" hint-placeholder-count="6">
+          <div style="border-radius:18px;padding:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;animation-delay: {{ s.delay }};transition:transform .25s,border-color .25s" style-hover="transform:translateY(-4px);border-color:rgba(255,255,255,0.18)">
+            <div style="font-family:Sora;font-weight:800;font-size:36px;background:linear-gradient(120deg, {{ s.c1 }}, {{ s.c2 }});-webkit-background-clip:text;background-clip:text;color:transparent">{{ s.value }}</div>
+            <div style="color:#8b8794;font-size:13px;margin-top:5px;font-weight:600">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ statsEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:20px;border:1px dashed rgba(255,255,255,0.13);padding:56px 30px;text-align:center">
+          <div style="display:flex;gap:8px;justify-content:center;align-items:flex-end;height:70px;margin-bottom:20px">
+            <div style="width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,0.07);animation:breathe 4s ease-in-out infinite"></div>
+            <div style="width:26px;height:48px;border-radius:6px;background:rgba(255,255,255,0.09);animation:breathe 4s ease-in-out .4s infinite"></div>
+            <div style="width:26px;height:66px;border-radius:6px;background:rgba(255,255,255,0.11);animation:breathe 4s ease-in-out .8s infinite"></div>
+          </div>
+          <div style="font-family:Sora;font-weight:700;font-size:20px">Charts appear once you have photos.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Every upload updates these numbers automatically.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ statsHas }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns: {{ statsGrid }};gap:16px">
+          <div style="border-radius:18px;padding:24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+            <h3 style="font-family:Sora;font-size:16px;font-weight:700;margin:0 0 18px">Photos per event</h3>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <sc-for list="{{ barChart }}" as="b" hint-placeholder-count="0">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:120px;font-size:13px;color:#a5a1af;text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.label }}</div>
+                  <div style="flex:1;height:22px;border-radius:6px;background:rgba(255,255,255,0.05);overflow:hidden">
+                    <div style="height:100%;border-radius:6px;width: {{ b.width }};background:linear-gradient(90deg, {{ b.c1 }}, {{ b.c2 }});transition:width .8s cubic-bezier(.3,.8,.3,1)"></div>
+                  </div>
+                  <div style="width:34px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8b8794">{{ b.n }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ hasFriends }}" hint-placeholder-val="{{ false }}">
+            <div style="border-radius:18px;padding:24px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+              <h3 style="font-family:Sora;font-size:16px;font-weight:700;margin:0 0 18px">Most events attended</h3>
+              <div style="display:flex;flex-direction:column;gap:13px">
+                <sc-for list="{{ friendRanks }}" as="f" hint-placeholder-count="0">
+                  <div onClick="{{ f.open }}" style="cursor:pointer;display:flex;align-items:center;gap:12px;transition:transform .2s" style-hover="transform:translateX(4px)">
+                    <div style="width:34px;height:34px;border-radius:50%;background: {{ f.bg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:700;font-size:13px">{{ f.initial }}</div>
+                    <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">{{ f.name }}</div><div style="color:#8b8794;font-size:12px">{{ f.sub }}</div></div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color: {{ f.accent }}">{{ f.n }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- ================= FRIENDS ================= -->
+  <sc-if value="{{ showFriends }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Friends" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:46px 0 8px">
+        <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:0;letter-spacing:-0.025em">Friends</h1>
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ newFriend }}" style="border:none;cursor:pointer;padding:11px 22px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5;transition:transform .2s" style-hover="transform:translateY(-2px)">+ Add friend</button>
+        </sc-if>
+      </div>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">{{ friendsSub }}</p>
+      <sc-if value="{{ friendsEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:24px;border:1px dashed rgba(255,255,255,0.14);padding:70px 30px;text-align:center">
+          <div style="display:flex;justify-content:center;margin-bottom:22px">
+            <sc-for list="{{ emptyAvatars }}" as="e" hint-placeholder-count="3">
+              <div style="width:54px;height:54px;border-radius:50%;border:1px dashed rgba(255,255,255,0.2);margin-left:-12px;background:radial-gradient(circle at 40% 35%, rgba(255,255,255,0.06), transparent 70%);animation:breathe 5s ease-in-out infinite;animation-delay: {{ e.delay }}"></div>
+            </sc-for>
+          </div>
+          <div style="font-family:Sora;font-weight:700;font-size:22px">Invite your friends to begin collecting memories.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Add each person once, then tag them on the events they were part of.</div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newFriend }}" style="margin-top:22px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.12 260), oklch(0.85 0.12 200));transition:transform .2s" style-hover="transform:translateY(-2px)">Add a friend</button>
+          </sc-if>
+        </div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px">
+        <sc-for list="{{ friendCards }}" as="f" hint-placeholder-count="0">
+          <div style="border-radius:20px;padding:26px 20px;text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;animation-delay: {{ f.delay }};transition:all .3s cubic-bezier(.2,.9,.3,1.3);position:relative" style-hover="transform:translateY(-6px);border-color:rgba(255,255,255,0.2);box-shadow:0 18px 40px rgba(0,0,0,0.4)">
+            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;top:10px;right:10px;display:flex;gap:5px">
+              <button onClick="{{ f.edit }}" style="cursor:pointer;border:none;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:11px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);color:#fff">✎</button>
+              <button onClick="{{ f.remove }}" style="cursor:pointer;border:none;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:11px;transition:all .2s" style-hover="background:oklch(0.5 0.16 20);color:#fff">✕</button>
+            </div>
+            </sc-if>
+            <div onClick="{{ f.open }}" style="cursor:pointer">
+              <div style="position:relative;width:70px;margin:0 auto">
+                <div style="width:70px;height:70px;border-radius:50%;background: {{ f.bg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:23px;border:3px solid rgba(255,255,255,0.12)">{{ f.initial }}</div>
+                <sc-if value="{{ f.hasFav }}" hint-placeholder-val="{{ false }}">
+                  <div title="Favorite photo" style="position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;background-image:url( {{ f.favUrl }} );background-size:cover;background-position:center;border:2px solid #17151c;box-shadow:0 2px 6px rgba(0,0,0,0.5)"></div>
+                </sc-if>
+              </div>
+              <div style="font-family:Sora;font-weight:700;font-size:17px;margin-top:13px">{{ f.name }}</div>
+              <div style="color:#8b8794;font-size:13px;margin-top:4px;min-height:18px">{{ f.tagline }}</div>
+              <div style="display:flex;justify-content:center;gap:16px;margin-top:14px;font-size:13px">
+                <div><span style="font-weight:700;color: {{ f.accent }}">{{ f.events }}</span> <span style="color:#8b8794">events</span></div>
+                <div><span style="font-weight:700;color: {{ f.accent }}">{{ f.photos }}</span> <span style="color:#8b8794">photos</span></div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= FRIEND PROFILE ================= -->
+  <sc-if value="{{ showFriend }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Friend profile" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <button onClick="{{ goFriends }}" style="cursor:pointer;border:none;background:none;color:#8b8794;font-size:14px;font-weight:600;margin:28px 0 0;padding:0" style-hover="color:#fff">← Friends</button>
+      <div style="display:flex;align-items:center;gap:24px;margin:26px 0 34px;flex-wrap:wrap">
+        <div style="width:92px;height:92px;border-radius:50%;background: {{ curFriend.bg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:32px;border:3px solid rgba(255,255,255,0.15);animation:popIn .5s both">{{ curFriend.initial }}</div>
+        <div style="flex:1;min-width:200px">
+          <h1 style="font-family:Sora;font-weight:800;font-size:36px;margin:0;letter-spacing:-0.025em">{{ curFriend.name }}</h1>
+          <div style="color:#8b8794;font-size:15px;margin-top:6px">{{ curFriend.line }}</div>
+        </div>
+        <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ editCurFriend }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.18);background:none;color:#f2f0f5;padding:10px 20px;border-radius:99px;font-size:14px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.07)">Edit profile</button>
+        </sc-if>
+      </div>
+      <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">Favorite photo</h2>
+      <sc-if value="{{ curFriend.hasFav }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ curFriend.favOpen }}" style="cursor:pointer;width:220px;height:220px;border-radius:18px;overflow:hidden;background-image:url( {{ curFriend.favUrl }} );background-size:cover;background-position:center;margin-bottom:34px;transition:transform .3s cubic-bezier(.2,.9,.3,1.2)" style-hover="transform:scale(1.02)"></div>
+      </sc-if>
+      <sc-if value="{{ curFriend.noFav }}" hint-placeholder-val="{{ true }}">
+        <div style="width:220px;height:220px;border-radius:18px;border:1px dashed rgba(255,255,255,0.16);display:flex;align-items:center;justify-content:center;text-align:center;color:#8b8794;font-size:13px;padding:18px;margin-bottom:34px">No Favorite Photo Yet</div>
+      </sc-if>
+      <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">Events attended</h2>
+      <sc-if value="{{ curFriendNoEvents }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:16px;border:1px dashed rgba(255,255,255,0.13);padding:36px;text-align:center;color:#8b8794;font-size:14px;margin-bottom:34px">Not tagged on any event yet. Open an event, choose Edit, and add them.</div>
+      </sc-if>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:36px">
+        <sc-for list="{{ curFriendEvents }}" as="ev" hint-placeholder-count="0">
+          <div onClick="{{ ev.open }}" style="cursor:pointer;display:flex;gap:13px;align-items:center;padding:11px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all .25s" style-hover="background:rgba(255,255,255,0.07);transform:translateY(-3px)">
+            <div style="width:58px;height:44px;border-radius:8px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
+            <div style="min-width:0"><div style="font-weight:700;font-size:14px;font-family:Sora;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ev.title }}</div><div style="color:#8b8794;font-size:12px;margin-top:2px">{{ ev.meta }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= SEARCH ================= -->
+  <sc-if value="{{ showSearch }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Search" style="animation:fadeUp .4s both;padding-bottom:80px">
+      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 22px;letter-spacing:-0.025em">Search</h1>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <input value="{{ searchQ }}" onChange="{{ setSearch }}" placeholder="Search events, tags, people…" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:15px 20px;color:#f2f0f5;font-size:16px;outline:none;margin-bottom:22px" style-focus="border-color:oklch(0.6 0.12 342)">
+      </sc-if>
+      <sc-if value="{{ hasSearchTags }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap">
+          <sc-for list="{{ searchTags }}" as="t" hint-placeholder-count="0">
+            <button onClick="{{ t.pick }}" style="cursor:pointer;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid {{ t.border }};background: {{ t.bg }};color: {{ t.color }};transition:all .2s" style-hover="border-color:rgba(255,255,255,0.4)">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ searchNothing }}" hint-placeholder-val="{{ true }}">
+        <div style="text-align:center;padding:70px 0">
+          <div style="width:80px;height:80px;margin:0 auto;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);display:flex;align-items:center;justify-content:center;font-size:30px;animation:drift3 6s ease-in-out infinite">⌕</div>
+          <div style="font-family:Sora;font-weight:700;font-size:20px;margin-top:16px">{{ searchEmptyTitle }}</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">{{ searchEmptySub }}</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ searchHasResults }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="font-size:12px;color:#8b8794;margin-bottom:14px;font-family:'JetBrains Mono',monospace">{{ searchSummary }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-bottom:30px">
+            <sc-for list="{{ searchEvents }}" as="ev" hint-placeholder-count="0">
+              <div onClick="{{ ev.open }}" style="cursor:pointer;display:flex;gap:13px;align-items:center;padding:11px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all .25s" style-hover="background:rgba(255,255,255,0.07)">
+                <div style="width:62px;height:46px;border-radius:8px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
+                <div style="min-width:0"><div style="font-weight:700;font-size:15px;font-family:Sora">{{ ev.title }}</div><div style="color:#8b8794;font-size:12px;margin-top:2px">{{ ev.meta }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="columns:200px;column-gap:12px">
+            <sc-for list="{{ searchPhotos }}" as="p" hint-placeholder-count="0">
+              <div onClick="{{ p.open }}" style="cursor:pointer;break-inside:avoid;margin-bottom:12px;border-radius:12px;overflow:hidden;position:relative;transition:transform .25s" style-hover="transform:scale(1.02)">
+                <sc-if value="{{ p.url }}" hint-placeholder-val="{{ false }}"><img src="{{ p.url }}" style="width:100%;display:block"></sc-if>
+                <sc-if value="{{ p.noThumb }}" hint-placeholder-val="{{ false }}"><div style="width:100%;aspect-ratio:4/3;background: {{ p.thumbBg }}"></div></sc-if>
+                <sc-if value="{{ p.isVideo }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                    <div style="width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;padding-left:2px">▶</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- ================= UPLOAD ================= -->
+  <sc-if value="{{ showUpload }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Upload" style="animation:fadeUp .5s both;padding-bottom:100px;max-width:760px;margin:0 auto">
+      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Add photos & videos</h1>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Stored privately in this browser. Nothing is uploaded anywhere.</p>
+      <sc-if value="{{ noEventsForUpload }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:20px;border:1px dashed rgba(255,255,255,0.14);padding:56px 30px;text-align:center">
+          <div style="font-family:Sora;font-weight:700;font-size:20px">Photos live inside events.</div>
+          <div style="color:#8b8794;font-size:14px;margin-top:8px">Create one first, then come back.</div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ newEvent }}" style="margin-top:20px;border:none;cursor:pointer;padding:12px 24px;border-radius:99px;font-family:Sora;font-weight:700;font-size:14px;color:#0e0d12;background:#f2f0f5">Create an event</button>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ canUpload }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#a5a1af;margin-bottom:11px;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace">1 · Which event?</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+            <sc-for list="{{ uploadEventChips }}" as="c" hint-placeholder-count="0">
+              <button onClick="{{ c.pick }}" style="cursor:pointer;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid {{ c.border }};background: {{ c.bg }};color: {{ c.color }};transition:all .2s" style-hover="border-color:rgba(255,255,255,0.4)">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#a5a1af;margin-bottom:11px;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace">2 · Drop your photos or videos</div>
+          <div onClick="{{ pickFiles }}" onDragOver="{{ dragOverH }}" onDragLeave="{{ dragLeaveH }}" onDrop="{{ dropH }}" style="cursor:pointer;border-radius:20px;border:2px dashed {{ dropBorder }};background: {{ dropBg }};padding:54px 24px;text-align:center;transition:all .25s">
+            <div style="width:62px;height:62px;margin:0 auto 15px;border-radius:50%;background:linear-gradient(135deg, oklch(0.5 0.12 342 / 0.4), oklch(0.5 0.11 260 / 0.4));display:flex;align-items:center;justify-content:center;font-size:24px;animation:drift3 5s ease-in-out infinite">↑</div>
+            <div style="font-family:Sora;font-weight:700;font-size:17px">{{ dropLabel }}</div>
+            <div style="color:#8b8794;font-size:13px;margin-top:6px">or click to browse · select as many as you like</div>
+            <input type="file" accept="image/*,video/*" multiple="{{ true }}" onChange="{{ filesPicked }}" ref="{{ fileInputRef }}" style="display:none">
+          </div>
+          <sc-if value="{{ hasQueue }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:26px">
+              <div style="font-size:11px;font-weight:700;color:#a5a1af;margin-bottom:11px;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace">3 · Review & order</div>
+              <div style="display:flex;flex-direction:column;gap:9px;max-height:420px;overflow-y:auto;padding-right:4px">
+                <sc-for list="{{ queue }}" as="q" hint-placeholder-count="0">
+                  <div style="display:flex;align-items:center;gap:13px;padding:9px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .3s both">
+                    <div style="position:relative;width:62px;height:46px;border-radius:8px;flex-shrink:0;overflow:hidden;background:#000">
+                      <sc-if value="{{ q.isImage }}" hint-placeholder-val="{{ true }}">
+                        <img src="{{ q.url }}" style="width:100%;height:100%;object-fit:cover;display:block">
+                      </sc-if>
+                      <sc-if value="{{ q.isVideo }}" hint-placeholder-val="{{ false }}">
+                        <video src="{{ q.url }}" muted="{{ true }}" playsinline="{{ true }}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.22);pointer-events:none">
+                          <div style="width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;color:#fff;font-size:8px;padding-left:1px">▶</div>
+                        </div>
+                      </sc-if>
+                    </div>
+                    <div style="flex:1;min-width:0">
+                      <input value="{{ q.name }}" onChange="{{ q.rename }}" placeholder="{{ q.namePlaceholder }}" style="width:100%;font-size:13px;font-weight:600;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 9px;color:#f2f0f5;outline:none;transition:border-color .2s" style-focus="border-color:oklch(0.65 0.12 342)">
+                      <div style="height:4px;border-radius:99px;background:rgba(255,255,255,0.08);margin-top:7px;overflow:hidden">
+                        <div style="height:100%;border-radius:99px;width: {{ q.progress }};background:linear-gradient(90deg, oklch(0.78 0.13 342), oklch(0.78 0.12 260));transition:width .3s"></div>
+                      </div>
+                    </div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b8794;width:42px;text-align:right">{{ q.status }}</div>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <button onClick="{{ q.up }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#a5a1af;border-radius:6px;width:24px;height:19px;font-size:9px" style-hover="background:rgba(255,255,255,0.14);color:#fff">▲</button>
+                      <button onClick="{{ q.down }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#a5a1af;border-radius:6px;width:24px;height:19px;font-size:9px" style-hover="background:rgba(255,255,255,0.14);color:#fff">▼</button>
+                    </div>
+                    <button onClick="{{ q.remove }}" style="cursor:pointer;border:none;background:none;color:#8b8794;font-size:15px;padding:4px" style-hover="color:#ff7a9c">✕</button>
+                  </div>
+                </sc-for>
+              </div>
+              <button onClick="{{ commitUpload }}" style="margin-top:18px;width:100%;border:none;cursor:pointer;padding:15px;border-radius:16px;font-family:Sora;font-weight:700;font-size:15px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:all .2s" style-hover="transform:translateY(-2px);box-shadow:0 10px 30px oklch(0.6 0.14 330 / 0.4)">{{ uploadCta }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ uploadDone }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:26px;text-align:center;padding:34px;border-radius:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);animation:popIn .5s both">
+              <div style="width:60px;height:60px;margin:0 auto;border-radius:50%;background:linear-gradient(135deg, oklch(0.75 0.14 160), oklch(0.75 0.13 200));display:flex;align-items:center;justify-content:center;font-size:26px;color:#0e0d12;animation:checkPop .6s .1s both">✓</div>
+              <div style="font-family:Sora;font-weight:700;font-size:18px;margin-top:15px">{{ uploadDoneMsg }}</div>
+              <button onClick="{{ goToUploadedEvent }}" style="margin-top:15px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);background:none;color:#fff;padding:10px 22px;border-radius:99px;font-size:14px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.08)">Open the event →</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </section>
+  </sc-if>
+
+  <!-- ================= ARCHIVE ================= -->
+  <sc-if value="{{ showArchive }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Archive" style="animation:fadeUp .5s both;padding-bottom:80px">
+      <h1 style="font-family:Sora;font-weight:800;font-size:40px;margin:46px 0 8px;letter-spacing:-0.025em">Archive</h1>
+      <p style="color:#8b8794;margin:0 0 26px;font-size:15px">Events you have set aside. Nothing is deleted here.</p>
+      <sc-if value="{{ archiveEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="border-radius:20px;border:1px dashed rgba(255,255,255,0.13);padding:60px 30px;text-align:center;color:#8b8794">
+          <div style="font-family:Sora;font-weight:700;font-size:20px;color:#f2f0f5">The archive is empty.</div>
+          <div style="font-size:14px;margin-top:8px">Archive an event from its card to tuck it away without losing it.</div>
+        </div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ archivedCards }}" as="ev" hint-placeholder-count="0">
+          <div style="display:flex;gap:14px;align-items:center;padding:12px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06)">
+            <div style="width:80px;height:58px;border-radius:10px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center;filter:grayscale(0.5)"></div>
+            <div style="flex:1;min-width:0"><div style="font-family:Sora;font-weight:700;font-size:16px">{{ ev.title }}</div><div style="color:#8b8794;font-size:13px;margin-top:3px">{{ ev.meta }}</div></div>
+            <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ ev.archive }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.16);background:none;color:#f2f0f5;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.08)">Restore</button>
+            <button onClick="{{ ev.remove }}" style="cursor:pointer;border:none;background:rgba(255,255,255,0.06);color:#8b8794;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;transition:all .2s" style-hover="background:oklch(0.5 0.16 20);color:#fff">Delete</button>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= ADMIN DASHBOARD ================= -->
+  <sc-if value="{{ showAdmin }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="Admin dashboard" style="animation:fadeUp .5s both;padding-bottom:90px">
+      <div style="padding:26px 0 8px">
+        <h1 style="font-family:Sora;font-weight:800;font-size:34px;margin:0;letter-spacing:-0.025em">Admin Dashboard</h1>
+        <p style="color:#8b8794;font-size:14px;margin-top:6px">Approvals, users, and gallery stats. Only visible to admins.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px,1fr));gap:12px;margin:24px 0 32px">
+        <sc-for list="{{ adminStats }}" as="s" hint-placeholder-count="4">
+          <div style="border-radius:16px;padding:18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+            <div style="font-family:Sora;font-weight:800;font-size:28px;color: {{ s.color }}">{{ s.value }}</div>
+            <div style="color:#8b8794;font-size:13px;margin-top:4px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">Pending approvals</h2>
+      <sc-if value="{{ noPending }}" hint-placeholder-val="{{ true }}">
+        <div style="color:#8b8794;font-size:14px;padding:18px 0 30px">No one is waiting on approval right now.</div>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px">
+        <sc-for list="{{ pendingUsers }}" as="u" hint-placeholder-count="0">
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);flex-wrap:wrap">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:700;font-size:14px;flex-shrink:0">{{ u.initial }}</div>
+            <div style="flex:1;min-width:160px">
+              <div style="font-weight:600;font-size:14px">{{ u.name }}</div>
+              <div style="color:#8b8794;font-size:12px;margin-top:2px">{{ u.email }}</div>
+            </div>
+            <button onClick="{{ u.approve }}" style="cursor:pointer;border:none;padding:8px 16px;border-radius:99px;font-family:Sora;font-weight:700;font-size:13px;color:#0e0d12;background:#f2f0f5">Approve</button>
+            <button onClick="{{ u.reject }}" style="cursor:pointer;border:none;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:600;color:#8b8794;background:rgba(255,255,255,0.06)" style-hover="background:oklch(0.5 0.16 20);color:#fff">Reject</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <h2 style="font-family:Sora;font-weight:700;font-size:19px;margin:0 0 14px">All users</h2>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ allUsers }}" as="u" hint-placeholder-count="0">
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);flex-wrap:wrap">
+            <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:700;font-size:12px;flex-shrink:0">{{ u.initial }}</div>
+            <div style="flex:1;min-width:160px">
+              <div style="font-weight:600;font-size:14px">{{ u.name }}</div>
+              <div style="color:#8b8794;font-size:12px;margin-top:2px">{{ u.email }}</div>
+            </div>
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:5px 10px;border-radius:99px;color: {{ u.statusColor }};background: {{ u.statusBg }}">{{ u.statusLabel }}</span>
+            <select value="{{ u.role }}" onChange="{{ u.changeRole }}" disabled="{{ u.isSelf }}" style="cursor:pointer;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:7px 12px;font-size:12px;outline:none;color-scheme:dark">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <sc-if value="{{ u.canRevoke }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ u.revoke }}" style="cursor:pointer;border:none;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:600;color:#8b8794;background:rgba(255,255,255,0.06)" style-hover="background:oklch(0.5 0.16 20);color:#fff">Revoke access</button>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  </main>
+
+
+  <!-- ================= EVENT / FRIEND / ALBUM EDITOR ================= -->
+  <sc-if value="{{ editorOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div onClick="{{ closeEditor }}" style="position:absolute;inset:0;background:rgba(6,5,9,0.72);backdrop-filter:blur(14px);animation:fadeIn .25s both"></div>
+      <div style="position:relative;z-index:2;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;border-radius:24px;background:#141319;border:1px solid rgba(255,255,255,0.1);box-shadow:0 40px 100px rgba(0,0,0,0.6);padding:30px;animation:modalIn .35s cubic-bezier(.2,.9,.3,1.1) both">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px">
+          <div>
+            <h2 style="font-family:Sora;font-weight:800;font-size:24px;margin:0;letter-spacing:-0.02em">{{ editor.title }}</h2>
+            <div style="color:#8b8794;font-size:13px;margin-top:5px">{{ editor.sub }}</div>
+          </div>
+          <button onClick="{{ closeEditor }}" style="cursor:pointer;border:none;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);color:#c9c5d2;font-size:15px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);transform:rotate(90deg)">✕</button>
+        </div>
+        <sc-if value="{{ editor.isEvent }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div onClick="{{ pickCover }}" style="cursor:pointer;position:relative;height:150px;border-radius:16px;border:1px dashed rgba(255,255,255,0.16);background: {{ editor.coverBg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;transition:all .2s" style-hover="border-color:oklch(0.7 0.13 342)">
+              <div style="font-size:13px;font-weight:600;color:#f2f0f5;background:rgba(0,0,0,0.42);backdrop-filter:blur(8px);padding:8px 16px;border-radius:99px">{{ editor.coverLabel }}</div>
+              <sc-if value="{{ editor.hasCover }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ editor.repositionCover }}" title="Reposition & zoom" style="position:absolute;top:10px;right:10px;cursor:pointer;border:none;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);color:#fff;font-size:13px;transition:all .2s" style-hover="background:rgba(0,0,0,0.72);transform:scale(1.08)">⤢</button>
+              </sc-if>
+            </div>
+            <input type="file" accept="image/*" onChange="{{ coverPicked }}" ref="{{ coverInputRef }}" style="display:none">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Event name</div>
+              <input value="{{ editor.name }}" onChange="{{ setF.name }}" placeholder="Name this event" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#f2f0f5;font-size:15px;outline:none;transition:border-color .2s" style-focus="border-color:oklch(0.65 0.12 342)">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Date</div>
+                <input type="date" value="{{ editor.date }}" onChange="{{ setF.date }}" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none;color-scheme:dark" style-focus="border-color:oklch(0.65 0.12 342)">
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Location</div>
+                <input value="{{ editor.location }}" onChange="{{ setF.location }}" placeholder="Where?" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Description</div>
+              <textarea value="{{ editor.desc }}" onChange="{{ setF.desc }}" rows="3" placeholder="What happened?" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#f2f0f5;font-size:14px;outline:none;resize:vertical;line-height:1.5" style-focus="border-color:oklch(0.65 0.12 342)"></textarea>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Tags</div>
+              <input value="{{ editor.tags }}" onChange="{{ setF.tags }}" placeholder="comma, separated, tags" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:9px">Who was there</div>
+              <sc-if value="{{ editor.noFriends }}" hint-placeholder-val="{{ true }}">
+                <div style="font-size:13px;color:#8b8794">No friends added yet. <a href="#" onClick="{{ newFriendFromEditor }}">Add one first →</a></div>
+              </sc-if>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ editor.friendChips }}" as="fc" hint-placeholder-count="0">
+                  <button onClick="{{ fc.toggle }}" style="cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid {{ fc.border }};background: {{ fc.bg }};color: {{ fc.color }};transition:all .2s" style-hover="border-color:rgba(255,255,255,0.4)">
+                    <span style="width:24px;height:24px;border-radius:50%;background: {{ fc.avatarBg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:Sora;color:#fff">{{ fc.initial }}</span>
+                    {{ fc.name }}
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ editor.isFriend }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;gap:18px;align-items:center">
+              <div style="position:relative;flex-shrink:0">
+                <div onClick="{{ pickAvatar }}" style="cursor:pointer;width:84px;height:84px;border-radius:50%;background: {{ editor.avatarBg }};background-size:cover;background-position:center;border:1px dashed rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:Sora;font-weight:800;font-size:26px;color:rgba(255,255,255,0.85);transition:all .2s" style-hover="border-color:oklch(0.7 0.13 342)">{{ editor.avatarInitial }}</div>
+                <sc-if value="{{ editor.hasAvatar }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ editor.repositionAvatar }}" title="Reposition & zoom" style="position:absolute;bottom:-2px;right:-2px;cursor:pointer;border:2px solid #141319;width:28px;height:28px;border-radius:50%;background:rgba(20,19,25,0.96);color:#fff;font-size:12px;transition:all .2s" style-hover="background:#000;transform:scale(1.08)">⤢</button>
+                </sc-if>
+              </div>
+              <div style="font-size:13px;color:#8b8794;line-height:1.5">
+                <sc-if value="{{ editor.hasAvatar }}" hint-placeholder-val="{{ false }}"><span>Click the circle to replace the photo.<br>Use ⤢ to reposition or zoom.</span></sc-if>
+                <sc-if value="{{ editor.noAvatar }}" hint-placeholder-val="{{ true }}"><span>Click the circle to upload a photo.<br>Without one, their initial is used.</span></sc-if>
+              </div>
+              <input type="file" accept="image/*" onChange="{{ avatarPicked }}" ref="{{ avatarInputRef }}" style="display:none">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Name</div>
+              <input value="{{ editor.name }}" onChange="{{ setF.name }}" placeholder="Their name" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#f2f0f5;font-size:15px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Note (optional)</div>
+              <input value="{{ editor.tagline }}" onChange="{{ setF.tagline }}" placeholder="A short line about them" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 16px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:9px">Accent color</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <sc-for list="{{ editor.hueSwatches }}" as="h" hint-placeholder-count="6">
+                  <button onClick="{{ h.pick }}" style="cursor:pointer;width:34px;height:34px;border-radius:50%;background: {{ h.color }};border:2px solid {{ h.border }};transition:transform .2s" style-hover="transform:scale(1.12)"></button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ editor.isAlbum }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Album name</div>
+            <input value="{{ editor.name }}" onChange="{{ setF.name }}" placeholder="Name this collection" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#f2f0f5;font-size:15px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:10px;margin-top:26px">
+          <button onClick="{{ saveEditor }}" style="flex:1;border:none;cursor:pointer;padding:14px;border-radius:14px;font-family:Sora;font-weight:700;font-size:15px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">{{ editor.saveLabel }}</button>
+          <button onClick="{{ closeEditor }}" style="cursor:pointer;padding:14px 22px;border-radius:14px;border:1px solid rgba(255,255,255,0.14);background:none;color:#c9c5d2;font-size:15px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= IMAGE POSITION / ZOOM EDITOR ================= -->
+  <sc-if value="{{ posEditorOpen }}" hint-placeholder-val="{{ false }}">
+    <div onMouseMove="{{ posMouseMove }}" onMouseUp="{{ posMouseUp }}" onMouseLeave="{{ posMouseUp }}" onTouchMove="{{ posTouchMove }}" onTouchEnd="{{ posTouchEnd }}" style="position:fixed;inset:0;z-index:140;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div onClick="{{ closePosEditor }}" style="position:absolute;inset:0;background:rgba(6,5,9,0.82);backdrop-filter:blur(14px);animation:fadeIn .25s both"></div>
+      <div style="position:relative;z-index:2;width:100%;max-width:520px;max-height:88vh;overflow-y:auto;border-radius:24px;background:#141319;border:1px solid rgba(255,255,255,0.1);box-shadow:0 40px 100px rgba(0,0,0,0.6);padding:28px;animation:modalIn .35s cubic-bezier(.2,.9,.3,1.1) both">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+          <div>
+            <h2 style="font-family:Sora;font-weight:800;font-size:21px;margin:0;letter-spacing:-0.02em">{{ posEditor.title }}</h2>
+            <div style="color:#8b8794;font-size:13px;margin-top:4px">Drag to reposition · scroll, pinch, or use the slider to zoom</div>
+          </div>
+          <button onClick="{{ closePosEditor }}" style="cursor:pointer;border:none;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.07);color:#c9c5d2;font-size:15px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);transform:rotate(90deg)">✕</button>
+        </div>
+        <div style="display:flex;justify-content:center">
+          <div ref="{{ posFrameRef }}" onMouseDown="{{ posMouseDown }}" onTouchStart="{{ posTouchStart }}" onWheel="{{ posWheel }}" style="{{ posEditor.frameStyle }}">
+            <div style="{{ posEditor.imgStyle }}"></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:22px">
+          <span style="font-size:16px;color:#a5a1af;user-select:none">−</span>
+          <input type="range" min="100" max="300" value="{{ posEditor.zoomPct }}" onChange="{{ posZoomChange }}" style="flex:1;accent-color:#e879b9;cursor:pointer">
+          <span style="font-size:16px;color:#a5a1af;user-select:none">+</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8b8794;width:42px;text-align:right">{{ posEditor.zoomLabel }}</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:24px">
+          <button onClick="{{ posSave }}" style="flex:1;border:none;cursor:pointer;padding:14px;border-radius:14px;font-family:Sora;font-weight:700;font-size:15px;color:#0e0d12;background:linear-gradient(120deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));transition:transform .2s" style-hover="transform:translateY(-2px)">Save</button>
+          <button onClick="{{ closePosEditor }}" style="cursor:pointer;padding:14px 22px;border-radius:14px;border:1px solid rgba(255,255,255,0.14);background:none;color:#c9c5d2;font-size:15px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= CONFIRM ================= -->
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:130;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div onClick="{{ closeConfirm }}" style="position:absolute;inset:0;background:rgba(6,5,9,0.75);backdrop-filter:blur(12px);animation:fadeIn .2s both"></div>
+      <div style="position:relative;z-index:2;width:100%;max-width:400px;border-radius:20px;background:#141319;border:1px solid rgba(255,255,255,0.1);padding:28px;text-align:center;animation:modalIn .3s both">
+        <div style="font-family:Sora;font-weight:700;font-size:19px">{{ confirmMsg }}</div>
+        <div style="color:#8b8794;font-size:14px;margin-top:8px">{{ confirmSub }}</div>
+        <div style="display:flex;gap:10px;margin-top:22px">
+          <button onClick="{{ confirmYes }}" style="flex:1;cursor:pointer;border:none;padding:13px;border-radius:13px;font-family:Sora;font-weight:700;font-size:14px;color:#fff;background:oklch(0.52 0.18 20);transition:all .2s" style-hover="background:oklch(0.58 0.19 20)">Delete</button>
+          <button onClick="{{ closeConfirm }}" style="flex:1;cursor:pointer;padding:13px;border-radius:13px;border:1px solid rgba(255,255,255,0.14);background:none;color:#c9c5d2;font-size:14px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Keep</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= PHOTO VIEWER ================= -->
+  <sc-if value="{{ viewerOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Photo viewer" style="position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s both">
+      <div onClick="{{ closeViewer }}" style="position:absolute;inset:0;background: {{ viewer.bg }};background-size:cover;background-position:center;filter:blur(60px) brightness(0.3);transform:scale(1.2)"></div>
+      <div onClick="{{ closeViewer }}" style="position:absolute;inset:0;background:rgba(7,6,10,0.5)"></div>
+      <button onClick="{{ closeViewer }}" style="position:absolute;top:20px;right:24px;z-index:3;cursor:pointer;border:none;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color:#fff;font-size:16px;transition:all .2s" style-hover="background:rgba(255,255,255,0.22);transform:rotate(90deg)">✕</button>
+      <button onClick="{{ viewerPrev }}" style="position:absolute;left:20px;z-index:3;cursor:pointer;border:none;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);color:#fff;font-size:18px;transition:all .2s" style-hover="background:rgba(255,255,255,0.2);transform:scale(1.1)">←</button>
+      <button onClick="{{ viewerNext }}" style="position:absolute;right:20px;z-index:3;cursor:pointer;border:none;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);color:#fff;font-size:18px;transition:all .2s" style-hover="background:rgba(255,255,255,0.2);transform:scale(1.1)">→</button>
+      <sc-if value="{{ viewer.isImage }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ toggleZoom }}" style="position:relative;z-index:2;animation:viewerIn .35s cubic-bezier(.2,.9,.3,1.15) both">
+          <img src="{{ viewer.url }}" style="max-width:82vw;max-height:70vh;border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,0.7);display:block;cursor: {{ viewer.cursor }};transform: {{ viewer.zoomT }};transition:transform .35s cubic-bezier(.3,.8,.3,1)">
+        </div>
+      </sc-if>
+      <sc-if value="{{ viewer.isVideo }}" hint-placeholder-val="{{ false }}">
+        <div style="position:relative;z-index:2;animation:viewerIn .35s cubic-bezier(.2,.9,.3,1.15) both">
+          <video src="{{ viewer.url }}" controls="{{ true }}" playsinline="{{ true }}" preload="metadata" style="max-width:82vw;max-height:70vh;border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,0.7);display:block;background:#000"></video>
+        </div>
+      </sc-if>
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;padding:18px 26px 22px;background:linear-gradient(0deg, rgba(6,5,9,0.95) 0%, rgba(6,5,9,0.85) 50%, rgba(6,5,9,0.4) 82%, transparent 100%);display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div>
+          <div style="font-family:Sora;font-weight:700;font-size:16px;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.65)">{{ viewer.title }}</div>
+          <div style="color:#e9e6f0;font-size:12px;margin-top:3px;font-family:'JetBrains Mono',monospace;text-shadow:0 1px 3px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.65)">{{ viewer.meta }}</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ viewer.hasAlbums }}" hint-placeholder-val="{{ false }}">
+            <select value="{{ viewer.albumValue }}" onChange="{{ addToAlbum }}" style="cursor:pointer;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:9px 14px;font-size:13px;outline:none;color-scheme:dark">
+              <option value="">Add to album…</option>
+              <sc-for list="{{ viewer.albumOptions }}" as="o" hint-placeholder-count="0">
+                <option value="{{ o.id }}">{{ o.name }}</option>
+              </sc-for>
+            </select>
+          </sc-if>
+          <sc-if value="{{ viewer.hasFriends }}" hint-placeholder-val="{{ false }}">
+            <select value="{{ viewer.favFriendValue }}" onChange="{{ setPhotoAsFavorite }}" style="cursor:pointer;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.14);color:#fff;border-radius:99px;padding:9px 14px;font-size:13px;outline:none;color-scheme:dark">
+              <option value="">Set as favorite for…</option>
+              <sc-for list="{{ viewer.friendOptions }}" as="o" hint-placeholder-count="0">
+                <option value="{{ o.id }}">{{ o.name }}</option>
+              </sc-for>
+            </select>
+          </sc-if>
+          </sc-if>
+          <button onClick="{{ viewer.download }}" title="Download original" style="cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:600;color:#fff;transition:all .2s" style-hover="background:rgba(255,255,255,0.2)">{{ viewer.downloadLabel }}</button>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ viewerDelete }}" style="cursor:pointer;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);backdrop-filter:blur(10px);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:600;color:#fff;transition:all .2s" style-hover="background:oklch(0.5 0.16 20)">Delete</button>
+          <button onClick="{{ viewerFav }}" style="cursor:pointer;border:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color: {{ viewer.favColor }};font-size:16px;transition:all .2s" style-hover="transform:scale(1.15)">{{ viewer.favIcon }}</button>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= TOAST ================= -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:200;padding:13px 24px;border-radius:99px;background:rgba(20,19,25,0.95);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(16px);font-size:14px;font-weight:600;box-shadow:0 16px 40px rgba(0,0,0,0.5);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.2) both">{{ toast }}</div>
+  </sc-if>
+
+  <!-- ================= MOBILE NAV ================= -->
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-around;align-items:center;padding:10px 6px calc(10px + env(safe-area-inset-bottom));background:rgba(14,13,18,0.88);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.07)">
+      <sc-for list="{{ mobileNav }}" as="mn" hint-placeholder-count="5">
+        <button onClick="{{ mn.go }}" style="border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;min-width:52px;color: {{ mn.color }};transition:color .2s">
+          <span style="font-size:18px">{{ mn.icon }}</span>
+          <span style="font-size:10px;font-weight:600">{{ mn.label }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{ newEvent }}" style="position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:50;cursor:pointer;border:none;width:56px;height:56px;border-radius:50%;font-size:25px;color:#0e0d12;background:linear-gradient(135deg, oklch(0.85 0.13 342), oklch(0.85 0.12 300));box-shadow:0 8px 28px oklch(0.6 0.14 330 / 0.5);transition:transform .2s" style-hover="transform:scale(1.08)">+</button>
+    </sc-if>
+    </sc-if>
+  </sc-if>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1280, &quot;height&quot;: 860}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.SUPABASE_URL = 'https://uvrincmenvajibbrvlau.supabase.co';
+    this.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV2cmluY21lbnZhamliYnJ2bGF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwODYwOTcsImV4cCI6MjEwMTY2MjA5N30.qmMbDH65x0LR3Nbkxzf8bG7DMAFCjquOaABnkjFsSJg';
+    this.CLOUDINARY_CLOUD_NAME = 'ortsvdfc';
+    this.CLOUDINARY_UPLOAD_PRESET = 'gallery_uploads';
+    this.sb = window.supabase.createClient(this.SUPABASE_URL, this.SUPABASE_ANON_KEY);
+    this.HUES = [342, 20, 60, 150, 200, 265];
+    this.state = {
+      intro: 'playing', route: { name: 'home' }, ready: false,
+      events: [], photos: [], friends: [], albums: [],
+      viewer: null, zoomed: false, manageMode: false, dragId: null, overId: null,
+      searchQ: '', searchTag: null, eventFilter: 'all',
+      queue: [], uploadEventId: null, dragOver: false, uploadDone: false, lastUploadEvent: null, doneCount: 0, doneCounts: null,
+      editor: null, confirm: null, toast: '',
+      isMobile: typeof window !== 'undefined' && window.innerWidth < 760,
+      vw: typeof window !== 'undefined' ? window.innerWidth : 1280,
+      posEditor: null,
+      authChecked: false, session: null, profile: null, authBusy: false,
+      adminUsers: null,
+    };
+    this.fileInputRef = React.createRef();
+    this.coverInputRef = React.createRef();
+    this.avatarInputRef = React.createRef();
+    this.posFrameRef = React.createRef();
+    this.urls = {};
+    this.COVER_FRAME_RATIO = 3.3;
+    this._posDrag = null;
+    this._posPinch = null;
+  }
+  componentDidMount() {
+    this.introTimer = setTimeout(() => this.setState({ intro: 'exit' }), 5100);
+    this.introTimer2 = setTimeout(() => this.setState({ intro: 'done' }), 6000);
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 760, vw: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    this.onKey = (e) => {
+      if (e.key === 'Escape' && this.state.intro !== 'done') this.skip();
+      if (!this.state.viewer) return;
+      if (e.key === 'Escape') this.setState({ viewer: null, zoomed: false });
+      if (e.key === 'ArrowRight') this.stepViewer(1);
+      if (e.key === 'ArrowLeft') this.stepViewer(-1);
+    };
+    window.addEventListener('keydown', this.onKey);
+    this.initAuth();
+  }
+  async initAuth() {
+    const { data: { session } } = await this.sb.auth.getSession();
+    await this.handleAuthChange(session);
+    this.sb.auth.onAuthStateChange((_event, session) => { this.handleAuthChange(session); });
+  }
+  async handleAuthChange(session) {
+    if (!session) { this.setState({ authChecked: true, session: null, profile: null }); return; }
+    const { data: profile } = await this.sb.from('profiles').select('*').eq('id', session.user.id).single();
+    this.setState({ authChecked: true, session, profile: profile || null });
+    if (profile && profile.status === 'approved' && !this._appBooted) {
+      this._appBooted = true;
+      this.load();
+    }
+  }
+  async signInWithGoogle() {
+    this.setState({ authBusy: true });
+    await this.sb.auth.signInWithOAuth({ provider: 'google' });
+  }
+  async signOut() {
+    await this.sb.auth.signOut();
+    this._appBooted = false;
+    this.setState({ session: null, profile: null, ready: false });
+  }
+  async loadAdminUsers() {
+    const { data, error } = await this.sb.from('profiles').select('*').order('created_at', { ascending: false });
+    if (error) { console.error(error); this.say('Could not load users'); return; }
+    this.setState({ adminUsers: data || [] });
+  }
+  async setUserStatus(id, status) {
+    const { error } = await this.sb.from('profiles').update({ status }).eq('id', id);
+    if (error) { this.say('Could not update — try again'); return; }
+    this.setState({ adminUsers: this.state.adminUsers.map(u => u.id === id ? { ...u, status } : u) });
+    this.say(status === 'approved' ? 'User approved' : status === 'rejected' ? 'User rejected' : 'Access revoked');
+  }
+  async setUserRole(id, role) {
+    const { error } = await this.sb.from('profiles').update({ role }).eq('id', id);
+    if (error) { this.say('Could not update — try again'); return; }
+    this.setState({ adminUsers: this.state.adminUsers.map(u => u.id === id ? { ...u, role } : u) });
+    this.say('Role updated');
+  }
+  componentWillUnmount() {
+    clearTimeout(this.introTimer); clearTimeout(this.introTimer2);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('keydown', this.onKey);
+  }
+  skip() { clearTimeout(this.introTimer); clearTimeout(this.introTimer2); this.setState({ intro: 'exit' }); setTimeout(() => this.setState({ intro: 'done' }), 700); }
+  /* ---------- storage (Supabase) ---------- */
+  async all(store) {
+    const { data, error } = await this.sb.from(store).select('id, data');
+    if (error) { console.error(store, error); return []; }
+    return (data || []).map(row => ({ id: row.id, ...row.data }));
+  }
+  async put(store, rec) {
+    const { id, ...rest } = rec;
+    const uid = this.state.session && this.state.session.user.id;
+    const { error } = await this.sb.from(store).upsert({ id, data: rest, created_by: uid });
+    if (error) { console.error(store, error); return false; }
+    return true;
+  }
+  async del(store, id) {
+    const { error } = await this.sb.from(store).delete().eq('id', id);
+    if (error) { console.error(store, error); return false; }
+    return true;
+  }
+  async uploadToCloudinary(blob, resourceType) {
+    const fd = new FormData();
+    fd.append('file', blob);
+    fd.append('upload_preset', this.CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${this.CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`, { method: 'POST', body: fd });
+    if (!res.ok) throw new Error('Cloudinary upload failed: ' + (await res.text()));
+    const json = await res.json();
+    return { url: json.secure_url, publicId: json.public_id };
+  }
+  async load() {
+    try {
+      const [events, photos, friends, albums] = await Promise.all([this.all('events'), this.all('photos'), this.all('friends'), this.all('albums')]);
+      photos.forEach(p => { if (p.url) this.urls[p.id] = p.url; if (p.posterUrl) this.urls['poster-' + p.id] = p.posterUrl; });
+      events.forEach(e => { if (e.coverUrl) this.urls['cover-' + e.id] = e.coverUrl; });
+      friends.forEach(f => { if (f.avatarUrl) this.urls['av-' + f.id] = f.avatarUrl; });
+      this.setState({ events, photos, friends, albums, ready: true, uploadEventId: events.length ? events[0].id : null });
+    } catch (e) { console.error(e); this.setState({ ready: true }); }
+  }
+  url(key, blob) { if (!this.urls[key]) this.urls[key] = URL.createObjectURL(blob); return this.urls[key]; }
+  uid(p) { return p + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  say(msg) { this.setState({ toast: msg }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 2400); }
+  go(route) { this.setState({ route, viewer: null, zoomed: false, uploadDone: false, manageMode: false }); window.scrollTo(0, 0); }
+  /* ---------- editors ---------- */
+  openEventEditor(ev) {
+    this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? (ev.tags || []).join(', ') : '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
+  }
+  openFriendEditor(f) {
+    this.setState({ editor: { kind: 'friend', id: f ? f.id : null, name: f ? f.name : '', tagline: f ? f.tagline || '' : '', hue: f ? f.hue : this.HUES[(this.state.friends.length) % 6], avatarBlob: null, avatarKey: f && f.avatarUrl ? 'av-' + f.id : null, avatarOrigBlob: null, avatarCrop: f ? f.avatarCrop || null : null } });
+  }
+  openAlbumEditor() { this.setState({ editor: { kind: 'album', id: null, name: '' } }); }
+  setField(k, v) { this.setState({ editor: { ...this.state.editor, [k]: v } }); }
+  async saveEditor() {
+    const e = this.state.editor;
+    if (!e.name.trim()) { this.say('Give it a name first'); return; }
+    if (e.kind === 'event') {
+      const id = e.id || this.uid('ev');
+      const prev = this.state.events.find(x => x.id === id) || {};
+      const rec = { ...prev, id, name: e.name.trim(), date: e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, archived: prev.archived || false, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
+      if (e.coverCrop) rec.coverCrop = e.coverCrop;
+      if (e.coverBlob) {
+        this.say('Uploading cover…');
+        const { url } = await this.uploadToCloudinary(e.coverBlob, 'image');
+        rec.coverUrl = url;
+      }
+      const ok = await this.put('events', rec);
+      if (!ok) { this.say('Could not save — you may not have permission, or the connection dropped'); return; }
+      if (rec.coverUrl) this.urls['cover-' + id] = rec.coverUrl;
+      const events = e.id ? this.state.events.map(x => x.id === id ? rec : x) : [...this.state.events, rec];
+      this.setState({ events, editor: null, uploadEventId: this.state.uploadEventId || id });
+      this.say(e.id ? 'Event updated' : 'Event created');
+      if (!e.id) this.go({ name: 'event', id });
+    } else if (e.kind === 'friend') {
+      const id = e.id || this.uid('fr');
+      const prev = this.state.friends.find(x => x.id === id) || {};
+      const rec = { ...prev, id, name: e.name.trim(), tagline: e.tagline.trim(), hue: e.hue, createdAt: prev.createdAt || Date.now() };
+      if (e.avatarCrop) rec.avatarCrop = e.avatarCrop;
+      if (e.avatarBlob) {
+        this.say('Uploading photo…');
+        const { url } = await this.uploadToCloudinary(e.avatarBlob, 'image');
+        rec.avatarUrl = url;
+      }
+      const ok = await this.put('friends', rec);
+      if (!ok) { this.say('Could not save — you may not have permission, or the connection dropped'); return; }
+      if (rec.avatarUrl) this.urls['av-' + id] = rec.avatarUrl;
+      this.setState({ friends: e.id ? this.state.friends.map(x => x.id === id ? rec : x) : [...this.state.friends, rec], editor: null });
+      this.say(e.id ? 'Profile updated' : 'Friend added');
+    } else {
+      const rec = { id: this.uid('al'), name: e.name.trim(), photoIds: [], createdAt: Date.now() };
+      const ok = await this.put('albums', rec);
+      if (!ok) { this.say('Could not save — you may not have permission, or the connection dropped'); return; }
+      this.setState({ albums: [...this.state.albums, rec], editor: null });
+      this.say('Album created');
+    }
+  }
+  askDelete(msg, sub, fn) { this.setState({ confirm: { msg, sub, fn } }); }
+  async deleteEvent(id) {
+    const photos = this.state.photos.filter(p => p.eventId === id);
+    for (const p of photos) { const ok = await this.del('photos', p.id); if (!ok) { this.say('Could not delete — you may not have permission'); return; } }
+    const ok = await this.del('events', id);
+    if (!ok) { this.say('Could not delete — you may not have permission'); return; }
+    this.setState({ events: this.state.events.filter(e => e.id !== id), photos: this.state.photos.filter(p => p.eventId !== id), confirm: null, route: { name: 'events' } });
+    this.say('Event deleted');
+  }
+  async toggleArchive(ev) {
+    const rec = { ...ev, archived: !ev.archived };
+    const ok = await this.put('events', rec);
+    if (!ok) { this.say('Could not update — you may not have permission'); return; }
+    this.setState({ events: this.state.events.map(e => e.id === ev.id ? rec : e) });
+    this.say(rec.archived ? 'Moved to archive' : 'Restored');
+  }
+  async deleteFriend(id) {
+    const ok = await this.del('friends', id);
+    if (!ok) { this.say('Could not delete — you may not have permission'); return; }
+    const events = this.state.events.map(e => ({ ...e, friendIds: (e.friendIds || []).filter(f => f !== id) }));
+    for (const e of events) await this.put('events', e);
+    this.setState({ friends: this.state.friends.filter(f => f.id !== id), events, confirm: null, route: { name: 'friends' } });
+    this.say('Friend removed');
+  }
+  async deletePhoto(id) {
+    const ok = await this.del('photos', id);
+    if (!ok) { this.say('Could not delete — you may not have permission'); return; }
+    const albums = this.state.albums.map(a => ({ ...a, photoIds: a.photoIds.filter(p => p !== id) }));
+    for (const a of albums) await this.put('albums', a);
+    this.setState({ photos: this.state.photos.filter(p => p.id !== id), albums, viewer: null, confirm: null });
+    this.say('Photo deleted');
+  }
+  async toggleFav(id) {
+    const p = this.state.photos.find(x => x.id === id); if (!p) return;
+    const rec = { ...p, fav: !p.fav };
+    const ok = await this.put('photos', rec);
+    if (!ok) { this.say('Could not update — you may not have permission'); return; }
+    this.setState({ photos: this.state.photos.map(x => x.id === id ? rec : x) });
+  }
+  async setFriendFavoritePhoto(friendId, photoId) {
+    const f = this.state.friends.find(x => x.id === friendId); if (!f) return;
+    const rec = { ...f, favPhotoId: photoId };
+    const ok = await this.put('friends', rec);
+    if (!ok) { this.say('Could not update — you may not have permission'); return; }
+    this.setState({ friends: this.state.friends.map(x => x.id === friendId ? rec : x) });
+    this.say('Set as ' + f.name + '’s favorite photo');
+  }
+  async setCover(evId, photoId) {
+    const ev = this.state.events.find(e => e.id === evId);
+    const rec = { ...ev, coverPhotoId: photoId };
+    const ok = await this.put('events', rec);
+    if (!ok) { this.say('Could not update — you may not have permission'); return; }
+    this.setState({ events: this.state.events.map(e => e.id === evId ? rec : e) });
+    this.say('Cover updated');
+  }
+  /* ---------- photo ordering ---------- */
+  async reorder(evId, dragId, dropId) {
+    if (dragId === dropId) return;
+    const list = this.eventPhotos(evId);
+    const from = list.findIndex(p => p.id === dragId), to = list.findIndex(p => p.id === dropId);
+    if (from < 0 || to < 0) return;
+    const arr = [...list]; const [m] = arr.splice(from, 1); arr.splice(to, 0, m);
+    const updated = arr.map((p, i) => ({ ...p, order: i }));
+    let allOk = true;
+    for (const p of updated) { const ok = await this.put('photos', p); if (!ok) allOk = false; }
+    if (!allOk) { this.say('Could not reorder — you may not have permission'); this.setState({ dragId: null, overId: null }); return; }
+    const map = {}; updated.forEach(p => map[p.id] = p);
+    this.setState({ photos: this.state.photos.map(p => map[p.id] || p), dragId: null, overId: null });
+  }
+  eventPhotos(evId) { return this.state.photos.filter(p => p.eventId === evId).sort((a, b) => (a.order || 0) - (b.order || 0)); }
+  /* ---------- download ---------- */
+  downloadPhoto(p) {
+    const url = this.urls[p.id];
+    if (!url) return;
+    let ext = p.ext || '';
+    const fallback = p.type === 'video' ? 'video' : 'photo';
+    let safeName = (p.name || fallback).replace(/[\\/:*?"<>|]+/g, '').trim() || fallback;
+    if (ext && !safeName.toLowerCase().endsWith(ext)) safeName += ext;
+    // Cloudinary: force a real download (not an inline navigation) via fl_attachment
+    const dlUrl = url.includes('/upload/') ? url.replace('/upload/', '/upload/fl_attachment/') : url;
+    const a = document.createElement('a');
+    a.href = dlUrl; a.download = safeName; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+  /* ---------- upload ---------- */
+  mediaType(f) {
+    if (f.type && f.type.startsWith('image/')) return 'image';
+    if (f.type && f.type.startsWith('video/')) return 'video';
+    if (/\.(mp4|mov|m4v|webm|avi|mkv|ogv|3gp)$/i.test(f.name)) return 'video';
+    if (/\.(jpe?g|png|gif|webp|bmp|svg|heic|heif|avif)$/i.test(f.name)) return 'image';
+    return null;
+  }
+  addFiles(files) {
+    const items = [...files].map((f, i) => {
+      const type = this.mediaType(f);
+      if (!type) return null;
+      return { id: this.uid('q') + i, file: f, type, name: f.name.replace(/\.[^./]+$/, ''), url: URL.createObjectURL(f), progress: 0, status: 'ready' };
+    }).filter(Boolean);
+    if (!items.length) return;
+    this.setState({ queue: [...this.state.queue, ...items], dragOver: false, uploadDone: false });
+  }
+  /* ---------- video poster ---------- */
+  makeVideoPoster(file) {
+    return new Promise((resolve) => {
+      let done = false;
+      const finish = (val) => { if (done) return; done = true; resolve(val); };
+      try {
+        const url = URL.createObjectURL(file);
+        const video = document.createElement('video');
+        video.preload = 'metadata'; video.muted = true; video.playsInline = true;
+        const cleanup = () => URL.revokeObjectURL(url);
+        video.onloadedmetadata = () => {
+          try { video.currentTime = Math.min(0.5, (video.duration || 1) / 4) || 0.01; }
+          catch (e) { cleanup(); finish(null); }
+        };
+        video.onseeked = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 640; canvas.height = video.videoHeight || 360;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob((blob) => { cleanup(); finish(blob); }, 'image/jpeg', 0.82);
+          } catch (e) { cleanup(); finish(null); }
+        };
+        video.onerror = () => { cleanup(); finish(null); };
+        video.src = url;
+        setTimeout(() => { cleanup(); finish(null); }, 6000);
+      } catch (e) { finish(null); }
+    });
+  }
+  async commitUpload() {
+    const evId = this.state.uploadEventId, queue = this.state.queue;
+    if (!queue.length || !evId) return;
+    const base = this.eventPhotos(evId).length;
+    for (let i = 0; i < queue.length; i++) {
+      const isVideo = queue[i].type === 'video';
+      this.setState({ queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, progress: 30, status: 'Uploading…' } : q) });
+      let uploaded;
+      try {
+        uploaded = await this.uploadToCloudinary(queue[i].file, isVideo ? 'video' : 'image');
+      } catch (err) {
+        console.error(err);
+        this.setState({ queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, status: 'Failed' } : q) });
+        this.say('Upload failed for ' + queue[i].name);
+        continue;
+      }
+      this.setState({ queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, progress: 80, status: 'Finishing…' } : q) });
+      const extMatch = /\.[^./]+$/.exec(queue[i].file.name || '');
+      const rec = { id: this.uid('ph'), eventId: evId, name: queue[i].name, url: uploaded.url, cloudinaryPublicId: uploaded.publicId, type: queue[i].type, ext: extMatch ? extMatch[0].toLowerCase() : '', order: base + i, fav: false, createdAt: Date.now() };
+      if (isVideo) {
+        // Cloudinary auto-generates a poster frame by swapping the video extension for .jpg
+        rec.posterUrl = uploaded.url.replace(/\.[^./]+$/, '.jpg');
+      }
+      const ok = await this.put('photos', rec);
+      if (!ok) {
+        this.setState({ queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, status: 'Failed to save' } : q) });
+        this.say('Uploaded but could not save ' + queue[i].name + ' — you may not have permission');
+        continue;
+      }
+      this.urls[rec.id] = rec.url;
+      if (rec.posterUrl) this.urls['poster-' + rec.id] = rec.posterUrl;
+      this.setState({ photos: [...this.state.photos, rec], queue: this.state.queue.map(q => q.id === queue[i].id ? { ...q, progress: 100, status: '✓' } : q) });
+    }
+    const n = queue.length;
+    const nVideos = queue.filter(q => q.type === 'video').length;
+    const nPhotos = n - nVideos;
+    setTimeout(() => this.setState({ queue: [], uploadDone: true, lastUploadEvent: evId, doneCount: n, doneCounts: { photos: nPhotos, videos: nVideos } }), 400);
+  }
+  moveQueue(id, d) {
+    const q = [...this.state.queue], i = q.findIndex(x => x.id === id), j = i + d;
+    if (j < 0 || j >= q.length) return;
+    const t = q[i]; q[i] = q[j]; q[j] = t; this.setState({ queue: q });
+  }
+  /* ---------- viewer ---------- */
+  viewerList() { const v = this.state.viewer; return v ? this.eventPhotos(v.eventId) : []; }
+  stepViewer(d) {
+    const list = this.viewerList(), v = this.state.viewer;
+    if (!list.length) return;
+    const i = list.findIndex(p => p.id === v.photoId);
+    const n = list[(i + d + list.length) % list.length];
+    this.setState({ viewer: { eventId: v.eventId, photoId: n.id }, zoomed: false });
+  }
+  fmtDate(d) {
+    if (!d) return 'No date';
+    const dt = new Date(d + 'T00:00:00');
+    if (isNaN(dt)) return d;
+    return dt.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+  grad(hue, a) { const g = a == null ? 135 : a; return `linear-gradient(${g}deg, oklch(0.34 0.07 ${hue}), oklch(0.5 0.11 ${hue + 30}))`; }
+  accent(h) { return `oklch(0.8 0.13 ${h})`; }
+  hueOf(id) { let n = 0; for (const c of String(id)) n = (n * 31 + c.charCodeAt(0)) % 360; return n; }
+  thumbUrl(p) { return p.type === 'video' ? (this.urls['poster-' + p.id] || null) : this.urls[p.id]; }
+  favPhotoUrl(f) { if (!f || !f.favPhotoId) return null; const p = this.state.photos.find(x => x.id === f.favPhotoId); return p ? this.thumbUrl(p) : null; }
+  coverBg(ev) {
+    if (ev.coverPhotoId) { const p = this.state.photos.find(x => x.id === ev.coverPhotoId); const u = p && this.thumbUrl(p); if (u) return `url(${u})`; }
+    if (this.urls['cover-' + ev.id]) return `url(${this.urls['cover-' + ev.id]})`;
+    const list = this.eventPhotos(ev.id);
+    if (list.length) { const u = this.thumbUrl(list[0]); if (u) return `url(${u})`; }
+    return this.grad(this.hueOf(ev.id));
+  }
+  hasCover(ev) { return !!(ev.coverPhotoId || this.urls['cover-' + ev.id] || this.eventPhotos(ev.id).length); }
+  friendBg(f) { return this.urls['av-' + f.id] ? `url(${this.urls['av-' + f.id]})` : this.grad(f.hue, 160); }
+  /* ---------- image position / zoom editor ---------- */
+  clamp01(v) { return Math.min(1, Math.max(0, v)); }
+  posPct(pe) {
+    const isAvatar = pe.kind === 'avatar';
+    const containerAspect = isAvatar ? 1 : this.COVER_FRAME_RATIO;
+    const imageAspect = pe.imgW / pe.imgH;
+    let wPct, hPct;
+    if (imageAspect >= containerAspect) { hPct = 100 * pe.zoom; wPct = 100 * pe.zoom * imageAspect / containerAspect; }
+    else { wPct = 100 * pe.zoom; hPct = 100 * pe.zoom * containerAspect / imageAspect; }
+    return { wPct, hPct };
+  }
+  openPosEditor(kind, blob, crop) {
+    if (!blob) return;
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => {
+      this.setState({ posEditor: { kind, blob, url, imgW: img.naturalWidth || 1, imgH: img.naturalHeight || 1, zoom: crop ? crop.zoom : 1, focalX: crop ? crop.x : 0.5, focalY: crop ? crop.y : 0.5, dragging: false } });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); this.say('Could not open that image'); };
+    img.src = url;
+  }
+  startCoverReposition() {
+    const ed = this.state.editor; if (!ed) return;
+    if (ed.coverBlob) { this.openPosEditor('cover', ed.coverOrigBlob || ed.coverBlob, ed.coverCrop || null); return; }
+    const rec = ed.id ? this.state.events.find(x => x.id === ed.id) : null;
+    if (rec) this.openPosEditor('cover', rec.coverOrigBlob || rec.coverBlob, rec.coverCrop || null);
+  }
+  startAvatarReposition() {
+    const ed = this.state.editor; if (!ed) return;
+    if (ed.avatarBlob) { this.openPosEditor('avatar', ed.avatarOrigBlob || ed.avatarBlob, ed.avatarCrop || null); return; }
+    const rec = ed.id ? this.state.friends.find(x => x.id === ed.id) : null;
+    if (rec) this.openPosEditor('avatar', rec.avatarOrigBlob || rec.avatarBlob, rec.avatarCrop || null);
+  }
+  closePosEditor() {
+    const pe = this.state.posEditor;
+    if (pe && pe.url) URL.revokeObjectURL(pe.url);
+    this._posDrag = null; this._posPinch = null;
+    this.setState({ posEditor: null });
+  }
+  posFrameRect() { return this.posFrameRef.current ? this.posFrameRef.current.getBoundingClientRect() : null; }
+  posDispPx(pe, rect) { const { wPct, hPct } = this.posPct(pe); return { w: rect.width * wPct / 100, h: rect.height * hPct / 100 }; }
+  posMouseDown(e) {
+    e.preventDefault();
+    const pe = this.state.posEditor; if (!pe) return;
+    const rect = this.posFrameRect(); if (!rect) return;
+    const disp = this.posDispPx(pe, rect);
+    this._posDrag = { x: e.clientX, y: e.clientY, fw: rect.width, fh: rect.height, dw: disp.w, dh: disp.h, posX: pe.focalX * 100, posY: pe.focalY * 100 };
+    this.setState({ posEditor: { ...pe, dragging: true } });
+  }
+  posMouseMove(e) {
+    const d = this._posDrag, pe = this.state.posEditor;
+    if (!d || !pe || !pe.dragging) return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y;
+    let focalX = pe.focalX, focalY = pe.focalY;
+    if (Math.abs(d.fw - d.dw) > 0.5) focalX = this.clamp01((d.posX + dx * 100 / (d.fw - d.dw)) / 100);
+    if (Math.abs(d.fh - d.dh) > 0.5) focalY = this.clamp01((d.posY + dy * 100 / (d.fh - d.dh)) / 100);
+    this.setState({ posEditor: { ...pe, focalX, focalY } });
+  }
+  posMouseUp() {
+    if (!this._posDrag) return;
+    this._posDrag = null;
+    if (this.state.posEditor) this.setState({ posEditor: { ...this.state.posEditor, dragging: false } });
+  }
+  posTouchStart(e) {
+    const pe = this.state.posEditor; if (!pe) return;
+    if (e.touches.length === 2) {
+      const [a, b] = e.touches;
+      this._posPinch = { dist: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), zoom: pe.zoom };
+      this._posDrag = null;
+    } else if (e.touches.length === 1) {
+      const rect = this.posFrameRect(); if (!rect) return;
+      const disp = this.posDispPx(pe, rect);
+      const t = e.touches[0];
+      this._posDrag = { x: t.clientX, y: t.clientY, fw: rect.width, fh: rect.height, dw: disp.w, dh: disp.h, posX: pe.focalX * 100, posY: pe.focalY * 100 };
+      this.setState({ posEditor: { ...pe, dragging: true } });
+    }
+  }
+  posTouchMove(e) {
+    const pe = this.state.posEditor; if (!pe) return;
+    if (e.touches.length === 2 && this._posPinch) {
+      const [a, b] = e.touches;
+      const dist = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+      const ratio = dist / (this._posPinch.dist || 1);
+      const zoom = Math.min(3, Math.max(1, this._posPinch.zoom * ratio));
+      this.setState({ posEditor: { ...pe, zoom } });
+    } else if (e.touches.length === 1 && this._posDrag) {
+      const d = this._posDrag, t = e.touches[0];
+      const dx = t.clientX - d.x, dy = t.clientY - d.y;
+      let focalX = pe.focalX, focalY = pe.focalY;
+      if (Math.abs(d.fw - d.dw) > 0.5) focalX = this.clamp01((d.posX + dx * 100 / (d.fw - d.dw)) / 100);
+      if (Math.abs(d.fh - d.dh) > 0.5) focalY = this.clamp01((d.posY + dy * 100 / (d.fh - d.dh)) / 100);
+      this.setState({ posEditor: { ...pe, focalX, focalY } });
+    }
+  }
+  posTouchEnd(e) {
+    if (e.touches.length === 0) {
+      this._posDrag = null; this._posPinch = null;
+      if (this.state.posEditor) this.setState({ posEditor: { ...this.state.posEditor, dragging: false } });
+    } else if (e.touches.length === 1) { this._posPinch = null; }
+  }
+  posWheel(e) {
+    e.preventDefault();
+    const pe = this.state.posEditor; if (!pe) return;
+    const zoom = Math.min(3, Math.max(1, pe.zoom - e.deltaY * 0.0015));
+    this.setState({ posEditor: { ...pe, zoom } });
+  }
+  posZoomChange(e) {
+    const pe = this.state.posEditor; if (!pe) return;
+    const zoom = Math.min(3, Math.max(1, parseFloat(e.target.value) / 100));
+    this.setState({ posEditor: { ...pe, zoom } });
+  }
+  posEditorView() {
+    const pe = this.state.posEditor;
+    if (!pe) return {};
+    const isAvatar = pe.kind === 'avatar';
+    const { wPct, hPct } = this.posPct(pe);
+    const frameStyle = isAvatar
+      ? `position:relative;width:${this.state.isMobile ? 220 : 260}px;height:${this.state.isMobile ? 220 : 260}px;border-radius:50%;overflow:hidden;background:#000;cursor:${pe.dragging ? 'grabbing' : 'grab'};touch-action:none;box-shadow:0 0 0 3px rgba(255,255,255,0.1);flex-shrink:0`
+      : `position:relative;width:100%;max-width:460px;aspect-ratio:${this.COVER_FRAME_RATIO};border-radius:16px;overflow:hidden;background:#000;cursor:${pe.dragging ? 'grabbing' : 'grab'};touch-action:none`;
+    const imgStyle = `position:absolute;inset:0;background-image:url(${pe.url});background-repeat:no-repeat;background-size:${wPct}% ${hPct}%;background-position:${pe.focalX * 100}% ${pe.focalY * 100}%`;
+    return { title: isAvatar ? 'Adjust photo' : 'Adjust cover image', frameStyle, imgStyle, zoomPct: Math.round(pe.zoom * 100), zoomLabel: Math.round(pe.zoom * 100) + '%' };
+  }
+  async posSave() {
+    const pe = this.state.posEditor; if (!pe) return;
+    const isAvatar = pe.kind === 'avatar';
+    const EXPORT = isAvatar ? { w: 800, h: 800 } : { w: 1400, h: Math.round(1400 / this.COVER_FRAME_RATIO) };
+    try {
+      const img = new Image();
+      await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = pe.url; });
+      const baseScale = Math.max(EXPORT.w / pe.imgW, EXPORT.h / pe.imgH);
+      const dispScale = baseScale * pe.zoom;
+      const dispW = pe.imgW * dispScale, dispH = pe.imgH * dispScale;
+      const offX = (EXPORT.w - dispW) * pe.focalX, offY = (EXPORT.h - dispH) * pe.focalY;
+      let sx = -offX / dispScale, sy = -offY / dispScale, sw = EXPORT.w / dispScale, sh = EXPORT.h / dispScale;
+      sx = Math.max(0, Math.min(sx, pe.imgW - sw));
+      sy = Math.max(0, Math.min(sy, pe.imgH - sh));
+      const canvas = document.createElement('canvas');
+      canvas.width = EXPORT.w; canvas.height = EXPORT.h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, EXPORT.w, EXPORT.h);
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.92));
+      const crop = { zoom: pe.zoom, x: pe.focalX, y: pe.focalY };
+      const ed = this.state.editor || {};
+      if (isAvatar) this.setState({ editor: { ...ed, avatarBlob: blob, avatarOrigBlob: pe.blob, avatarCrop: crop }, posEditor: null });
+      else this.setState({ editor: { ...ed, coverBlob: blob, coverOrigBlob: pe.blob, coverCrop: crop }, posEditor: null });
+      URL.revokeObjectURL(pe.url);
+    } catch (err) { this.say('Could not save that image'); this.setState({ posEditor: null }); }
+  }
+  renderVals() {
+    const S = this.state, rn = S.route.name, isMobile = S.isMobile;
+    const isApproved = !!(S.profile && S.profile.status === 'approved');
+    const isAdmin = isApproved && S.profile.role === 'admin';
+    const authFlags = {
+      showAuthLoading: !S.authChecked,
+      showSignIn: S.authChecked && !S.session,
+      showPending: S.authChecked && !!S.session && !!S.profile && S.profile.status === 'pending',
+      showRejected: S.authChecked && !!S.session && !!S.profile && S.profile.status === 'rejected',
+      showApp: S.authChecked && isApproved,
+      signInLabel: S.authBusy ? 'Opening Google…' : 'Sign in with Google',
+      signInWithGoogle: () => this.signInWithGoogle(),
+      signOut: () => this.signOut(),
+      isAdmin,
+      canEdit: isApproved,
+      notAdmin: !isAdmin,
+    };
+    if (!authFlags.showApp) return authFlags;
+    const live = S.events.filter(e => !e.archived).sort((a, b) => (b.date || '').localeCompare(a.date || '') || b.createdAt - a.createdAt);
+    const archived = S.events.filter(e => e.archived);
+    const photoCount = (id) => this.eventPhotos(id).length;
+    const openEvent = (id) => () => this.go({ name: 'event', id });
+    const openPhoto = (eventId, photoId) => () => this.setState({ viewer: { eventId, photoId }, zoomed: false });
+    const photoThumb = (p) => { const url = this.thumbUrl(p); const isVideo = p.type === 'video'; return { url, isVideo, noThumb: isVideo && !url, thumbBg: this.grad(this.hueOf(p.id)), bg: url ? `url(${url})` : this.grad(this.hueOf(p.id)) }; };
+    const evMeta = (e) => [e.location, this.fmtDate(e.date)].filter(Boolean).join(' · ');
+    const evCard = (e, i) => ({
+      title: e.name, meta: evMeta(e) + ' · ' + photoCount(e.id) + ' photos', count: photoCount(e.id),
+      desc: e.desc || '', bg: this.coverBg(e), noCover: !this.hasCover(e), delay: (i * 0.06) + 's',
+      open: openEvent(e.id),
+      tags: (e.tags || []).map(t => ({ label: t })),
+      favLabel: this.eventPhotos(e.id).filter(p => p.fav).length ? this.eventPhotos(e.id).filter(p => p.fav).length + ' ♥' : '',
+      avatars: (e.friendIds || []).map(fid => S.friends.find(f => f.id === fid)).filter(Boolean).map(f => ({ initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), name: f.name, bg: this.friendBg(f), open: (ev) => { ev.stopPropagation(); this.go({ name: 'friend', id: f.id }); } })),
+      edit: (ev) => { ev.stopPropagation(); this.openEventEditor(e); },
+      archive: (ev) => { if (ev) ev.stopPropagation(); this.toggleArchive(e); },
+      archiveIcon: e.archived ? '↺' : '⊟', archiveLabel: e.archived ? 'Restore' : 'Archive',
+      remove: (ev) => { if (ev) ev.stopPropagation(); this.askDelete('Delete “' + e.name + '”?', photoCount(e.id) + ' photos will be deleted with it.', () => this.deleteEvent(e.id)); },
+    });
+    const allPhotos = [...S.photos].sort((a, b) => b.createdAt - a.createdAt);
+    const totalPhotos = S.photos.length;
+    const favCount = S.photos.filter(p => p.fav).length;
+    // nav
+    const navDefs = [['Home', 'home', '⌂'], ['Events', 'events', '▦'], ['Albums', 'albums', '❐'], ['Timeline', 'timeline', '⋮'], ['Friends', 'friends', '◉'], ['Stats', 'stats', '◔'], ['Archive', 'archive', '⊟']];
+    const curEv = rn === 'event' ? S.events.find(e => e.id === S.route.id) : null;
+    const curFr = rn === 'friend' ? S.friends.find(f => f.id === S.route.id) : null;
+    const curAlb = rn === 'album' ? S.albums.find(a => a.id === S.route.id) : null;
+    // search
+    const q = S.searchQ.trim().toLowerCase(), tag = S.searchTag;
+    const evHay = (e) => (e.name + ' ' + (e.location || '') + ' ' + (e.desc || '') + ' ' + (e.tags || []).join(' ') + ' ' + (e.date || '') + ' ' + (e.friendIds || []).map(id => (S.friends.find(f => f.id === id) || {}).name || '').join(' ')).toLowerCase();
+    let sEvents = live, sPhotos = [];
+    if (tag === '★ favorites') { sEvents = []; sPhotos = S.photos.filter(p => p.fav); }
+    else {
+      if (q) sEvents = live.filter(e => evHay(e).includes(q));
+      else if (tag) sEvents = live.filter(e => evHay(e).includes(tag.toLowerCase()));
+      sPhotos = sEvents.flatMap(e => this.eventPhotos(e.id));
+      if (q) sPhotos = sPhotos.concat(S.photos.filter(p => (p.name || '').toLowerCase().includes(q) && !sPhotos.includes(p)));
+    }
+    sPhotos = sPhotos.slice(0, 24);
+    const searching = !!(q || tag);
+    const searchNothing = (searching && sEvents.length === 0 && sPhotos.length === 0) || (!searching && !S.events.length);
+    // viewer
+    let viewer = {};
+    if (S.viewer) {
+      const list = this.viewerList();
+      const p = list.find(x => x.id === S.viewer.photoId) || list[0];
+      const ev = S.events.find(e => e.id === S.viewer.eventId) || {};
+      if (p) {
+        const idx = list.findIndex(x => x.id === p.id);
+        const isVideo = p.type === 'video';
+        const bgSrc = isVideo ? this.thumbUrl(p) : this.urls[p.id];
+        viewer = {
+          url: this.urls[p.id], isVideo, isImage: !isVideo,
+          bg: bgSrc ? `url(${bgSrc})` : this.grad(this.hueOf(p.id)),
+          title: ev.name || '', cursor: S.zoomed ? 'zoom-out' : 'zoom-in',
+          meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDate(ev.date) + (p.name ? ' · ' + p.name : ''),
+          zoomT: S.zoomed ? 'scale(1.55)' : 'scale(1)',
+          favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : '#fff',
+          hasAlbums: S.albums.length > 0, albumValue: '',
+          albumOptions: S.albums.map(a => ({ id: a.id, name: a.name })),
+          hasFriends: S.friends.length > 0, favFriendValue: '',
+          friendOptions: S.friends.map(f => ({ id: f.id, name: f.name })),
+          download: () => this.downloadPhoto(p),
+          downloadLabel: isVideo ? '⬇ Download video' : '⬇ Download',
+        };
+      }
+    }
+    const chip = (label, active, pick) => ({ label, pick, border: active ? 'transparent' : 'rgba(255,255,255,0.14)', bg: active ? '#f2f0f5' : 'transparent', color: active ? '#0e0d12' : '#a5a1af' });
+    const allTags = [...new Set(S.events.flatMap(e => e.tags || []))];
+    const years = [...new Set(live.map(e => (e.date || '').slice(0, 4)).filter(Boolean))].sort().reverse();
+    const filtered = live.filter(e => S.eventFilter === 'all' || (e.date || '').slice(0, 4) === S.eventFilter || (e.tags || []).includes(S.eventFilter));
+    const maxCount = Math.max(1, ...live.map(e => photoCount(e.id)));
+    const friendStats = S.friends.map(f => {
+      const evs = S.events.filter(e => (e.friendIds || []).includes(f.id));
+      return { ...f, events: evs.length, photos: evs.reduce((a, e) => a + photoCount(e.id), 0), evs };
+    });
+    const spans = [[2, 2], [1, 1], [1, 2], [2, 1], [1, 1], [1, 1], [2, 1], [1, 1], [1, 1], [2, 1], [1, 1], [1, 1]];
+    const ed = S.editor || {};
+    const editorVals = !S.editor ? {} : (ed.kind === 'event' ? {
+      isEvent: true, isFriend: false, isAlbum: false,
+      title: ed.id ? 'Edit event' : 'New event', sub: ed.id ? 'Update the details of this event.' : 'Give it a name — everything else is optional.',
+      saveLabel: ed.id ? 'Save changes' : 'Create event',
+      name: ed.name, date: ed.date, location: ed.location, desc: ed.desc, tags: ed.tags,
+      coverBg: ed.coverBlob ? `url(${URL.createObjectURL(ed.coverBlob)})` : (ed.coverKey && this.urls[ed.coverKey] ? `url(${this.urls[ed.coverKey]})` : 'rgba(255,255,255,0.03)'),
+      coverLabel: (ed.coverBlob || ed.coverKey) ? 'Change cover image' : 'Upload a cover image',
+      hasCover: !!(ed.coverBlob || ed.coverKey),
+      repositionCover: (ev) => { ev.stopPropagation(); this.startCoverReposition(); },
+      noFriends: S.friends.length === 0,
+      friendChips: S.friends.map(f => {
+        const on = ed.friendIds.includes(f.id);
+        return { name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), avatarBg: this.friendBg(f), border: on ? 'transparent' : 'rgba(255,255,255,0.14)', bg: on ? '#f2f0f5' : 'transparent', color: on ? '#0e0d12' : '#a5a1af', toggle: () => this.setField('friendIds', on ? ed.friendIds.filter(x => x !== f.id) : [...ed.friendIds, f.id]) };
+      }),
+    } : ed.kind === 'friend' ? {
+      isEvent: false, isFriend: true, isAlbum: false,
+      title: ed.id ? 'Edit profile' : 'Add a friend', sub: 'They will show up on events you tag them in.',
+      saveLabel: ed.id ? 'Save changes' : 'Add friend', name: ed.name, tagline: ed.tagline,
+      avatarBg: ed.avatarBlob ? `url(${URL.createObjectURL(ed.avatarBlob)})` : (ed.avatarKey && this.urls[ed.avatarKey] ? `url(${this.urls[ed.avatarKey]})` : this.grad(ed.hue, 160)),
+      avatarInitial: (ed.avatarBlob || ed.avatarKey) ? '' : ((ed.name || '?')[0] || '?').toUpperCase(),
+      hasAvatar: !!(ed.avatarBlob || ed.avatarKey), noAvatar: !(ed.avatarBlob || ed.avatarKey),
+      repositionAvatar: (ev) => { ev.stopPropagation(); this.startAvatarReposition(); },
+      hueSwatches: this.HUES.map(h => ({ color: this.accent(h), border: ed.hue === h ? '#fff' : 'transparent', pick: () => this.setField('hue', h) })),
+    } : { isEvent: false, isFriend: false, isAlbum: true, title: 'New album', sub: 'A collection that can pull photos from any event.', saveLabel: 'Create album', name: ed.name });
+    const myId = S.session && S.session.user.id;
+    const adminUsersList = S.adminUsers || [];
+    const userLabel = (u) => ({
+      initial: ((u.full_name || u.email || '?')[0] || '?').toUpperCase(),
+      name: u.full_name || u.email || 'Unknown',
+      email: u.email || '',
+    });
+    const adminStats = [
+      { label: 'Total users', value: String(adminUsersList.length), color: this.accent(342) },
+      { label: 'Total albums', value: String(S.albums.length), color: this.accent(200) },
+      { label: 'Total photos', value: String(S.photos.filter(p => p.type !== 'video').length), color: this.accent(150) },
+      { label: 'Total videos', value: String(S.photos.filter(p => p.type === 'video').length), color: this.accent(260) },
+    ];
+    const pendingUsers = adminUsersList.filter(u => u.status === 'pending').map(u => ({
+      ...userLabel(u),
+      approve: () => this.setUserStatus(u.id, 'approved'),
+      reject: () => this.setUserStatus(u.id, 'rejected'),
+    }));
+    const allUsers = adminUsersList.map(u => ({
+      ...userLabel(u), role: u.role, isSelf: u.id === myId,
+      statusLabel: u.status, statusColor: u.status === 'approved' ? '#0e0d12' : u.status === 'pending' ? '#0e0d12' : '#fff',
+      statusBg: u.status === 'approved' ? this.accent(150) : u.status === 'pending' ? this.accent(60) : 'rgba(255,255,255,0.15)',
+      changeRole: (e) => this.setUserRole(u.id, e.target.value),
+      canRevoke: u.status === 'approved' && u.id !== myId,
+      revoke: () => this.setUserStatus(u.id, 'rejected'),
+    }));
+    return {
+      adminStats, pendingUsers, allUsers, noPending: pendingUsers.length === 0,
+      ...authFlags,
+      introVisible: S.intro !== 'done',
+      introAnim: S.intro === 'exit' ? 'fadeOut .7s cubic-bezier(.4,0,.2,1) forwards' : 'none',
+      introStreaks: [
+        { top: '22%', h: '2px', color: 'oklch(0.85 0.14 342)', blur: '2px', dur: '2.4s', delay: '0.15s' },
+        { top: '34%', h: '1px', color: 'oklch(0.85 0.13 342)', blur: '1px', dur: '2.8s', delay: '0.5s' },
+        { top: '48%', h: '3px', color: 'oklch(0.85 0.13 150)', blur: '3px', dur: '2.2s', delay: '0.9s' },
+        { top: '61%', h: '1px', color: 'oklch(0.88 0.12 200)', blur: '1px', dur: '2.6s', delay: '1.3s' },
+        { top: '73%', h: '2px', color: 'oklch(0.85 0.13 265)', blur: '2px', dur: '2.5s', delay: '1.75s' },
+        { top: '86%', h: '1px', color: 'oklch(0.88 0.12 90)', blur: '2px', dur: '2.9s', delay: '2.2s' },
+      ],
+      introParticles: Array.from({ length: 22 }, (_, i) => ({
+        left: (4 + (i * 4.3) % 92).toFixed(1) + '%',
+        size: (2 + (i % 4)) + 'px',
+        color: this.accent(this.HUES[i % 6]),
+        dur: (7 + (i % 5) * 1.6) + 's', delay: ((i % 8) * 0.55) + 's',
+      })),
+      introWords: [{ text: 'Ours', delay: '2.2s' }, { text: 'Kept', delay: '2.5s' }, { text: 'Forever', delay: '2.8s' }],
+      skipIntro: () => this.skip(),
+      isMobile, isDesktop: !isMobile, mainPad: isMobile ? '0 18px 96px' : '0 48px',
+      showNavSearch: !isMobile && S.vw >= 1120, showNavSearchIcon: !isMobile && S.vw < 1120,
+      navCtaLabel: S.vw < 1000 ? '+ Event' : '+ New event',
+      heroMargin: isMobile ? '0 -18px' : '0 -48px',
+      showHome: rn === 'home', showEvents: rn === 'events', showEvent: rn === 'event' && !!curEv,
+      showAlbums: rn === 'albums', showAlbum: rn === 'album' && !!curAlb, showTimeline: rn === 'timeline', showStats: rn === 'stats',
+      showFriends: rn === 'friends', showFriend: rn === 'friend' && !!curFr, showSearch: rn === 'search',
+      showUpload: rn === 'upload', showArchive: rn === 'archive', showAdmin: rn === 'admin' && isAdmin,
+      goAdmin: () => { this.loadAdminUsers(); this.go({ name: 'admin' }); },
+      adminNavBg: rn === 'admin' ? '#f2f0f5' : 'rgba(255,255,255,0.06)',
+      adminNavColor: rn === 'admin' ? '#0e0d12' : '#8b8794',
+      navItems: navDefs.map(([label, name]) => ({ label, go: () => this.go({ name }), bg: rn === name ? 'rgba(255,255,255,0.1)' : 'transparent', color: rn === name ? '#fff' : '#a5a1af' })),
+      mobileNav: [navDefs[0], navDefs[1], navDefs[3], navDefs[4], ['Search', 'search', '⌕']].map(([label, name, icon]) => ({ label, icon, go: () => this.go({ name }), color: rn === name ? this.accent(342) : '#8b8794' })),
+      goHome: () => this.go({ name: 'home' }), goEvents: () => this.go({ name: 'events' }), goFriends: () => this.go({ name: 'friends' }), goAlbums: () => this.go({ name: 'albums' }),
+      goSearch: () => { if (rn !== 'search') this.go({ name: 'search' }); },
+      searchQ: S.searchQ, setSearch: (e) => this.setState({ searchQ: e.target.value, route: { name: 'search' } }),
+      newEvent: () => this.openEventEditor(null), newFriend: () => this.openFriendEditor(null), newAlbum: () => this.openAlbumEditor(),
+      newFriendFromEditor: (e) => { e.preventDefault(); this.openFriendEditor(null); },
+      // home
+      homeHeadline: live.length ? 'Every trip, still glowing.' : 'Your memory book starts empty.',
+      homeSub: live.length ? totalPhotos + ' photos across ' + live.length + (live.length === 1 ? ' event' : ' events') + ', kept privately in this browser.' : 'Create an event, add the people who were there, and fill it with your own photos. Nothing is preloaded and nothing leaves this device.',
+      homeCta: live.length ? 'New event' : 'Create your first event',
+      homeEmpty: live.length === 0, homeHasContent: live.length > 0, hasPhotos: totalPhotos > 0,
+      featured: live.length ? { title: live[0].name, meta: evMeta(live[0]) + ' · ' + photoCount(live[0].id) + ' photos', bg: this.coverBg(live[0]), open: openEvent(live[0].id) } : null,
+      recentEvents: live.slice(0, 3).map(evCard),
+      mosaic: allPhotos.slice(0, 12).map((p, i) => ({ ...photoThumb(p), cspan: isMobile ? Math.min(spans[i][0], 3) : spans[i][0], rspan: spans[i][1], delay: (i * 0.05) + 's', open: openPhoto(p.eventId, p.id) })),
+      // events
+      eventsSub: live.length ? live.length + (live.length === 1 ? ' event' : ' events') + ' · newest first' : 'Nothing here yet.',
+      eventsEmpty: live.length === 0, eventCards: filtered.map(evCard),
+      hasEventChips: years.length + allTags.length > 0,
+      eventFilters: [chip('All', S.eventFilter === 'all', () => this.setState({ eventFilter: 'all' })), ...years.map(y => chip(y, S.eventFilter === y, () => this.setState({ eventFilter: y }))), ...allTags.map(t => chip(t, S.eventFilter === t, () => this.setState({ eventFilter: t })))],
+      // event detail
+      curEvent: curEv ? { ...evCard(curEv, 0), statLine: photoCount(curEv.id) + ' photos · ' + this.eventPhotos(curEv.id).filter(p => p.fav).length + ' favorites' } : {},
+      editCurEvent: () => this.openEventEditor(curEv),
+      manageMode: S.manageMode, manageLabel: S.manageMode ? 'Done organizing' : 'Organize',
+      manageBg: S.manageMode ? '#f2f0f5' : 'rgba(0,0,0,0.4)', manageColor: S.manageMode ? '#0e0d12' : '#fff',
+      toggleManage: () => this.setState({ manageMode: !S.manageMode }),
+      eventPhotosEmpty: !!curEv && photoCount(curEv.id) === 0,
+      goUploadHere: () => { this.setState({ uploadEventId: curEv.id }); this.go({ name: 'upload' }); },
+      curPhotos: !curEv ? [] : this.eventPhotos(curEv.id).map((p, i) => ({
+        ...photoThumb(p), delay: (Math.min(i, 16) * 0.04) + 's', manage: S.manageMode,
+        cursor: S.manageMode ? 'grab' : 'pointer', draggable: S.manageMode,
+        opacity: S.dragId === p.id ? 0.4 : 1,
+        outline: S.overId === p.id && S.dragId !== p.id ? '2px solid oklch(0.8 0.13 342)' : '2px solid transparent',
+        isCover: curEv.coverPhotoId === p.id,
+        coverColor: curEv.coverPhotoId === p.id ? 'oklch(0.85 0.14 90)' : '#fff',
+        open: S.manageMode ? () => {} : openPhoto(p.eventId, p.id),
+        dragStart: () => this.setState({ dragId: p.id }),
+        dragOver: (e) => { e.preventDefault(); if (S.overId !== p.id) this.setState({ overId: p.id }); },
+        drop: (e) => { e.preventDefault(); this.reorder(curEv.id, S.dragId, p.id); },
+        dragEnd: () => this.setState({ dragId: null, overId: null }),
+        fav: (e) => { e.stopPropagation(); this.toggleFav(p.id); },
+        favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : 'rgba(255,255,255,0.9)',
+        setCover: (e) => { e.stopPropagation(); this.setCover(curEv.id, p.id); },
+        remove: (e) => { e.stopPropagation(); this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(p.id)); },
+      })),
+      // albums
+      albumsEmpty: S.albums.length === 0,
+      albumCards: S.albums.map(a => ({
+        name: a.name, count: a.photoIds.length,
+        thumbs: a.photoIds.slice(0, 4).map(id => { const ph = S.photos.find(x => x.id === id); return ph ? photoThumb(ph) : { url: this.urls[id] }; }).filter(t => t.url),
+        open: () => this.go({ name: 'album', id: a.id }),
+        remove: (e) => { if (e) e.stopPropagation(); this.askDelete('Delete album “' + a.name + '”?', 'The photos themselves stay in their events.', async () => { const ok = await this.del('albums', a.id); if (!ok) { this.say('Could not delete — you may not have permission'); return; } this.setState({ albums: S.albums.filter(x => x.id !== a.id), confirm: null }); this.say('Album deleted'); }); },
+      })),
+      // album detail
+      curAlbum: curAlb ? { name: curAlb.name, count: curAlb.photoIds.length } : {},
+      albumPhotosEmpty: !!curAlb && curAlb.photoIds.length === 0,
+      curAlbumPhotos: !curAlb ? [] : curAlb.photoIds.map(id => S.photos.find(p => p.id === id)).filter(Boolean).map((p, i) => ({
+        ...photoThumb(p), delay: (Math.min(i, 16) * 0.04) + 's',
+        open: openPhoto(p.eventId, p.id),
+        favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : 'rgba(255,255,255,0.9)',
+        fav: (e) => { e.stopPropagation(); this.toggleFav(p.id); },
+        remove: (e) => { e.stopPropagation(); const rec = { ...curAlb, photoIds: curAlb.photoIds.filter(x => x !== p.id) }; this.put('albums', rec).then(ok => { if (!ok) { this.say('Could not remove — you may not have permission'); return; } this.setState({ albums: S.albums.map(x => x.id === curAlb.id ? rec : x) }); this.say('Removed from album'); }); },
+      })),
+      // timeline
+      timelineSub: live.length ? 'Every event, in order.' : 'Nothing on the line yet.',
+      timelineEmpty: live.length === 0, timelineHas: live.length > 0, timelinePad: live.length ? '36px' : '0',
+      timelineGroups: [...new Set(live.map(e => (e.date || '').slice(0, 4) || 'Undated'))].map((y, gi) => ({
+        year: y, delay: (gi * 0.12) + 's', dotColor: this.accent(this.HUES[gi % 6]),
+        events: live.filter(e => ((e.date || '').slice(0, 4) || 'Undated') === y).map((e, i) => ({ ...evCard(e, i), delay: (gi * 0.12 + i * 0.07 + 0.08) + 's' })),
+      })),
+      // stats
+      bigStats: [[totalPhotos, 'photos'], [live.length, 'events'], [S.friends.length, 'friends'], [S.albums.length, 'albums'], [favCount, 'favorites'], [archived.length, 'archived']].map(([value, label], i) => ({ value, label, delay: (i * 0.05) + 's', c1: this.accent(this.HUES[i]), c2: this.accent(this.HUES[i] + 40) })),
+      statsEmpty: totalPhotos === 0, statsHas: totalPhotos > 0,
+      statsGrid: isMobile || S.friends.length === 0 ? '1fr' : '1.4fr 1fr',
+      hasFriends: S.friends.length > 0,
+      barChart: live.filter(e => photoCount(e.id) > 0).map(e => ({ label: e.name, n: photoCount(e.id), width: Math.round(photoCount(e.id) / maxCount * 100) + '%', c1: `oklch(0.55 0.12 ${this.hueOf(e.id)})`, c2: `oklch(0.78 0.13 ${this.hueOf(e.id) + 40})` })),
+      friendRanks: [...friendStats].sort((a, b) => b.events - a.events).map(f => ({ name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), bg: this.friendBg(f), n: f.events, sub: f.photos + ' photos', accent: this.accent(f.hue), open: () => this.go({ name: 'friend', id: f.id }) })),
+      // friends
+      friendsSub: S.friends.length ? S.friends.length + (S.friends.length === 1 ? ' person' : ' people') + ' in this memory book' : 'Nobody added yet.',
+      friendsEmpty: S.friends.length === 0,
+      emptyAvatars: [{ delay: '0s' }, { delay: '0.5s' }, { delay: '1s' }],
+      friendCards: friendStats.map((f, i) => ({
+        name: f.name, tagline: f.tagline || '', initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(),
+        bg: this.friendBg(f), events: f.events, photos: f.photos, accent: this.accent(f.hue), delay: (i * 0.06) + 's',
+        favUrl: this.favPhotoUrl(f), hasFav: !!this.favPhotoUrl(f),
+        open: () => this.go({ name: 'friend', id: f.id }),
+        edit: (e) => { e.stopPropagation(); this.openFriendEditor(f); },
+        remove: (e) => { e.stopPropagation(); this.askDelete('Remove ' + f.name + '?', 'They will be untagged from every event.', () => this.deleteFriend(f.id)); },
+      })),
+      curFriend: curFr ? (() => {
+        const f = friendStats.find(x => x.id === curFr.id);
+        const favPhoto = f.favPhotoId ? S.photos.find(p => p.id === f.favPhotoId) : null;
+        const favUrl = this.favPhotoUrl(f);
+        return {
+          name: f.name, initial: this.urls['av-' + f.id] ? '' : (f.name[0] || '').toUpperCase(), bg: this.friendBg(f),
+          line: (f.tagline ? f.tagline + ' · ' : '') + f.events + ' events · ' + f.photos + ' photos',
+          favUrl, hasFav: !!favUrl, noFav: !favUrl,
+          favOpen: favPhoto ? () => this.setState({ viewer: { eventId: favPhoto.eventId, photoId: favPhoto.id }, zoomed: false }) : () => {},
+        };
+      })() : {},
+      editCurFriend: () => this.openFriendEditor(curFr),
+      curFriendEvents: curFr ? S.events.filter(e => (e.friendIds || []).includes(curFr.id)).map(evCard) : [],
+      curFriendNoEvents: !!curFr && S.events.filter(e => (e.friendIds || []).includes(curFr.id)).length === 0,
+      // search
+      hasSearchTags: years.length + allTags.length > 0 || totalPhotos > 0,
+      searchTags: [...years, ...allTags, ...(favCount ? ['★ favorites'] : [])].map(t => chip(t, tag === t, () => this.setState({ searchTag: tag === t ? null : t, route: { name: 'search' } }))),
+      searchNothing, searchHasResults: !searchNothing,
+      searchEmptyTitle: S.events.length === 0 ? 'Nothing to search yet' : 'No matches',
+      searchEmptySub: S.events.length === 0 ? 'Create an event and add photos — they become searchable instantly.' : 'Try a different name, tag, year, or person.',
+      searchSummary: sEvents.length + ' events · ' + sPhotos.length + ' photos' + (q ? ' matching “' + S.searchQ + '”' : ''),
+      searchEvents: sEvents.map(evCard), searchPhotos: sPhotos.map(p => ({ ...photoThumb(p), open: openPhoto(p.eventId, p.id) })),
+      // upload
+      noEventsForUpload: live.length === 0, canUpload: live.length > 0,
+      uploadEventChips: live.map(e => chip(e.name, S.uploadEventId === e.id, () => this.setState({ uploadEventId: e.id }))),
+      pickFiles: () => this.fileInputRef.current && this.fileInputRef.current.click(),
+      fileInputRef: this.fileInputRef, filesPicked: (e) => this.addFiles(e.target.files),
+      dragOverH: (e) => { e.preventDefault(); if (!S.dragOver) this.setState({ dragOver: true }); },
+      dragLeaveH: () => this.setState({ dragOver: false }),
+      dropH: (e) => { e.preventDefault(); this.addFiles(e.dataTransfer.files); },
+      dropBorder: S.dragOver ? 'oklch(0.75 0.13 342)' : 'rgba(255,255,255,0.15)',
+      dropBg: S.dragOver ? 'oklch(0.4 0.1 342 / 0.12)' : 'rgba(255,255,255,0.02)',
+      dropLabel: S.dragOver ? 'Drop them in' : 'Drag photos & videos here',
+      hasQueue: S.queue.length > 0,
+      queue: S.queue.map(qi => ({ url: qi.url, name: qi.name, status: qi.status, progress: qi.progress + '%', isVideo: qi.type === 'video', isImage: qi.type !== 'video', namePlaceholder: qi.type === 'video' ? 'Title this video…' : 'Title this photo…', rename: (e) => this.setState({ queue: this.state.queue.map(x => x.id === qi.id ? { ...x, name: e.target.value } : x) }), up: () => this.moveQueue(qi.id, -1), down: () => this.moveQueue(qi.id, 1), remove: () => this.setState({ queue: S.queue.filter(x => x.id !== qi.id) }) })),
+      commitUpload: () => this.commitUpload(),
+      uploadCta: (() => {
+        const nV = S.queue.filter(q => q.type === 'video').length, nP = S.queue.length - nV;
+        const parts = [];
+        if (nP) parts.push(nP + (nP === 1 ? ' photo' : ' photos'));
+        if (nV) parts.push(nV + (nV === 1 ? ' video' : ' videos'));
+        return 'Upload ' + (parts.length ? parts.join(' and ') : S.queue.length) + ' to ' + ((live.find(e => e.id === S.uploadEventId) || {}).name || '');
+      })(),
+      uploadDone: S.uploadDone,
+      uploadDoneMsg: (() => {
+        const dc = S.doneCounts || { photos: S.doneCount, videos: 0 };
+        const parts = [];
+        if (dc.photos) parts.push(dc.photos + (dc.photos === 1 ? ' photo' : ' photos'));
+        if (dc.videos) parts.push(dc.videos + (dc.videos === 1 ? ' video' : ' videos'));
+        return (parts.length ? parts.join(' and ') : S.doneCount + ' items') + ' added to ' + ((S.events.find(e => e.id === S.lastUploadEvent) || {}).name || '');
+      })(),
+      goToUploadedEvent: () => this.go({ name: 'event', id: S.lastUploadEvent }),
+      // archive
+      archiveEmpty: archived.length === 0, archivedCards: archived.map(evCard),
+      // editor
+      editorOpen: !!S.editor, editor: editorVals, closeEditor: () => this.setState({ editor: null }),
+      saveEditor: () => this.saveEditor(),
+      setF: { name: (e) => this.setField('name', e.target.value), date: (e) => this.setField('date', e.target.value), location: (e) => this.setField('location', e.target.value), desc: (e) => this.setField('desc', e.target.value), tags: (e) => this.setField('tags', e.target.value), tagline: (e) => this.setField('tagline', e.target.value) },
+      coverInputRef: this.coverInputRef, avatarInputRef: this.avatarInputRef,
+      pickCover: () => this.coverInputRef.current && this.coverInputRef.current.click(),
+      coverPicked: (e) => { const f = e.target.files[0]; if (f) this.openPosEditor('cover', f, null); e.target.value = ''; },
+      pickAvatar: () => this.avatarInputRef.current && this.avatarInputRef.current.click(),
+      avatarPicked: (e) => { const f = e.target.files[0]; if (f) this.openPosEditor('avatar', f, null); e.target.value = ''; },
+      posFrameRef: this.posFrameRef,
+      posEditorOpen: !!S.posEditor, posEditor: this.posEditorView(),
+      posMouseDown: (e) => this.posMouseDown(e), posMouseMove: (e) => this.posMouseMove(e), posMouseUp: () => this.posMouseUp(),
+      posTouchStart: (e) => this.posTouchStart(e), posTouchMove: (e) => this.posTouchMove(e), posTouchEnd: (e) => this.posTouchEnd(e),
+      posWheel: (e) => this.posWheel(e), posZoomChange: (e) => this.posZoomChange(e),
+      posSave: () => this.posSave(), closePosEditor: () => this.closePosEditor(),
+      // confirm
+      confirmOpen: !!S.confirm, confirmMsg: S.confirm ? S.confirm.msg : '', confirmSub: S.confirm ? S.confirm.sub : '',
+      confirmYes: () => S.confirm && S.confirm.fn(), closeConfirm: () => this.setState({ confirm: null }),
+      // viewer
+      viewerOpen: !!S.viewer && !!viewer.url, viewer,
+      closeViewer: () => this.setState({ viewer: null, zoomed: false }),
+      viewerPrev: () => this.stepViewer(-1), viewerNext: () => this.stepViewer(1),
+      toggleZoom: () => this.setState({ zoomed: !S.zoomed }),
+      viewerFav: () => this.toggleFav(S.viewer.photoId),
+      viewerDelete: () => this.askDelete('Delete this photo?', 'It cannot be recovered.', () => this.deletePhoto(S.viewer.photoId)),
+      addToAlbum: async (e) => {
+        const id = e.target.value; if (!id) return;
+        const a = S.albums.find(x => x.id === id); if (!a) return;
+        if (a.photoIds.includes(S.viewer.photoId)) { this.say('Already in ' + a.name); return; }
+        const rec = { ...a, photoIds: [...a.photoIds, S.viewer.photoId] };
+        const ok = await this.put('albums', rec);
+        if (!ok) { this.say('Could not add — you may not have permission'); return; }
+        this.setState({ albums: S.albums.map(x => x.id === id ? rec : x) });
+        this.say('Added to ' + a.name);
+      },
+      setPhotoAsFavorite: (e) => {
+        const friendId = e.target.value; if (!friendId) return;
+        this.setFriendFavoritePhoto(friendId, S.viewer.photoId);
+      },
+      toast: S.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>

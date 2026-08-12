@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KBL Adventures</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22rb%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff4d4d%22/%3E%3Cstop%20offset%3D%2220%25%22%20stop-color%3D%22%23ff9d3b%22/%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23ffe93b%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%233bff6e%22/%3E%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233bc8ff%22/%3E%3Cstop%20offset%3D%2285%25%22%20stop-color%3D%22%237a5bff%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23ff4dd2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2249%22%20fill%3D%22%230e0d12%22/%3E%3Cg%20transform%3D%22translate%2850%2C50%29%20scale%280.62%29%20translate%28-50%2C-50%29%22%3E%3Cpath%20d%3D%22M50%203%20L61.8%2036.5%20L97.5%2036.5%20L68.6%2058%20L79.4%2091.5%20L50%2070%20L20.6%2091.5%20L31.4%2058%20L2.5%2036.5%20L38.2%2036.5%20Z%22%20fill%3D%22url%28%23rb%29%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222.5%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22rb%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff4d4d%22/%3E%3Cstop%20offset%3D%2220%25%22%20stop-color%3D%22%23ff9d3b%22/%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23ffe93b%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%233bff6e%22/%3E%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233bc8ff%22/%3E%3Cstop%20offset%3D%2285%25%22%20stop-color%3D%22%237a5bff%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23ff4dd2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M50%203%20L61.8%2036.5%20L97.5%2036.5%20L68.6%2058%20L79.4%2091.5%20L50%2070%20L20.6%2091.5%20L31.4%2058%20L2.5%2036.5%20L38.2%2036.5%20Z%22%20fill%3D%22url%28%23rb%29%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
 <script src="./support.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
@@ -911,13 +910,17 @@ input::placeholder,textarea::placeholder{color:#6c6877}
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
               <div>
-                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Date</div>
+                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Start date</div>
                 <input type="date" value="{{ editor.date }}" onChange="{{ setF.date }}" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none;color-scheme:dark" style-focus="border-color:oklch(0.65 0.12 342)">
               </div>
               <div>
-                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Location</div>
-                <input value="{{ editor.location }}" onChange="{{ setF.location }}" placeholder="Where?" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
+                <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">End date</div>
+                <input type="date" value="{{ editor.endDate }}" min="{{ editor.date }}" onChange="{{ setF.endDate }}" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none;color-scheme:dark" style-focus="border-color:oklch(0.65 0.12 342)">
               </div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Location</div>
+              <input value="{{ editor.location }}" onChange="{{ setF.location }}" placeholder="Where?" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px 14px;color:#f2f0f5;font-size:14px;outline:none" style-focus="border-color:oklch(0.65 0.12 342)">
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;color:#8b8794;text-transform:uppercase;letter-spacing:0.12em;font-family:'JetBrains Mono',monospace;margin-bottom:7px">Description</div>
@@ -1247,7 +1250,7 @@ class Component extends DCLogic {
   go(route) { this.setState({ route, viewer: null, zoomed: false, uploadDone: false, manageMode: false }); window.scrollTo(0, 0); }
   /* ---------- editors ---------- */
   openEventEditor(ev) {
-    this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? (ev.tags || []).join(', ') : '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
+    this.setState({ editor: { kind: 'event', id: ev ? ev.id : null, name: ev ? ev.name : '', date: ev ? ev.date || '' : '', endDate: ev ? ev.endDate || '' : '', location: ev ? ev.location || '' : '', desc: ev ? ev.desc || '' : '', tags: ev ? (ev.tags || []).join(', ') : '', friendIds: ev ? [...(ev.friendIds || [])] : [], coverBlob: null, coverKey: ev && ev.coverUrl ? 'cover-' + ev.id : null, coverPhotoId: ev ? ev.coverPhotoId : null, coverOrigBlob: null, coverCrop: ev ? ev.coverCrop || null : null } });
   }
   openFriendEditor(f) {
     this.setState({ editor: { kind: 'friend', id: f ? f.id : null, name: f ? f.name : '', tagline: f ? f.tagline || '' : '', hue: f ? f.hue : this.HUES[(this.state.friends.length) % 6], avatarBlob: null, avatarKey: f && f.avatarUrl ? 'av-' + f.id : null, avatarOrigBlob: null, avatarCrop: f ? f.avatarCrop || null : null } });
@@ -1260,7 +1263,7 @@ class Component extends DCLogic {
     if (e.kind === 'event') {
       const id = e.id || this.uid('ev');
       const prev = this.state.events.find(x => x.id === id) || {};
-      const rec = { ...prev, id, name: e.name.trim(), date: e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, archived: prev.archived || false, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
+      const rec = { ...prev, id, name: e.name.trim(), date: e.date, endDate: e.endDate && e.endDate.trim() ? e.endDate : e.date, location: e.location.trim(), desc: e.desc.trim(), tags: e.tags.split(',').map(t => t.trim()).filter(Boolean), friendIds: e.friendIds, archived: prev.archived || false, coverPhotoId: e.coverPhotoId || null, createdAt: prev.createdAt || Date.now() };
       if (e.coverCrop) rec.coverCrop = e.coverCrop;
       if (e.coverBlob) {
         this.say('Uploading cover…');
@@ -1484,6 +1487,22 @@ class Component extends DCLogic {
     if (isNaN(dt)) return d;
     return dt.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   }
+  fmtDateRange(start, end) {
+    if (!start) return 'No date';
+    const e = end && end !== start ? end : null;
+    if (!e) return this.fmtDate(start);
+    const sDt = new Date(start + 'T00:00:00'), eDt = new Date(end + 'T00:00:00');
+    if (isNaN(sDt) || isNaN(eDt)) return this.fmtDate(start);
+    const sameYear = sDt.getFullYear() === eDt.getFullYear();
+    const sameMonth = sameYear && sDt.getMonth() === eDt.getMonth();
+    if (sameMonth) {
+      return sDt.toLocaleDateString(undefined, { month: 'short' }) + ' ' + sDt.getDate() + '–' + eDt.getDate() + ', ' + eDt.getFullYear();
+    }
+    if (sameYear) {
+      return sDt.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' – ' + eDt.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' + eDt.getFullYear();
+    }
+    return this.fmtDate(start) + ' – ' + this.fmtDate(end);
+  }
   grad(hue, a) { const g = a == null ? 135 : a; return `linear-gradient(${g}deg, oklch(0.34 0.07 ${hue}), oklch(0.5 0.11 ${hue + 30}))`; }
   accent(h) { return `oklch(0.8 0.13 ${h})`; }
   hueOf(id) { let n = 0; for (const c of String(id)) n = (n * 31 + c.charCodeAt(0)) % 360; return n; }
@@ -1670,7 +1689,7 @@ class Component extends DCLogic {
     const openEvent = (id) => () => this.go({ name: 'event', id });
     const openPhoto = (eventId, photoId) => () => this.setState({ viewer: { eventId, photoId }, zoomed: false });
     const photoThumb = (p) => { const url = this.thumbUrl(p); const isVideo = p.type === 'video'; return { url, isVideo, noThumb: isVideo && !url, thumbBg: this.grad(this.hueOf(p.id)), bg: url ? `url(${url})` : this.grad(this.hueOf(p.id)) }; };
-    const evMeta = (e) => [e.location, this.fmtDate(e.date)].filter(Boolean).join(' · ');
+    const evMeta = (e) => [e.location, this.fmtDateRange(e.date, e.endDate)].filter(Boolean).join(' · ');
     const evCard = (e, i) => ({
       title: e.name, meta: evMeta(e) + ' · ' + photoCount(e.id) + ' photos', count: photoCount(e.id),
       desc: e.desc || '', bg: this.coverBg(e), noCover: !this.hasCover(e), delay: (i * 0.06) + 's',
@@ -1693,7 +1712,7 @@ class Component extends DCLogic {
     const curAlb = rn === 'album' ? S.albums.find(a => a.id === S.route.id) : null;
     // search
     const q = S.searchQ.trim().toLowerCase(), tag = S.searchTag;
-    const evHay = (e) => (e.name + ' ' + (e.location || '') + ' ' + (e.desc || '') + ' ' + (e.tags || []).join(' ') + ' ' + (e.date || '') + ' ' + (e.friendIds || []).map(id => (S.friends.find(f => f.id === id) || {}).name || '').join(' ')).toLowerCase();
+    const evHay = (e) => (e.name + ' ' + (e.location || '') + ' ' + (e.desc || '') + ' ' + (e.tags || []).join(' ') + ' ' + (e.date || '') + ' ' + (e.endDate || '') + ' ' + (e.friendIds || []).map(id => (S.friends.find(f => f.id === id) || {}).name || '').join(' ')).toLowerCase();
     let sEvents = live, sPhotos = [];
     if (tag === '★ favorites') { sEvents = []; sPhotos = S.photos.filter(p => p.fav); }
     else {
@@ -1719,7 +1738,7 @@ class Component extends DCLogic {
           url: this.urls[p.id], isVideo, isImage: !isVideo,
           bg: bgSrc ? `url(${bgSrc})` : this.grad(this.hueOf(p.id)),
           title: ev.name || '', cursor: S.zoomed ? 'zoom-out' : 'zoom-in',
-          meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDate(ev.date) + (p.name ? ' · ' + p.name : ''),
+          meta: (idx + 1) + ' / ' + list.length + ' · ' + this.fmtDateRange(ev.date, ev.endDate) + (p.name ? ' · ' + p.name : ''),
           zoomT: S.zoomed ? 'scale(1.55)' : 'scale(1)',
           favIcon: p.fav ? '♥' : '♡', favColor: p.fav ? 'oklch(0.75 0.16 5)' : '#fff',
           hasAlbums: S.albums.length > 0, albumValue: '',
@@ -1746,7 +1765,7 @@ class Component extends DCLogic {
       isEvent: true, isFriend: false, isAlbum: false,
       title: ed.id ? 'Edit event' : 'New event', sub: ed.id ? 'Update the details of this event.' : 'Give it a name — everything else is optional.',
       saveLabel: ed.id ? 'Save changes' : 'Create event',
-      name: ed.name, date: ed.date, location: ed.location, desc: ed.desc, tags: ed.tags,
+      name: ed.name, date: ed.date, endDate: ed.endDate, location: ed.location, desc: ed.desc, tags: ed.tags,
       coverBg: ed.coverBlob ? `url(${URL.createObjectURL(ed.coverBlob)})` : (ed.coverKey && this.urls[ed.coverKey] ? `url(${this.urls[ed.coverKey]})` : 'rgba(255,255,255,0.03)'),
       coverLabel: (ed.coverBlob || ed.coverKey) ? 'Change cover image' : 'Upload a cover image',
       hasCover: !!(ed.coverBlob || ed.coverKey),
@@ -1970,7 +1989,7 @@ class Component extends DCLogic {
       // editor
       editorOpen: !!S.editor, editor: editorVals, closeEditor: () => this.setState({ editor: null }),
       saveEditor: () => this.saveEditor(),
-      setF: { name: (e) => this.setField('name', e.target.value), date: (e) => this.setField('date', e.target.value), location: (e) => this.setField('location', e.target.value), desc: (e) => this.setField('desc', e.target.value), tags: (e) => this.setField('tags', e.target.value), tagline: (e) => this.setField('tagline', e.target.value) },
+      setF: { name: (e) => this.setField('name', e.target.value), date: (e) => this.setField('date', e.target.value), endDate: (e) => this.setField('endDate', e.target.value), location: (e) => this.setField('location', e.target.value), desc: (e) => this.setField('desc', e.target.value), tags: (e) => this.setField('tags', e.target.value), tagline: (e) => this.setField('tagline', e.target.value) },
       coverInputRef: this.coverInputRef, avatarInputRef: this.avatarInputRef,
       pickCover: () => this.coverInputRef.current && this.coverInputRef.current.click(),
       coverPicked: (e) => { const f = e.target.files[0]; if (f) this.openPosEditor('cover', f, null); e.target.value = ''; },

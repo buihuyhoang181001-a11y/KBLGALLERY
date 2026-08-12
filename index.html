@@ -297,7 +297,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
           </sc-if>
         </div>
       </sc-if>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px">
+      <div style="display:grid;grid-template-columns: {{ eventsGridCols }};gap:20px">
         <sc-for list="{{ eventCards }}" as="ev" hint-placeholder-count="0">
           <div onClick="{{ ev.open }}" style="cursor:pointer;border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);animation:fadeUp .5s both;animation-delay: {{ ev.delay }};transition:transform .3s cubic-bezier(.2,.9,.3,1.3), box-shadow .3s, border-color .3s;position:relative" style-hover="transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,0,0,0.45);border-color:rgba(255,255,255,0.2)">
             <div style="height:178px;background: {{ ev.bg }};background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center">
@@ -470,7 +470,12 @@ input::placeholder,textarea::placeholder{color:#6c6877}
                   <div style="width:56px;height:56px;border-radius:9px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
                   <div style="flex:1;min-width:0">
                     <div style="font-family:Sora;font-weight:700;font-size:15px;line-height:1.3;overflow-wrap:break-word">{{ ev.title }}</div>
-                    <div style="color:#8b8794;font-size:12px;line-height:1.4;margin-top:3px;overflow-wrap:break-word">{{ ev.meta }}</div>
+                    <sc-if value="{{ ev.loc }}" hint-placeholder-val="{{ false }}">
+                      <div style="color:#8b8794;font-size:12px;line-height:1.4;margin-top:3px;overflow-wrap:break-word">{{ ev.loc }}</div>
+                    </sc-if>
+                    <sc-if value="{{ ev.date }}" hint-placeholder-val="{{ false }}">
+                      <div style="color:#8b8794;font-size:12px;line-height:1.4;margin-top:1px;overflow-wrap:break-word">{{ ev.date }}</div>
+                    </sc-if>
                   </div>
                   <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b8794;white-space:nowrap;flex-shrink:0;margin-top:2px">{{ ev.count }} →</div>
                 </div>
@@ -1645,6 +1650,7 @@ class Component extends DCLogic {
     const evMeta = (e) => [e.location, this.fmtDateRange(e.date, e.endDate)].filter(Boolean).join(' · ');
     const evCard = (e, i) => ({
       title: e.name, meta: evMeta(e), count: photoCount(e.id),
+      loc: e.location || '', date: this.fmtDateRange(e.date, e.endDate) || '',
       desc: e.desc || '', bg: this.coverBg(e), noCover: !this.hasCover(e), delay: (i * 0.06) + 's',
       open: openEvent(e.id),
       tags: (e.tags || []).map(t => ({ label: t })),
@@ -1789,6 +1795,7 @@ class Component extends DCLogic {
       introWords: [{ text: 'Ours', delay: '2.2s' }, { text: 'Kept', delay: '2.5s' }, { text: 'Forever', delay: '2.8s' }],
       skipIntro: () => this.skip(),
       isMobile, isDesktop: !isMobile, mainPad: isMobile ? '0 18px 96px' : '0 48px',
+      eventsGridCols: isMobile ? '1fr' : 'repeat(auto-fill,minmax(310px,1fr))',
       showNavSearch: !isMobile && S.vw >= 1120, showNavSearchIcon: !isMobile && S.vw < 1120,
       navCtaLabel: S.vw < 1000 ? '+ Event' : '+ New event',
       heroMargin: isMobile ? '0 -18px' : '0 -48px',

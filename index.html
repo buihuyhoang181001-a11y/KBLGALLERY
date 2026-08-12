@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22rb%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff4d4d%22/%3E%3Cstop%20offset%3D%2220%25%22%20stop-color%3D%22%23ff9d3b%22/%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23ffe93b%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%233bff6e%22/%3E%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233bc8ff%22/%3E%3Cstop%20offset%3D%2285%25%22%20stop-color%3D%22%237a5bff%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23ff4dd2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20d%3D%22M50%203%20L61.8%2036.5%20L97.5%2036.5%20L68.6%2058%20L79.4%2091.5%20L50%2070%20L20.6%2091.5%20L31.4%2058%20L2.5%2036.5%20L38.2%2036.5%20Z%22%20fill%3D%22url%28%23rb%29%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+<title>KBL Adventures</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22rb%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ff4d4d%22/%3E%3Cstop%20offset%3D%2220%25%22%20stop-color%3D%22%23ff9d3b%22/%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23ffe93b%22/%3E%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22%233bff6e%22/%3E%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233bc8ff%22/%3E%3Cstop%20offset%3D%2285%25%22%20stop-color%3D%22%237a5bff%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23ff4dd2%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22%23000000%22/%3E%3Cg%20transform%3D%22translate%2850%2050%29%20scale%280.62%29%20translate%28-50%20-50%29%22%3E%3Cpath%20d%3D%22M50%203%20L61.8%2036.5%20L97.5%2036.5%20L68.6%2058%20L79.4%2091.5%20L50%2070%20L20.6%2091.5%20L31.4%2058%20L2.5%2036.5%20L38.2%2036.5%20Z%22%20fill%3D%22url%28%23rb%29%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22/%3E%3C/g%3E%3C/svg%3E">
 <script src="./support.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
+<title>KBL Adventures</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -158,7 +160,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
       <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ goAdmin }}" title="Admin dashboard" style="border:none;cursor:pointer;flex-shrink:0;width:36px;height:36px;border-radius:50%;background: {{ adminNavBg }};color: {{ adminNavColor }};font-size:15px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);color:#fff">⚙</button>
       </sc-if>
-      <button onClick="{{ signOut }}" title="Sign out" style="border:none;cursor:pointer;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:14px;transition:all .2s" style-hover="background:rgba(255,255,255,0.14);color:#fff">⏻</button>
+      <button onClick="{{ navSignOut }}" title="Account" style="border:none;cursor:pointer;flex-shrink:0;width:36px;height:36px;border-radius:50%;background: {{ userAvatarBg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#e5e2ea;font-family:Sora;font-weight:700;font-size:14px;transition:all .2s" style-hover="filter:brightness(1.15)">{{ userAvatarLabel }}</button>
     </div>
   </nav>
   </sc-if>
@@ -172,7 +174,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
       <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ goAdmin }}" title="Admin dashboard" style="border:none;cursor:pointer;flex-shrink:0;width:34px;height:34px;border-radius:50%;background: {{ adminNavBg }};color: {{ adminNavColor }};font-size:14px;transition:all .2s" style-hover="background:rgba(255,255,255,0.16);color:#fff">⚙</button>
       </sc-if>
-      <button onClick="{{ signOut }}" title="Sign out" style="border:none;cursor:pointer;flex-shrink:0;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.06);color:#8b8794;font-size:13px;transition:all .2s" style-hover="background:rgba(255,255,255,0.14);color:#fff">⏻</button>
+      <button onClick="{{ navSignOut }}" title="Account" style="border:none;cursor:pointer;flex-shrink:0;width:34px;height:34px;border-radius:50%;background: {{ userAvatarBg }};background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#e5e2ea;font-family:Sora;font-weight:700;font-size:13px;transition:all .2s" style-hover="filter:brightness(1.15)">{{ userAvatarLabel }}</button>
     </div>
   </nav>
   </sc-if>
@@ -932,7 +934,7 @@ input::placeholder,textarea::placeholder{color:#6c6877}
         <div style="font-family:Sora;font-weight:700;font-size:19px">{{ confirmMsg }}</div>
         <div style="color:#8b8794;font-size:14px;margin-top:8px">{{ confirmSub }}</div>
         <div style="display:flex;gap:10px;margin-top:22px">
-          <button onClick="{{ confirmYes }}" style="flex:1;cursor:pointer;border:none;padding:13px;border-radius:13px;font-family:Sora;font-weight:700;font-size:14px;color:#fff;background:oklch(0.52 0.18 20);transition:all .2s" style-hover="background:oklch(0.58 0.19 20)">Delete</button>
+          <button onClick="{{ confirmYes }}" style="flex:1;cursor:pointer;border:none;padding:13px;border-radius:13px;font-family:Sora;font-weight:700;font-size:14px;color:#fff;background: {{ confirmActionBg }};transition:all .2s" style-hover="filter:brightness(1.1)">{{ confirmActionLabel }}</button>
           <button onClick="{{ closeConfirm }}" style="flex:1;cursor:pointer;padding:13px;border-radius:13px;border:1px solid rgba(255,255,255,0.14);background:none;color:#c9c5d2;font-size:14px;font-weight:600;transition:all .2s" style-hover="background:rgba(255,255,255,0.06)">Keep</button>
         </div>
       </div>
@@ -1077,6 +1079,13 @@ class Component extends DCLogic {
     this._appBooted = false;
     this.setState({ session: null, profile: null, ready: false });
   }
+  confirmSignOut() {
+    this.setState({ confirm: {
+      msg: 'Sign out?', sub: 'You can sign back in anytime with Google.',
+      fn: () => { this.setState({ confirm: null }); this.signOut(); },
+      actionLabel: 'Sign out', actionBg: 'linear-gradient(120deg, oklch(0.7 0.13 342), oklch(0.68 0.12 300))',
+    } });
+  }
   async loadAdminUsers() {
     const { data, error } = await this.sb.from('profiles').select('*').order('created_at', { ascending: false });
     if (error) { console.error(error); this.say('Could not load users'); return; }
@@ -1185,7 +1194,7 @@ class Component extends DCLogic {
       this.say(e.id ? 'Profile updated' : 'Friend added');
     }
   }
-  askDelete(msg, sub, fn) { this.setState({ confirm: { msg, sub, fn } }); }
+  askDelete(msg, sub, fn) { this.setState({ confirm: { msg, sub, fn, actionLabel: 'Delete', actionBg: 'oklch(0.52 0.18 20)' } }); }
   async deleteEvent(id) {
     const photos = this.state.photos.filter(p => p.eventId === id);
     for (const p of photos) { const ok = await this.del('photos', p.id); if (!ok) { this.say('Could not delete — you may not have permission'); return; } }
@@ -1545,6 +1554,9 @@ class Component extends DCLogic {
     const S = this.state, rn = S.route.name, isMobile = S.isMobile;
     const isApproved = !!(S.profile && S.profile.status === 'approved');
     const isAdmin = isApproved && S.profile.role === 'admin';
+    const profileName = (S.profile && S.profile.full_name) || (S.session && S.session.user.user_metadata && (S.session.user.user_metadata.full_name || S.session.user.user_metadata.name)) || (S.session && S.session.user.email) || '';
+    const userAvatarUrl = (S.session && S.session.user.user_metadata && (S.session.user.user_metadata.avatar_url || S.session.user.user_metadata.picture)) || '';
+    const userAvatarInitial = ((profileName || '?')[0] || '?').toUpperCase();
     const authFlags = {
       showAuthLoading: !S.authChecked,
       showSignIn: S.authChecked && !S.session,
@@ -1713,6 +1725,9 @@ class Component extends DCLogic {
       goAdmin: () => { this.loadAdminUsers(); this.go({ name: 'admin' }); },
       adminNavBg: rn === 'admin' ? '#f2f0f5' : 'rgba(255,255,255,0.06)',
       adminNavColor: rn === 'admin' ? '#0e0d12' : '#8b8794',
+      navSignOut: () => this.confirmSignOut(),
+      userAvatarBg: userAvatarUrl ? `url('${userAvatarUrl}')` : this.grad(342, 160),
+      userAvatarLabel: userAvatarUrl ? '' : userAvatarInitial,
       navItems: navDefs.map(([label, name]) => ({ label, go: () => this.go({ name }), bg: rn === name ? 'rgba(255,255,255,0.1)' : 'transparent', color: rn === name ? '#fff' : '#a5a1af' })),
       mobileNav: navDefs.map(([label, name, icon]) => ({ label, icon, go: () => this.go({ name }), color: rn === name ? this.accent(342) : '#8b8794' })),
       goHome: () => this.go({ name: 'home' }), goEvents: () => this.go({ name: 'events' }), goFriends: () => this.go({ name: 'friends' }),
@@ -1853,6 +1868,8 @@ class Component extends DCLogic {
       posSave: () => this.posSave(), closePosEditor: () => this.closePosEditor(),
       // confirm
       confirmOpen: !!S.confirm, confirmMsg: S.confirm ? S.confirm.msg : '', confirmSub: S.confirm ? S.confirm.sub : '',
+      confirmActionLabel: S.confirm ? (S.confirm.actionLabel || 'Delete') : 'Delete',
+      confirmActionBg: S.confirm ? (S.confirm.actionBg || 'oklch(0.52 0.18 20)') : 'oklch(0.52 0.18 20)',
       confirmYes: () => S.confirm && S.confirm.fn(), closeConfirm: () => this.setState({ confirm: null }),
       // viewer
       viewerOpen: !!S.viewer && !!viewer.url, viewer,

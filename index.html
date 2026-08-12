@@ -466,13 +466,13 @@ input::placeholder,textarea::placeholder{color:#6c6877}
                 </div>
               </sc-if>
               <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-                <div onClick="{{ ev.open }}" style="cursor:pointer;display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;margin-bottom:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);animation:fadeUp .5s both;animation-delay: {{ ev.delay }}">
-                  <div style="width:60px;height:46px;border-radius:9px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
+                <div onClick="{{ ev.open }}" style="cursor:pointer;display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;margin-bottom:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);animation:fadeUp .5s both;animation-delay: {{ ev.delay }}">
+                  <div style="width:56px;height:56px;border-radius:9px;flex-shrink:0;background: {{ ev.bg }};background-size:cover;background-position:center"></div>
                   <div style="flex:1;min-width:0">
-                    <div style="font-family:Sora;font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ev.title }}</div>
-                    <div style="color:#8b8794;font-size:12px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ev.meta }}</div>
+                    <div style="font-family:Sora;font-weight:700;font-size:15px;line-height:1.3;overflow-wrap:break-word">{{ ev.title }}</div>
+                    <div style="color:#8b8794;font-size:12px;line-height:1.4;margin-top:3px;overflow-wrap:break-word">{{ ev.meta }}</div>
                   </div>
-                  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b8794;white-space:nowrap;flex-shrink:0">{{ ev.count }} →</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8b8794;white-space:nowrap;flex-shrink:0;margin-top:2px">{{ ev.count }} →</div>
                 </div>
               </sc-if>
             </sc-for>
